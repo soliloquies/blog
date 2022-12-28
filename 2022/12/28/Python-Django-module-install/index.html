@@ -1,209 +1,687 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-cn">
-  <head>
-    <meta charset="utf8" />
-    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-    <title>
-      
-        Python Django module install | Hexo
-      
-    </title>
-    <meta name="description" content=""/>
-    <meta name="keywords" content=""/>
-    
-      <link rel="apple-touch-icon"
-            sizes="180x180"
-            href="/images/apple-touch-icon.png"/>
-    
-    
-      <link rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/images/favicon-32x32.png"/>
-    
-    
-      <link rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/images/favicon-16x16.png"/>
-    
-    
-      <link rel="mask-icon"
-            href="/images/logo.svg"
-            color=""/>
-    
-    
-    <link rel="stylesheet" type="text/css" href="/css/layout.css"/>
-    
-    
-  <link rel="stylesheet" type="text/css" href="/css/post.css"/>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Python Django install and build OS environment is Centos7  123456789101112131415161718192021222324252627282930313233343536373839# if install speed to low, try other sourecepip3 install -i https:&#x2F;&#x2F;pypi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Django module install">
+<meta property="og:url" content="http://example.com/2022/12/28/Python-Django-module-install/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Python Django install and build OS environment is Centos7  123456789101112131415161718192021222324252627282930313233343536373839# if install speed to low, try other sourecepip3 install -i https:&#x2F;&#x2F;pypi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0002ae2c8228dc555089.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00013322a6c21e960d78.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0003af8eb38b427dc34b.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00045a5e6851b880ee60.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00052abe3ec978049f04.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0006fac856a5086b07e7.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/000756929f260165a941.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00082e19b70c746b930d.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0009a59b2e6c1e8fda44.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0010994776fb790782f4.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00111101a57c93a9a10e.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001238bfbac3cc6c8f33.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001389044b8f78b9dd19.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0014227ae6095081a09b.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001523d9b13799b2c424.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001672c96c795ad4da3c.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0017b427e0b4fb53da7a.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001863b5c15bd6cf5882.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0019badf6da8e84c1719.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0020c4ef087af29ef4bb.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00210551b93c195db1d3.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0022eb76e3ae8fa1118f.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002321149f62e3bed97f.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00241da01fb40c773eb3.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0025e07e85a1f96c8275.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0026b4511f207180885a.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00275e71ec6f3a2e8afb.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002869f7112e37bcf78b.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0029f54ebc0ea72f0197.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003078c18338e61c9af9.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0031e89eef74db1335d0.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00322cc078abc285d071.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0033d6d337a705a37ec0.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003426a4b0725057d5ef.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00352f924c23e33bf20a.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00368bc1bf8ba50cfa98.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0037f67e93b1de0b726e.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0038c270bab90ce75036.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0039423ab091cf7f1807.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0040104782bb2572456d.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004121599a2b9dd60ceb.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0042bc4f5350daf32801.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004363bb7b2bb43913a0.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004452eda172d0265c25.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004519e52ca6645fd645.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00465e9698875ace99f1.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00479f944c9590c4682a.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00480738ecef0137525c.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00497560289bb24d27bd.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0050d705266095e81feb.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0051565648e7b07c8212.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00524bad556af66b748a.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0053707bed1bb162e812.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0054b18c229f326ccfea.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/005502101d605ba20228.jpg">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/529572744.jpg">
+<meta property="article:published_time" content="2022-12-28T12:45:50.000Z">
+<meta property="article:modified_time" content="2022-12-28T12:46:18.059Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0002ae2c8228dc555089.jpg">
+  
+  
+  
+  <title>Python Django module install - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
   
 
-  <meta name="generator" content="Hexo 6.3.0"></head>
-  <body>
-    <div class="head">
-      <div class="nav">
-        <a href="/" class="nav-logo">
-          <img alt="logo" height="60px" width="60px" src="/images/logo.svg" />
-        </a>
-        <input id="navBtn" type="checkbox"/>
-        <div class="nav-menu">
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
           
-            <a href="/blog/">博客</a>
           
-        </div>
-        <label class="nav-btn" for="navBtn"></label>
-      </div>
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
     </div>
-    <div class="body">
-      
-  <article class="post-content">
-    <div class="post-inner">
-      <div class="post-content__head">
-        <div class="post-title">Python Django module install</div>
-        <div class="post-info">
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
           
-  
-    <a href="/tags/Python/" class="post-tag">#Python</a>
-  
-
-
-          <span class="post-date">2022-12-28</span>
+            <span id="subtitle" data-typed-text="Python Django module install"></span>
+          
         </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-28 20:45" pubdate>
+          2022年12月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          1.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          10 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
       </div>
-      <div class="post-content__body">
-        
-          <div class="post-gallery">
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python Django module install</h1>
             
-          </div>
-        
-        <h1 id="Python-Django-install-and-build"><a href="#Python-Django-install-and-build" class="headerlink" title="Python Django install and build"></a>Python Django install and build</h1><blockquote>
+            
+              <div class="markdown-body">
+                
+                <h1 id="Python-Django-install-and-build"><a href="#Python-Django-install-and-build" class="headerlink" title="Python Django install and build"></a>Python Django install and build</h1><blockquote>
 <p>OS environment is Centos7</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"># if install speed to low, try other sourece</span></span><br><span class="line">pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple packages-name</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Django error SQLite to low.</span></span><br><span class="line">django.core.exceptions.ImproperlyConfigured: SQLite <span class="number">3.9</span><span class="number">.0</span> <span class="keyword">or</span> later <span class="keyword">is</span> required (found <span class="number">3.7</span><span class="number">.17</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载最新版本 pysqlite3 替换系统 sqllite</span></span><br><span class="line">pip3 install pysqlite3</span><br><span class="line">pip3 install pysqlite3-binary</span><br><span class="line"></span><br><span class="line">[root@test ~] vim /usr/local/python3/lib/python3.x/site-packages/django/db/backends/sqlite3/base.py</span><br><span class="line"><span class="comment"># change sqlite3</span></span><br><span class="line"><span class="comment"># from sqlite3 import dbapi2 as Database # disable</span></span><br><span class="line"><span class="keyword">from</span> pysqlite3 <span class="keyword">import</span> dbapi2 <span class="keyword">as</span> Database <span class="comment"># change to pysqlite3</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># Create django project.</span></span><br><span class="line"></span><br><span class="line">mkdir -p /home/django/django_network_automation</span><br><span class="line">cd /home/django</span><br><span class="line">django-admin startproject django_network_automation .</span><br><span class="line">django-admin startapp network_automation</span><br><span class="line"></span><br><span class="line">[root@local ]<span class="comment"># cat django_network_automation/settings.py | grep ALL -n</span></span><br><span class="line"><span class="number">28</span>:ALLOWED_HOSTS = [<span class="string">&#x27;172.16.x.x&#x27;</span>]</span><br><span class="line"><span class="comment"># add allow_hosts as service address</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># start django web server.</span></span><br><span class="line">python3 manage.py runserver <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">8001</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">python3 manage.py makemigrations.py</span><br><span class="line">python3 manage.py migrate</span><br><span class="line"></span><br><span class="line">python3 manage.py createsuperuser</span><br><span class="line"><span class="comment"># django settings.py 48行 注释掉，否则反代理无法使用</span></span><br><span class="line"><span class="comment">#&#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-comment"># if install speed to low, try other sourece</span><br>pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple packages-name<br><br><br><span class="hljs-comment"># Django error SQLite to low.</span><br>django.core.exceptions.ImproperlyConfigured: SQLite <span class="hljs-number">3.9</span><span class="hljs-number">.0</span> <span class="hljs-keyword">or</span> later <span class="hljs-keyword">is</span> required (found <span class="hljs-number">3.7</span><span class="hljs-number">.17</span>)<br><br><span class="hljs-comment"># 下载最新版本 pysqlite3 替换系统 sqllite</span><br>pip3 install pysqlite3<br>pip3 install pysqlite3-binary<br><br>[root@test ~] vim /usr/local/python3/lib/python3.x/site-packages/django/db/backends/sqlite3/base.py<br><span class="hljs-comment"># change sqlite3</span><br><span class="hljs-comment"># from sqlite3 import dbapi2 as Database # disable</span><br><span class="hljs-keyword">from</span> pysqlite3 <span class="hljs-keyword">import</span> dbapi2 <span class="hljs-keyword">as</span> Database <span class="hljs-comment"># change to pysqlite3</span><br><br><br><span class="hljs-comment"># Create django project.</span><br><br>mkdir -p /home/django/django_network_automation<br>cd /home/django<br>django-admin startproject django_network_automation .<br>django-admin startapp network_automation<br><br>[root@local ]<span class="hljs-comment"># cat django_network_automation/settings.py | grep ALL -n</span><br><span class="hljs-number">28</span>:ALLOWED_HOSTS = [<span class="hljs-string">&#x27;172.16.x.x&#x27;</span>]<br><span class="hljs-comment"># add allow_hosts as service address</span><br><br><span class="hljs-comment"># start django web server.</span><br>python3 manage.py runserver <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span>:<span class="hljs-number">8001</span><br><br><br>python3 manage.py makemigrations.py<br>python3 manage.py migrate<br><br>python3 manage.py createsuperuser<br><span class="hljs-comment"># django settings.py 48行 注释掉，否则反代理无法使用</span><br><span class="hljs-comment">#&#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,</span><br></code></pre></td></tr></table></figure>
 
 
 
 <h1 id="Beautiful-girl-picture"><a href="#Beautiful-girl-picture" class="headerlink" title="Beautiful girl picture"></a>Beautiful girl picture</h1><blockquote>
 <p>美清新爆乳混血宝贝久久Aimee激情撩人情趣内衣</p>
 </blockquote>
-<p><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0002ae2c8228dc555089.jpg" alt="0002ae2c8228dc555089.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00013322a6c21e960d78.jpg" alt="00013322a6c21e960d78.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0003af8eb38b427dc34b.jpg" alt="0003af8eb38b427dc34b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00045a5e6851b880ee60.jpg" alt="00045a5e6851b880ee60.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00052abe3ec978049f04.jpg" alt="00052abe3ec978049f04.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0006fac856a5086b07e7.jpg" alt="0006fac856a5086b07e7.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/000756929f260165a941.jpg" alt="000756929f260165a941.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00082e19b70c746b930d.jpg" alt="00082e19b70c746b930d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0009a59b2e6c1e8fda44.jpg" alt="0009a59b2e6c1e8fda44.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0010994776fb790782f4.jpg" alt="0010994776fb790782f4.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00111101a57c93a9a10e.jpg" alt="00111101a57c93a9a10e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001238bfbac3cc6c8f33.jpg" alt="001238bfbac3cc6c8f33.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001389044b8f78b9dd19.jpg" alt="001389044b8f78b9dd19.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0014227ae6095081a09b.jpg" alt="0014227ae6095081a09b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001523d9b13799b2c424.jpg" alt="001523d9b13799b2c424.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001672c96c795ad4da3c.jpg" alt="001672c96c795ad4da3c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0017b427e0b4fb53da7a.jpg" alt="0017b427e0b4fb53da7a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001863b5c15bd6cf5882.jpg" alt="001863b5c15bd6cf5882.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0019badf6da8e84c1719.jpg" alt="0019badf6da8e84c1719.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0020c4ef087af29ef4bb.jpg" alt="0020c4ef087af29ef4bb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00210551b93c195db1d3.jpg" alt="00210551b93c195db1d3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0022eb76e3ae8fa1118f.jpg" alt="0022eb76e3ae8fa1118f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002321149f62e3bed97f.jpg" alt="002321149f62e3bed97f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00241da01fb40c773eb3.jpg" alt="00241da01fb40c773eb3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0025e07e85a1f96c8275.jpg" alt="0025e07e85a1f96c8275.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0026b4511f207180885a.jpg" alt="0026b4511f207180885a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00275e71ec6f3a2e8afb.jpg" alt="00275e71ec6f3a2e8afb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002869f7112e37bcf78b.jpg" alt="002869f7112e37bcf78b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0029f54ebc0ea72f0197.jpg" alt="0029f54ebc0ea72f0197.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003078c18338e61c9af9.jpg" alt="003078c18338e61c9af9.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0031e89eef74db1335d0.jpg" alt="0031e89eef74db1335d0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00322cc078abc285d071.jpg" alt="00322cc078abc285d071.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0033d6d337a705a37ec0.jpg" alt="0033d6d337a705a37ec0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003426a4b0725057d5ef.jpg" alt="003426a4b0725057d5ef.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00352f924c23e33bf20a.jpg" alt="00352f924c23e33bf20a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00368bc1bf8ba50cfa98.jpg" alt="00368bc1bf8ba50cfa98.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0037f67e93b1de0b726e.jpg" alt="0037f67e93b1de0b726e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0038c270bab90ce75036.jpg" alt="0038c270bab90ce75036.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0039423ab091cf7f1807.jpg" alt="0039423ab091cf7f1807.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0040104782bb2572456d.jpg" alt="0040104782bb2572456d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004121599a2b9dd60ceb.jpg" alt="004121599a2b9dd60ceb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0042bc4f5350daf32801.jpg" alt="0042bc4f5350daf32801.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004363bb7b2bb43913a0.jpg" alt="004363bb7b2bb43913a0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004452eda172d0265c25.jpg" alt="004452eda172d0265c25.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004519e52ca6645fd645.jpg" alt="004519e52ca6645fd645.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00465e9698875ace99f1.jpg" alt="00465e9698875ace99f1.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00479f944c9590c4682a.jpg" alt="00479f944c9590c4682a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00480738ecef0137525c.jpg" alt="00480738ecef0137525c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00497560289bb24d27bd.jpg" alt="00497560289bb24d27bd.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0050d705266095e81feb.jpg" alt="0050d705266095e81feb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0051565648e7b07c8212.jpg" alt="0051565648e7b07c8212.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00524bad556af66b748a.jpg" alt="00524bad556af66b748a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0053707bed1bb162e812.jpg" alt="0053707bed1bb162e812.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0054b18c229f326ccfea.jpg" alt="0054b18c229f326ccfea.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/005502101d605ba20228.jpg" alt="005502101d605ba20228.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/529572744.jpg" alt="529572744.jpg"></p>
+<p><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0002ae2c8228dc555089.jpg" srcset="/img/loading.gif" lazyload alt="0002ae2c8228dc555089.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00013322a6c21e960d78.jpg" srcset="/img/loading.gif" lazyload alt="00013322a6c21e960d78.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0003af8eb38b427dc34b.jpg" srcset="/img/loading.gif" lazyload alt="0003af8eb38b427dc34b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00045a5e6851b880ee60.jpg" srcset="/img/loading.gif" lazyload alt="00045a5e6851b880ee60.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00052abe3ec978049f04.jpg" srcset="/img/loading.gif" lazyload alt="00052abe3ec978049f04.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0006fac856a5086b07e7.jpg" srcset="/img/loading.gif" lazyload alt="0006fac856a5086b07e7.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/000756929f260165a941.jpg" srcset="/img/loading.gif" lazyload alt="000756929f260165a941.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00082e19b70c746b930d.jpg" srcset="/img/loading.gif" lazyload alt="00082e19b70c746b930d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0009a59b2e6c1e8fda44.jpg" srcset="/img/loading.gif" lazyload alt="0009a59b2e6c1e8fda44.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0010994776fb790782f4.jpg" srcset="/img/loading.gif" lazyload alt="0010994776fb790782f4.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00111101a57c93a9a10e.jpg" srcset="/img/loading.gif" lazyload alt="00111101a57c93a9a10e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001238bfbac3cc6c8f33.jpg" srcset="/img/loading.gif" lazyload alt="001238bfbac3cc6c8f33.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001389044b8f78b9dd19.jpg" srcset="/img/loading.gif" lazyload alt="001389044b8f78b9dd19.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0014227ae6095081a09b.jpg" srcset="/img/loading.gif" lazyload alt="0014227ae6095081a09b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001523d9b13799b2c424.jpg" srcset="/img/loading.gif" lazyload alt="001523d9b13799b2c424.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001672c96c795ad4da3c.jpg" srcset="/img/loading.gif" lazyload alt="001672c96c795ad4da3c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0017b427e0b4fb53da7a.jpg" srcset="/img/loading.gif" lazyload alt="0017b427e0b4fb53da7a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001863b5c15bd6cf5882.jpg" srcset="/img/loading.gif" lazyload alt="001863b5c15bd6cf5882.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0019badf6da8e84c1719.jpg" srcset="/img/loading.gif" lazyload alt="0019badf6da8e84c1719.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0020c4ef087af29ef4bb.jpg" srcset="/img/loading.gif" lazyload alt="0020c4ef087af29ef4bb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00210551b93c195db1d3.jpg" srcset="/img/loading.gif" lazyload alt="00210551b93c195db1d3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0022eb76e3ae8fa1118f.jpg" srcset="/img/loading.gif" lazyload alt="0022eb76e3ae8fa1118f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002321149f62e3bed97f.jpg" srcset="/img/loading.gif" lazyload alt="002321149f62e3bed97f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00241da01fb40c773eb3.jpg" srcset="/img/loading.gif" lazyload alt="00241da01fb40c773eb3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0025e07e85a1f96c8275.jpg" srcset="/img/loading.gif" lazyload alt="0025e07e85a1f96c8275.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0026b4511f207180885a.jpg" srcset="/img/loading.gif" lazyload alt="0026b4511f207180885a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00275e71ec6f3a2e8afb.jpg" srcset="/img/loading.gif" lazyload alt="00275e71ec6f3a2e8afb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002869f7112e37bcf78b.jpg" srcset="/img/loading.gif" lazyload alt="002869f7112e37bcf78b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0029f54ebc0ea72f0197.jpg" srcset="/img/loading.gif" lazyload alt="0029f54ebc0ea72f0197.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003078c18338e61c9af9.jpg" srcset="/img/loading.gif" lazyload alt="003078c18338e61c9af9.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0031e89eef74db1335d0.jpg" srcset="/img/loading.gif" lazyload alt="0031e89eef74db1335d0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00322cc078abc285d071.jpg" srcset="/img/loading.gif" lazyload alt="00322cc078abc285d071.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0033d6d337a705a37ec0.jpg" srcset="/img/loading.gif" lazyload alt="0033d6d337a705a37ec0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003426a4b0725057d5ef.jpg" srcset="/img/loading.gif" lazyload alt="003426a4b0725057d5ef.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00352f924c23e33bf20a.jpg" srcset="/img/loading.gif" lazyload alt="00352f924c23e33bf20a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00368bc1bf8ba50cfa98.jpg" srcset="/img/loading.gif" lazyload alt="00368bc1bf8ba50cfa98.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0037f67e93b1de0b726e.jpg" srcset="/img/loading.gif" lazyload alt="0037f67e93b1de0b726e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0038c270bab90ce75036.jpg" srcset="/img/loading.gif" lazyload alt="0038c270bab90ce75036.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0039423ab091cf7f1807.jpg" srcset="/img/loading.gif" lazyload alt="0039423ab091cf7f1807.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0040104782bb2572456d.jpg" srcset="/img/loading.gif" lazyload alt="0040104782bb2572456d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004121599a2b9dd60ceb.jpg" srcset="/img/loading.gif" lazyload alt="004121599a2b9dd60ceb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0042bc4f5350daf32801.jpg" srcset="/img/loading.gif" lazyload alt="0042bc4f5350daf32801.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004363bb7b2bb43913a0.jpg" srcset="/img/loading.gif" lazyload alt="004363bb7b2bb43913a0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004452eda172d0265c25.jpg" srcset="/img/loading.gif" lazyload alt="004452eda172d0265c25.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004519e52ca6645fd645.jpg" srcset="/img/loading.gif" lazyload alt="004519e52ca6645fd645.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00465e9698875ace99f1.jpg" srcset="/img/loading.gif" lazyload alt="00465e9698875ace99f1.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00479f944c9590c4682a.jpg" srcset="/img/loading.gif" lazyload alt="00479f944c9590c4682a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00480738ecef0137525c.jpg" srcset="/img/loading.gif" lazyload alt="00480738ecef0137525c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00497560289bb24d27bd.jpg" srcset="/img/loading.gif" lazyload alt="00497560289bb24d27bd.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0050d705266095e81feb.jpg" srcset="/img/loading.gif" lazyload alt="0050d705266095e81feb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0051565648e7b07c8212.jpg" srcset="/img/loading.gif" lazyload alt="0051565648e7b07c8212.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00524bad556af66b748a.jpg" srcset="/img/loading.gif" lazyload alt="00524bad556af66b748a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0053707bed1bb162e812.jpg" srcset="/img/loading.gif" lazyload alt="0053707bed1bb162e812.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0054b18c229f326ccfea.jpg" srcset="/img/loading.gif" lazyload alt="0054b18c229f326ccfea.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/005502101d605ba20228.jpg" srcset="/img/loading.gif" lazyload alt="005502101d605ba20228.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/529572744.jpg" srcset="/img/loading.gif" lazyload alt="529572744.jpg"></p>
 
-      </div>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
     </div>
-  </article>
-  <div class="post__foot">
-    
-    <div class="post-nav">
-  
-    <div class="post-nav-item-left"></div>
-  
-  <div class="vhr"></div>
-  
-    <a class="post-nav-item-right" href="/2022/12/28/Demo/">
-      <div class="text-align">
-        <span class="text-small">下一篇</span>
-        <svg t="1670570876164"
-             class="icon"
-             viewBox="0 0 1024 1024"
-             transform="scale(-1,-1)"
-             width="16"
-             height="16">
-          <path d="M384 512L731.733333 202.666667c17.066667-14.933333 19.2-42.666667 4.266667-59.733334-14.933333-17.066667-42.666667-19.2-59.733333-4.266666l-384 341.333333c-10.666667 8.533333-14.933333 19.2-14.933334 32s4.266667 23.466667 14.933334 32l384 341.333333c8.533333 6.4 19.2 10.666667 27.733333 10.666667 12.8 0 23.466667-4.266667 32-14.933333 14.933333-17.066667 14.933333-44.8-4.266667-59.733334L384 512z" p-id="14596"/>
-        </svg>
-      </div>
-      Demo
-    </a>
   
 </div>
 
-    
-    
-  </div>
 
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Python Django module install</div>
+      <div>http://example.com/2022/12/28/Python-Django-module-install/</div>
     </div>
-    <div class="foot">
-      <div class="foot-inner">
-        <div class="foot__head">
-          
-            <div class="foot-line">
-              <div class="matts">海</div><div class="matts">内</div><div class="matts">存</div><div class="matts">知</div><div class="matts">己</div>
-            </div>
-          
-            <div class="foot-line">
-              <div class="matts">天</div><div class="matts">涯</div><div class="matts">若</div><div class="matts">比</div><div class="matts">邻</div>
-            </div>
-          
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xiaoxqian</div>
         </div>
-        <div class="foot__body">
-          
-            <div class="foot-item">
-              <div class="foot-item__head">朋友</div>
-              <div class="foot-item__body">
-                
-                  <div class="text">
-                    <img alt="link"
-                         height="20px"
-                         width="20px"
-                         src="/images/icon/icon-link.svg"/>
-                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">Theme Tranquility</a>
-                  </div>
-                
-                <div class="text">
-                  <img alt="link"
-                       height="20px"
-                       width="20px"
-                       src="/images/icon/icon-link+.svg"/>
-                  <a class="foot-link"
-                     href="mailto:plutohades.hq@email.com?subject=%E7%94%B3%E8%AF%B7%20Hozen.site%20%E7%9A%84%E5%8F%8B%E9%93%BE%E4%BD%8D%E7%BD%AE">
-                  申请友链</a>
-                </div>
-              </div>
-            </div>
-          
-          
-            <div class="foot-item">
-              <div class="foot-item__head">账号</div>
-              <div class="foot-item__body">
-                
-                  <div class="text">
-                    <img alt="link" height="20px" width="20px" src="/images/logo-github.svg"/>
-                    <a class="foot-link" target="_blank" rel="noopener" href="https://github.com/">github</a>
-                  </div>
-                
-              </div>
-            </div>
-          
-          <div class="foot-item">
-            <div class="foot-item__head">联系</div>
-            <div class="foot-item__body">
-              <div class="text">
-                <img alt="link"
-                     height="20px"
-                     width="20px"
-                     src="/images/icon/icon-email.svg"/>
-                <a class="foot-link" href="mailto:plutohades.hq@email.com">plutohades.hq@email.com</a>
-              </div>
-            </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
           </div>
         </div>
-        <div class="copyright">
-          <a href="http://example.com">Hexo</a> &nbsp;|&nbsp;由&nbsp;<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>&nbsp;及&nbsp;
-          <svg width="20" height="20" viewBox="0 0 725 725">
-            <path fill-rule="evenodd" fill="rgb(221, 221, 221)"
-            d="M145.870,236.632 L396.955,103.578 L431.292,419.44 L156.600,522.53 L145.870,236.632 Z" />
-            <path fill-rule="evenodd" fill="rgb(159, 159, 159)"
-            d="M396.955,103.578 L564.345,234.486 L611.558,513.469 L431.292,419.44 L396.955,103.578 Z" />
-            <path fill-rule="evenodd" fill="rgb(0, 0, 0)"
-            d="M431.292,419.44 L611.558,513.469 L358.327,595.18 L156.600,522.53 L431.292,419.44 Z" />
-          </svg>
-          <a target="_blank" rel="noopener" href="https://github.com/hooozen/hexo-theme-tranquility">致远</a>&nbsp;驱动
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/28/Demo/" title="Demo">
+                        <span class="hidden-mobile">Demo</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
         </div>
       </div>
     </div>
-    
-    
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
   
 
-  </body>
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
 </html>
