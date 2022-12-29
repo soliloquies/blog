@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Juniper QFX OSPF NSSA default LSA</title>
+    <link href="/blog/2022/12/29/Juniper-QFX-OSPF-NSSA-default-LSA/"/>
+    <url>/blog/2022/12/29/Juniper-QFX-OSPF-NSSA-default-LSA/</url>
+    
+    <content type="html"><![CDATA[<p>Juniper OSPF NSSA generates default give access layer device</p><span id="more"></span><h1 id="Our-Aggregation-layer-device-use-QFX-series-Connecting-with-access-layer-devices-using-OSPF-NSSA-areas"><a href="#Our-Aggregation-layer-device-use-QFX-series-Connecting-with-access-layer-devices-using-OSPF-NSSA-areas" class="headerlink" title="Our Aggregation layer device use QFX series, Connecting with access layer devices using OSPF NSSA areas"></a>Our Aggregation layer device use QFX series, Connecting with access layer devices using OSPF NSSA areas</h1><p>Access layer device needs default route from up layer device</p><blockquote><p>add nssa default-lsa default-metric 10</p></blockquote><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.4</span> nssa default-lsa default-metric <span class="hljs-number">10</span><br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.4</span> nssa no-summaries<br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.4</span> interface xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure><h1 id="Demo-configure"><a href="#Demo-configure" class="headerlink" title="Demo configure"></a>Demo configure</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">set</span> interfaces xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span> description Hospital-L3<br><span class="hljs-built_in">set</span> interfaces xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span> unit <span class="hljs-number">0</span> family inet address <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.1</span>/<span class="hljs-number">30</span><br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.0</span> nssa no-summaries<br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.0</span> interface xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0.0</span><br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.0</span> nssa default-lsa default-metric <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>Juniper</category>
+      
+      <category>OSPF</category>
+      
+      <category>NSSA</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Juniper</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Python Django module install</title>
     <link href="/blog/2022/12/28/Python-Django-module-install/"/>
     <url>/blog/2022/12/28/Python-Django-module-install/</url>
