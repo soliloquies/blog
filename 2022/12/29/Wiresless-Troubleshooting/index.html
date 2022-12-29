@@ -16,24 +16,27 @@
   <meta name="author" content="xiaoxqian">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Juniper OSPF NSSA generates default give access layer device">
+    <meta name="description" content="Wireless AP unable to go online">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Juniper QFX OSPF NSSA default LSA">
-<meta property="og:url" content="https://soliloquies.github.io/2022/12/29/Juniper-QFX-OSPF-NSSA-default-LSA/index.html">
+<meta property="og:title" content="Wiresless Troubleshooting">
+<meta property="og:url" content="https://soliloquies.github.io/2022/12/29/Wiresless-Troubleshooting/index.html">
 <meta property="og:site_name" content="Xiao Qian">
-<meta property="og:description" content="Juniper OSPF NSSA generates default give access layer device">
+<meta property="og:description" content="Wireless AP unable to go online">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/11/09/83ele2.jpg">
-<meta property="article:published_time" content="2022-12-29T05:32:43.000Z">
-<meta property="article:modified_time" content="2022-12-29T05:38:37.430Z">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0018d201ce412b68d0de.jpg">
+<meta property="article:published_time" content="2022-12-29T12:20:14.000Z">
+<meta property="article:modified_time" content="2022-12-29T12:40:01.928Z">
 <meta property="article:author" content="xiaoxqian">
 <meta property="article:tag" content="Juniper">
+<meta property="article:tag" content="Wireless">
+<meta property="article:tag" content="H3C">
+<meta property="article:tag" content="DHCP-Relay">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/11/09/83ele2.jpg">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0018d201ce412b68d0de.jpg">
   
   
   
-  <title>Juniper QFX OSPF NSSA default LSA - Xiao Qian</title>
+  <title>Wiresless Troubleshooting - Xiao Qian</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -199,7 +202,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Juniper QFX OSPF NSSA default LSA"></span>
+            <span id="subtitle" data-typed-text="Wiresless Troubleshooting"></span>
           
         </div>
 
@@ -210,7 +213,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-29 13:32" pubdate>
+        <time datetime="2022-12-29 20:20" pubdate>
           December 29, 2022 pm
         </time>
       </span>
@@ -222,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          664 words
+          1.6k words
         
       </span>
     
@@ -233,7 +236,7 @@
         
         
         
-          6 mins
+          14 mins
         
       </span>
     
@@ -271,23 +274,43 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Juniper QFX OSPF NSSA default LSA</h1>
+            <h1 style="display: none">Wiresless Troubleshooting</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Juniper OSPF NSSA generates default give access layer device</p>
+                <p>Wireless AP unable to go online</p>
 <span id="more"></span>
 
+<h1 id="Tag-amp-categories"><a href="#Tag-amp-categories" class="headerlink" title="Tag &amp; categories"></a>Tag &amp; categories</h1><h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">tags:<br>  - 123<br>  - 456<br>tags: [123, 456]<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="categories"><a href="#categories" class="headerlink" title="categories"></a>categories</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 这是默认的写法，给文章添加一个分类。</span><br>categories: 123<br><span class="hljs-comment"># 这会将文章分类123/456子分类目录下。</span><br>categories: [123, 456]<br>这会将文章分类到123/456子分类目录下。<br>categories:<br>   - 123<br>   - 456<br>多标签写法，文章被分类到123、456以及123的自分类789这3个分类下面，官方指定写法。<br>categories:<br>   - [123]<br>   - [456]<br>   - [123, 789]<br></code></pre></td></tr></table></figure>
 
 
-<h1 id="Our-Aggregation-layer-device-use-QFX-series-Connecting-with-access-layer-devices-using-OSPF-NSSA-areas"><a href="#Our-Aggregation-layer-device-use-QFX-series-Connecting-with-access-layer-devices-using-OSPF-NSSA-areas" class="headerlink" title="Our Aggregation layer device use QFX series, Connecting with access layer devices using OSPF NSSA areas"></a>Our Aggregation layer device use QFX series, Connecting with access layer devices using OSPF NSSA areas</h1><p>Access layer device needs default route from up layer device</p>
+<h1 id="Wireless-AP-unable-to-go-online"><a href="#Wireless-AP-unable-to-go-online" class="headerlink" title="Wireless AP unable to go online"></a>Wireless AP unable to go online</h1><p>The corresponding IP address is not obtained. Procedure</p>
 <blockquote>
-<p>add nssa default-lsa default-metric 10</p>
+<p>Our built new backbone network, needs will old network move it.</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.4</span> nssa default-lsa default-metric <span class="hljs-number">10</span><br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.4</span> nssa no-summaries<br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.4</span> interface xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0.0</span><br></code></pre></td></tr></table></figure>
+<p>Our wireless APs are deployed using the L3 solution and need to obtain addresses through DHCP-Relay. During the relocation process, it was found that some APs could not obtain addresses and go online.</p>
+<p>After several packet captures and tests, it was found that the DHCP-Relay source address was not configured, which mainly involved Juniper and H3C equipment. The Ruijie test was normal and no additional configuration was required.</p>
+<h3 id="Juniper"><a href="#Juniper" class="headerlink" title="Juniper"></a>Juniper</h3><p>add dhcp-relay source</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> forwarding-options helpers bootp source-address-giaddr<br></code></pre></td></tr></table></figure>
 
-<h1 id="Demo-configure"><a href="#Demo-configure" class="headerlink" title="Demo configure"></a>Demo configure</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-built_in">set</span> interfaces xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span> description Hospital-L3<br><span class="hljs-built_in">set</span> interfaces xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0</span> unit <span class="hljs-number">0</span> family inet address <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.1</span>/<span class="hljs-number">30</span><br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.0</span> nssa no-summaries<br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.0</span> interface xe-<span class="hljs-number">0</span>/<span class="hljs-number">0</span>/<span class="hljs-number">0.0</span><br><span class="hljs-built_in">set</span> protocols ospf area <span class="hljs-number">172.18</span><span class="hljs-number">.16</span><span class="hljs-number">.0</span> nssa default-lsa default-metric <span class="hljs-number">10</span><br></code></pre></td></tr></table></figure>
+<p>for example<br>172.30.0.1 is Our DHCP Server</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">set</span> forwarding-options helpers bootp server 172.30.0.1<br><span class="hljs-built_in">set</span> forwarding-options helpers bootp source-address-giaddr<br><span class="hljs-built_in">set</span> forwarding-options helpers bootp interface vlan.2<br></code></pre></td></tr></table></figure>
+
+<h3 id="H3C"><a href="#H3C" class="headerlink" title="H3C"></a>H3C</h3><p>add dhcp relay source-address</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">dhcp relay source-address 172.25.12.254<br></code></pre></td></tr></table></figure>
+
+<p>example</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"> dhcp <span class="hljs-built_in">enable</span><br><span class="hljs-comment">#</span><br> dhcp snooping <span class="hljs-built_in">enable</span><br><span class="hljs-comment">#</span><br><br><span class="hljs-comment">#</span><br>interface Vlan-interface1151<br> ip address 172.25.12.254 255.255.255.0<br> dhcp select relay<br> dhcp relay server-address 172.30.16.134<br> dhcp relay source-address 172.25.12.254<br></code></pre></td></tr></table></figure>
+
+<h3 id="Ruijie"><a href="#Ruijie" class="headerlink" title="Ruijie"></a>Ruijie</h3><p><em><strong>WARNING!!! if ruijie device as access switch not get address, recommendation check “service dhcp”</strong></em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">ip dhcp snooping<br>service dhcp<br>interface VLAN 1151<br> ip address 172.25.11.254 255.255.255.0<br> ip address 172.28.175.254 255.255.255.0 secondary<br> ip helper-address 172.30.16.134<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Appreciation-of-beautiful-pictures"><a href="#Appreciation-of-beautiful-pictures" class="headerlink" title="Appreciation of beautiful pictures"></a>Appreciation of beautiful pictures</h1><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0001f90778a1dd4a56fd.jpg" srcset="/blog/img/loading.gif" lazyload alt="0001f90778a1dd4a56fd.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00023bce9c2365190275.jpg" srcset="/blog/img/loading.gif" lazyload alt="00023bce9c2365190275.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00032c279f431a3804a8.jpg" srcset="/blog/img/loading.gif" lazyload alt="00032c279f431a3804a8.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0004813bcb6874816cab.jpg" srcset="/blog/img/loading.gif" lazyload alt="0004813bcb6874816cab.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00059f4b439b406a692c.jpg" srcset="/blog/img/loading.gif" lazyload alt="00059f4b439b406a692c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00065c5ec7972aa10932.jpg" srcset="/blog/img/loading.gif" lazyload alt="00065c5ec7972aa10932.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00077775b500fbdb7b62.jpg" srcset="/blog/img/loading.gif" lazyload alt="00077775b500fbdb7b62.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/000886f45ef8604a8272.jpg" srcset="/blog/img/loading.gif" lazyload alt="000886f45ef8604a8272.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0009068357888c9d43df.jpg" srcset="/blog/img/loading.gif" lazyload alt="0009068357888c9d43df.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00106e7626f5fa576d3f.jpg" srcset="/blog/img/loading.gif" lazyload alt="00106e7626f5fa576d3f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0011df3d16f2578c9b2d.jpg" srcset="/blog/img/loading.gif" lazyload alt="0011df3d16f2578c9b2d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001231423a5068efc974.jpg" srcset="/blog/img/loading.gif" lazyload alt="001231423a5068efc974.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001354862dbf0f71f181.jpg" srcset="/blog/img/loading.gif" lazyload alt="001354862dbf0f71f181.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0014f8d517f29743eeb3.jpg" srcset="/blog/img/loading.gif" lazyload alt="0014f8d517f29743eeb3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001582b6924d5a5bd5c6.jpg" srcset="/blog/img/loading.gif" lazyload alt="001582b6924d5a5bd5c6.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0016904d29fc73a5e479.jpg" srcset="/blog/img/loading.gif" lazyload alt="0016904d29fc73a5e479.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0017730ba8ca719f12a9.jpg" srcset="/blog/img/loading.gif" lazyload alt="0017730ba8ca719f12a9.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00182aae854c69777e96.jpg" srcset="/blog/img/loading.gif" lazyload alt="00182aae854c69777e96.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/001983670e1a13df0404.jpg" srcset="/blog/img/loading.gif" lazyload alt="001983670e1a13df0404.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0020ea84c0289dc1f17f.jpg" srcset="/blog/img/loading.gif" lazyload alt="0020ea84c0289dc1f17f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002111c6def36c3bbe9a.jpg" srcset="/blog/img/loading.gif" lazyload alt="002111c6def36c3bbe9a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00226b2a16fcd3ea4737.jpg" srcset="/blog/img/loading.gif" lazyload alt="00226b2a16fcd3ea4737.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0023bbabfc282a1b2f12.jpg" srcset="/blog/img/loading.gif" lazyload alt="0023bbabfc282a1b2f12.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002494b65f26e1b8a282.jpg" srcset="/blog/img/loading.gif" lazyload alt="002494b65f26e1b8a282.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/002514605e05f4964dee.jpg" srcset="/blog/img/loading.gif" lazyload alt="002514605e05f4964dee.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00263ebe4e77f2665f46.jpg" srcset="/blog/img/loading.gif" lazyload alt="00263ebe4e77f2665f46.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00273e88d73c7dd8ac7a.jpg" srcset="/blog/img/loading.gif" lazyload alt="00273e88d73c7dd8ac7a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0028638c14a0b24dfee7.jpg" srcset="/blog/img/loading.gif" lazyload alt="0028638c14a0b24dfee7.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00293e925042abb95f1e.jpg" srcset="/blog/img/loading.gif" lazyload alt="00293e925042abb95f1e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0030a70d65a22c4ee246.jpg" srcset="/blog/img/loading.gif" lazyload alt="0030a70d65a22c4ee246.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003121ea34fc1a50af7d.jpg" srcset="/blog/img/loading.gif" lazyload alt="003121ea34fc1a50af7d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00320bd0e0457d75fc6d.jpg" srcset="/blog/img/loading.gif" lazyload alt="00320bd0e0457d75fc6d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0033003f8cc2aff75e7d.jpg" srcset="/blog/img/loading.gif" lazyload alt="0033003f8cc2aff75e7d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003488d23512ecdace36.jpg" srcset="/blog/img/loading.gif" lazyload alt="003488d23512ecdace36.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00358587bd94c57f25a2.jpg" srcset="/blog/img/loading.gif" lazyload alt="00358587bd94c57f25a2.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003620ad75d90a19a599.jpg" srcset="/blog/img/loading.gif" lazyload alt="003620ad75d90a19a599.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00378f000ae5e58205fb.jpg" srcset="/blog/img/loading.gif" lazyload alt="00378f000ae5e58205fb.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003822e115e2cf4bba84.jpg" srcset="/blog/img/loading.gif" lazyload alt="003822e115e2cf4bba84.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/003927935072f6895c3d.jpg" srcset="/blog/img/loading.gif" lazyload alt="003927935072f6895c3d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004070df72b1f5b80a8a.jpg" srcset="/blog/img/loading.gif" lazyload alt="004070df72b1f5b80a8a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004156af9972a4bee3b8.jpg" srcset="/blog/img/loading.gif" lazyload alt="004156af9972a4bee3b8.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0042816d43cbf2d5dccd.jpg" srcset="/blog/img/loading.gif" lazyload alt="0042816d43cbf2d5dccd.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004372696c4ea93264a1.jpg" srcset="/blog/img/loading.gif" lazyload alt="004372696c4ea93264a1.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/00443ed4c105133fc7fa.jpg" srcset="/blog/img/loading.gif" lazyload alt="00443ed4c105133fc7fa.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0045c0da53c17ff401ea.jpg" srcset="/blog/img/loading.gif" lazyload alt="0045c0da53c17ff401ea.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0046b6c1303e1c282607.jpg" srcset="/blog/img/loading.gif" lazyload alt="0046b6c1303e1c282607.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/004798ec0834311f3680.jpg" srcset="/blog/img/loading.gif" lazyload alt="004798ec0834311f3680.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/2937024932.jpg" srcset="/blog/img/loading.gif" lazyload alt="2937024932.jpg"></p>
 
                 
               </div>
@@ -306,17 +329,17 @@
     
       <span class="category-chain">
         
-  <a href="/blog/categories/Juniper/" class="category-chain-item">Juniper</a>
+  <a href="/blog/categories/Wireless/" class="category-chain-item">Wireless</a>
   
   
     <span>></span>
     
-  <a href="/blog/categories/Juniper/OSPF/" class="category-chain-item">OSPF</a>
+  <a href="/blog/categories/Wireless/DHCP-Relay/" class="category-chain-item">DHCP-Relay</a>
   
   
     <span>></span>
     
-  <a href="/blog/categories/Juniper/OSPF/NSSA/" class="category-chain-item">NSSA</a>
+  <a href="/blog/categories/Wireless/DHCP-Relay/unable-to-go-online/" class="category-chain-item">unable to go online</a>
   
   
 
@@ -337,6 +360,12 @@
       
         <a href="/blog/tags/Juniper/">#Juniper</a>
       
+        <a href="/blog/tags/Wireless/">#Wireless</a>
+      
+        <a href="/blog/tags/H3C/">#H3C</a>
+      
+        <a href="/blog/tags/DHCP-Relay/">#DHCP-Relay</a>
+      
     </div>
   
 </div>
@@ -347,8 +376,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Juniper QFX OSPF NSSA default LSA</div>
-      <div>https://soliloquies.github.io/2022/12/29/Juniper-QFX-OSPF-NSSA-default-LSA/</div>
+      <div>Wiresless Troubleshooting</div>
+      <div>https://soliloquies.github.io/2022/12/29/Wiresless-Troubleshooting/</div>
     </div>
     <div class="license-meta">
       
@@ -392,18 +421,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/blog/2022/12/29/Wiresless-Troubleshooting/" title="Wiresless Troubleshooting">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Wiresless Troubleshooting</span>
-                        <span class="visible-mobile">Previous</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/blog/2022/12/28/Python-Django-module-install/" title="Python Django module install">
-                        <span class="hidden-mobile">Python Django module install</span>
+                      <a href="/blog/2022/12/29/Juniper-QFX-OSPF-NSSA-default-LSA/" title="Juniper QFX OSPF NSSA default LSA">
+                        <span class="hidden-mobile">Juniper QFX OSPF NSSA default LSA</span>
                         <span class="visible-mobile">Next</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
