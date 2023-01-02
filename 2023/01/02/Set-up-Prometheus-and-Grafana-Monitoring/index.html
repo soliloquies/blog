@@ -1,0 +1,689 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Build IT monitoring system">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Set up Prometheus and Grafana Monitoring">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/2023/01/02/Set-up-Prometheus-and-Grafana-Monitoring/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Build IT monitoring system">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0013c96185ed26ea2726.jpg">
+<meta property="article:published_time" content="2023-01-02T13:36:17.000Z">
+<meta property="article:modified_time" content="2023-01-02T14:05:38.324Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="monitoring">
+<meta property="article:tag" content="prometheus">
+<meta property="article:tag" content="grafana">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2022/12/27/0013c96185ed26ea2726.jpg">
+  
+  
+  
+  <title>Set up Prometheus and Grafana Monitoring - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>QIAN</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Set up Prometheus and Grafana Monitoring"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-02 21:36" pubdate>
+          January 2, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Set up Prometheus and Grafana Monitoring</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Build IT monitoring system </p>
+<span id="more"></span>
+
+<h1 id="Prometheus-and-Grafana-docker-compose"><a href="#Prometheus-and-Grafana-docker-compose" class="headerlink" title="Prometheus and Grafana docker compose"></a>Prometheus and Grafana docker compose</h1><h2 id="Use-docker-build-prometheus-grafana"><a href="#Use-docker-build-prometheus-grafana" class="headerlink" title="Use docker build prometheus, grafana"></a>Use docker build prometheus, grafana</h2><h3 id="prometheus"><a href="#prometheus" class="headerlink" title="prometheus"></a>prometheus</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs docker">version: <span class="hljs-string">&quot;3&quot;</span><br><br>services:<br>  prometheus:<br>    restart: always<br>    image: prom/prometheus<br>    container_name: prometheus<br>    ports:<br>      - <span class="hljs-string">&quot;9090:9090&quot;</span><br><br>    volumes:<br>      - /&#123;your_pwd&#125;/prometheus.yml:/etc/prometheus/prometheus.yml<br>    environment:<br>      - TZ=<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span><br><br>    deploy:<br>      resources:<br>         limits:<br>            cpus: <span class="hljs-string">&#x27;1.00&#x27;</span><br>            memory: <span class="hljs-number">800</span>M<br>         reservations:<br>            memory: <span class="hljs-number">200</span>M<br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="grafana"><a href="#grafana" class="headerlink" title="grafana"></a>grafana</h3><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs docker">version: <span class="hljs-string">&quot;3&quot;</span><br><br>services:<br>  grafana:<br>    restart: always<br>    image: grafana/grafana<br>    container_name: grafana<br>    ports:<br>      - <span class="hljs-string">&quot;3000:3000&quot;</span><br>    environment:<br>      - TZ=<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="blackbox-exporter"><a href="#blackbox-exporter" class="headerlink" title="blackbox_exporter"></a>blackbox_exporter</h3><p>if you not use blackbox monitor, so you not install it.</p>
+<figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs docker">version: <span class="hljs-string">&quot;3&quot;</span><br><br>services:<br>  blackbox_exporter:<br>    image: prom/blackbox-exporter<br>    container_name: blackbox_exporter<br>    ports:<br>      - <span class="hljs-string">&quot;9115:9115&quot;</span><br>    volumes:<br>      - /&#123;pwd&#125;:/config<br><br>    environment:<br>      - TZ=<span class="hljs-string">&#x27;Asia/Shanghai&#x27;</span><br>    command: <span class="hljs-string">&quot;--config.file=/config/blackbox.yaml&quot;</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="Prometheus-config-yml-file"><a href="#Prometheus-config-yml-file" class="headerlink" title="Prometheus config yml file"></a>Prometheus config yml file</h1><h2 id="prometheus-yml"><a href="#prometheus-yml" class="headerlink" title="prometheus.yml"></a>prometheus.yml</h2><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs docker"><span class="hljs-comment"># my global config</span><br>global:<br>  scrape_interval: <span class="hljs-number">15</span>s<br>  evaluation_interval: <span class="hljs-number">15</span>s<br><br><span class="hljs-comment"># Alertmanager configuration</span><br>alerting:<br>  alertmanagers:<br>    - static_configs:<br>        - targets:<br>          <span class="hljs-comment"># - alertmanager:9093</span><br><br>rule_files:<br>scrape_configs:<br>  - job_name: <span class="hljs-string">&quot;local internal host&quot;</span><br>    scrape_interval: <span class="hljs-number">5</span>s<br>    static_configs:<br>      - targets: [<span class="hljs-string">&quot;10.0.0.1:9100&quot;</span>]<br>      - targets: [<span class="hljs-string">&quot;10.0.0.2:9100&quot;</span>]<br>      - targets: [<span class="hljs-string">&quot;10.0.0.3:9100&quot;</span>]<br>      - targets: [<span class="hljs-string">&quot;10.0.0.4:9100&quot;</span>]<br><br><br><span class="hljs-comment"># if not use blockbox you can shkip</span><br><br>  - job_name: <span class="hljs-string">&#x27;blackbox_url&#x27;</span><br>    metrics_path: /probe        <span class="hljs-comment"># Probe is the path</span><br>    params:<br>      module: [http_2xx]  <span class="hljs-comment"># Look for a HTTP 200 response.</span><br>    static_configs:<br>      - targets:<br>        - http://www.baidu.com    <span class="hljs-comment"># Target to probe with http.</span><br>        - https://www.baidu.com   <span class="hljs-comment"># Target to probe with https.</span><br>        - https://taobao.com<br>    relabel_configs:<br>      - source_labels: [__address__]<br>        target_label: __param_target<br>      - source_labels: [__param_target]<br>        target_label: instance<br>      - target_label: __address__<br>        replacement: <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9115</span>  <span class="hljs-comment"># The blackbox exporter&#x27;s real hostname:port.</span><br><br>  - job_name: <span class="hljs-string">&#x27;ping_status&#x27;</span><br>    metrics_path: /probe<br>    params:<br>      module: [icmp]<br>    static_configs:<br>      - targets:<br>        - <span class="hljs-number">1.1</span>.<span class="hljs-number">1.1</span><br>        - <span class="hljs-number">59.174</span>.<span class="hljs-number">244.1</span><br>        - <span class="hljs-number">114.114</span>.<span class="hljs-number">114.114</span><br><br>        labels:<br>          instance: <span class="hljs-string">&#x27;ping_status&#x27;</span><br>          group: <span class="hljs-string">&#x27;icmp&#x27;</span><br>    relabel_configs:<br>      - source_labels: [__address__]<br>        target_label: __param_target<br>      - source_labels: [__param_target]<br>        target_label: ip<br>      - target_label: __address__<br>        replacement: <span class="hljs-number">10.0</span>.<span class="hljs-number">0.1</span>:<span class="hljs-number">9115</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="blackbox-yaml"><a href="#blackbox-yaml" class="headerlink" title="blackbox.yaml"></a>blackbox.yaml</h2><figure class="highlight docker"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs docker">modules:<br><br>  http_2xx:<br>    prober: http<br>    http:<br>      method: GET<br>      preferred_ip_protocol: ip4<br>      ip_protocol_fallback: false<br><br>  http_post_2xx:<br>    prober: http<br>    http:<br>      method: POST<br>  tcp_connect:<br>    prober: tcp<br>  pop3s_banner:<br>    prober: tcp<br>    tcp:<br>      query_response:<br>      - expect: <span class="hljs-string">&quot;^+OK&quot;</span><br>      tls: true<br>      tls_config:<br>        insecure_skip_verify: false<br>  grpc:<br>    prober: grpc<br>    grpc:<br>      tls: true<br>      preferred_ip_protocol: <span class="hljs-string">&quot;ip4&quot;</span><br>  grpc_plain:<br>    prober: grpc<br>    grpc:<br>      tls: false<br>      service: <span class="hljs-string">&quot;service1&quot;</span><br>  ssh_banner:<br>    prober: tcp<br>    tcp:<br>      query_response:<br>      - expect: <span class="hljs-string">&quot;^SSH-2.0-&quot;</span><br>      - send: <span class="hljs-string">&quot;SSH-2.0-blackbox-ssh-check&quot;</span><br>  irc_banner:<br>    prober: tcp<br>    tcp:<br>      query_response:<br>      - send: <span class="hljs-string">&quot;NICK prober&quot;</span><br>      - send: <span class="hljs-string">&quot;USER prober prober prober :prober&quot;</span><br>      - expect: <span class="hljs-string">&quot;PING :([^ ]+)&quot;</span><br>        send: <span class="hljs-string">&quot;PONG $&#123;1&#125;&quot;</span><br>      - expect: <span class="hljs-string">&quot;^:[^ ]+ 001&quot;</span><br>  icmp:<br>    prober: icmp<br>  icmp_ttl5:<br>    prober: icmp<br>    timeout: <span class="hljs-number">5</span>s<br>    icmp:<br>      ttl: <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="node-exporter"><a href="#node-exporter" class="headerlink" title="node_exporter"></a>node_exporter</h1><p>install the needs monitor host</p>
+<h2 id="install-scripts-needs-can-connetion-github"><a href="#install-scripts-needs-can-connetion-github" class="headerlink" title="install scripts, needs can connetion github."></a>install scripts, needs can connetion github.</h2><p>For Example , Centos7</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /opt/node_exporter<br><span class="hljs-built_in">cd</span> /opt/node_exporter<br>curl -LO https://github.com/prometheus/node_exporter/releases/download/v1.4.0/node_exporter-1.4.0.linux-amd64.tar.gz<br>tar -zxvf node_exporter-1.4.0.linux-amd64.tar.gz -C /opt/node_exporter<br><span class="hljs-built_in">mv</span> node_exporter*/node_exporter .<br><br><br><br><br><span class="hljs-built_in">cat</span> &lt;&lt;<span class="hljs-string">EOF&gt; /usr/lib/systemd/system/node_exporter.service</span><br><span class="hljs-string">[unit]</span><br><span class="hljs-string">Description=The node_exporter Server</span><br><span class="hljs-string">Wants=network-online.target</span><br><span class="hljs-string">After=network.target</span><br><span class="hljs-string"></span><br><span class="hljs-string">[Service]</span><br><span class="hljs-string">ExecStart=/opt/node_exporter/node_exporter</span><br><span class="hljs-string">Restart=on-failure</span><br><span class="hljs-string">RestartSec=5s</span><br><span class="hljs-string">SyslogIdentifier=node_exporter</span><br><span class="hljs-string"></span><br><span class="hljs-string">[Install]</span><br><span class="hljs-string">WantedBy=multi-user.target</span><br><span class="hljs-string">EOF</span><br><br>systemctl daemon-reload &amp;&amp; systemctl start node_exporter &amp;&amp; systemctl status node_exporter &amp;&amp; systemctl <span class="hljs-built_in">enable</span> node_exporter<br><br><br>netstat -anop|grep node_exporter<br>firewall-cmd --zone=public --add-port=9100/tcp --permanent<br>firewall-cmd --reload<br></code></pre></td></tr></table></figure>
+
+<h1 id="Verify-prometheus"><a href="#Verify-prometheus" class="headerlink" title="Verify prometheus"></a>Verify prometheus</h1><p>Login <a target="_blank" rel="noopener" href="http://you_ip:9090/targets?search=">http://you_ip:9090/targets?search=</a><br>if the status is all UP that is OK.</p>
+<h1 id="Verify-grafana"><a href="#Verify-grafana" class="headerlink" title="Verify grafana"></a>Verify grafana</h1><p>Login <a target="_blank" rel="noopener" href="http://you_ip:3000/">http://you_ip:3000</a> is grafana</p>
+<h2 id="add-data-sources"><a href="#add-data-sources" class="headerlink" title="add data sources"></a>add data sources</h2><p>Configuration &#x3D;&gt; Data sources &#x3D;&gt; add Prometheus &#x3D;&gt; URL  &#x3D;&gt; Save</p>
+<h2 id="Dashboards"><a href="#Dashboards" class="headerlink" title="Dashboards"></a>Dashboards</h2><p>Dashboards &#x3D;&gt; New &#x3D;&gt; import &#x3D;&gt; import id &#x3D;&gt; Load</p>
+<h2 id="Dashboards-id-for-prometheus"><a href="#Dashboards-id-for-prometheus" class="headerlink" title="Dashboards id for prometheus"></a>Dashboards id for prometheus</h2><h3 id="linux-detail-dashboards"><a href="#linux-detail-dashboards" class="headerlink" title="linux detail dashboards"></a>linux detail dashboards</h3><p><img src="https://grafana.com/api/dashboards/12633/images/8556/image" srcset="/img/loading.gif" lazyload alt="12633"></p>
+<h3 id="Linux-Stats-with-Node-Exporter"><a href="#Linux-Stats-with-Node-Exporter" class="headerlink" title="Linux Stats with Node Exporter"></a>Linux Stats with Node Exporter</h3><p><img src="https://grafana.com/api/dashboards/14731/images/10763/image" srcset="/img/loading.gif" lazyload alt="14731"></p>
+<h1 id="Appreciation-of-beautiful-pictures"><a href="#Appreciation-of-beautiful-pictures" class="headerlink" title="Appreciation of beautiful pictures"></a>Appreciation of beautiful pictures</h1><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/001.webp" srcset="/img/loading.gif" lazyload alt="001.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/003.webp" srcset="/img/loading.gif" lazyload alt="003.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/004.webp" srcset="/img/loading.gif" lazyload alt="004.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/005.webp" srcset="/img/loading.gif" lazyload alt="005.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/006.webp" srcset="/img/loading.gif" lazyload alt="006.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/007.webp" srcset="/img/loading.gif" lazyload alt="007.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/008.webp" srcset="/img/loading.gif" lazyload alt="008.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/009.webp" srcset="/img/loading.gif" lazyload alt="009.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/010.webp" srcset="/img/loading.gif" lazyload alt="010.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/011.webp" srcset="/img/loading.gif" lazyload alt="011.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/012.webp" srcset="/img/loading.gif" lazyload alt="012.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/013.webp" srcset="/img/loading.gif" lazyload alt="013.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/014.webp" srcset="/img/loading.gif" lazyload alt="014.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/015.webp" srcset="/img/loading.gif" lazyload alt="015.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/016.webp" srcset="/img/loading.gif" lazyload alt="016.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/017.webp" srcset="/img/loading.gif" lazyload alt="017.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/018.webp" srcset="/img/loading.gif" lazyload alt="018.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/019.webp" srcset="/img/loading.gif" lazyload alt="019.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/020.webp" srcset="/img/loading.gif" lazyload alt="020.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/021.webp" srcset="/img/loading.gif" lazyload alt="021.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/022.webp" srcset="/img/loading.gif" lazyload alt="022.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/023.webp" srcset="/img/loading.gif" lazyload alt="023.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/024.webp" srcset="/img/loading.gif" lazyload alt="024.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/025.webp" srcset="/img/loading.gif" lazyload alt="025.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/026.webp" srcset="/img/loading.gif" lazyload alt="026.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/027.webp" srcset="/img/loading.gif" lazyload alt="027.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/028.webp" srcset="/img/loading.gif" lazyload alt="028.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/029.webp" srcset="/img/loading.gif" lazyload alt="029.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/030.webp" srcset="/img/loading.gif" lazyload alt="030.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/031.webp" srcset="/img/loading.gif" lazyload alt="031.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/032.webp" srcset="/img/loading.gif" lazyload alt="032.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/033.webp" srcset="/img/loading.gif" lazyload alt="033.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/034.webp" srcset="/img/loading.gif" lazyload alt="034.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/035.webp" srcset="/img/loading.gif" lazyload alt="035.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/036.webp" srcset="/img/loading.gif" lazyload alt="036.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/037.webp" srcset="/img/loading.gif" lazyload alt="037.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/038.webp" srcset="/img/loading.gif" lazyload alt="038.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/039.webp" srcset="/img/loading.gif" lazyload alt="039.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/040.webp" srcset="/img/loading.gif" lazyload alt="040.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/041.webp" srcset="/img/loading.gif" lazyload alt="041.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/042.webp" srcset="/img/loading.gif" lazyload alt="042.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/043.webp" srcset="/img/loading.gif" lazyload alt="043.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/044.webp" srcset="/img/loading.gif" lazyload alt="044.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/045.webp" srcset="/img/loading.gif" lazyload alt="045.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/046.webp" srcset="/img/loading.gif" lazyload alt="046.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/047.webp" srcset="/img/loading.gif" lazyload alt="047.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/048.webp" srcset="/img/loading.gif" lazyload alt="048.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/049.webp" srcset="/img/loading.gif" lazyload alt="049.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/050.webp" srcset="/img/loading.gif" lazyload alt="050.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/051.webp" srcset="/img/loading.gif" lazyload alt="051.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/052.webp" srcset="/img/loading.gif" lazyload alt="052.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/053.webp" srcset="/img/loading.gif" lazyload alt="053.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/054.webp" srcset="/img/loading.gif" lazyload alt="054.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/055.webp" srcset="/img/loading.gif" lazyload alt="055.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/056.webp" srcset="/img/loading.gif" lazyload alt="056.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/057.webp" srcset="/img/loading.gif" lazyload alt="057.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/058.webp" srcset="/img/loading.gif" lazyload alt="058.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/064.webp" srcset="/img/loading.gif" lazyload alt="064.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/066.webp" srcset="/img/loading.gif" lazyload alt="066.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/067.webp" srcset="/img/loading.gif" lazyload alt="067.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/071.webp" srcset="/img/loading.gif" lazyload alt="071.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/072.webp" srcset="/img/loading.gif" lazyload alt="072.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/073.webp" srcset="/img/loading.gif" lazyload alt="073.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2022/12/31/078.webp" srcset="/img/loading.gif" lazyload alt="078.webp"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Monitoring/" class="category-chain-item">Monitoring</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Monitoring/Prometheus/" class="category-chain-item">Prometheus</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Monitoring/Prometheus/Grafana/" class="category-chain-item">Grafana</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/monitoring/">#monitoring</a>
+      
+        <a href="/tags/prometheus/">#prometheus</a>
+      
+        <a href="/tags/grafana/">#grafana</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Set up Prometheus and Grafana Monitoring</div>
+      <div>https://blogs.xiaoxqian.xyz/2023/01/02/Set-up-Prometheus-and-Grafana-Monitoring/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>xiaoxqian</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 2, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/31/Juniper-QFX-Series-Single-port-multi-business/" title="Juniper QFX Series Single port multi-business">
+                        <span class="hidden-mobile">Juniper QFX Series Single port multi-business</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
