@@ -16,82 +16,20 @@
   <meta name="author" content="xiaoxqian">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Linux basic configbasic tool and services123yum install epel-release wget htop vim htop net-tools iftop psmisc -ytimedatectl set-timezone Asia&#x2F;Shanghaichmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local  configure12345678910">
+    <meta name="description" content="Linux baisc commands">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Linux init configuration">
 <meta property="og:url" content="https://blogs.xiaoxqian.xyz/2023/01/07/Linux-init-configuration/index.html">
 <meta property="og:site_name" content="Xiao Qian">
-<meta property="og:description" content="Linux basic configbasic tool and services123yum install epel-release wget htop vim htop net-tools iftop psmisc -ytimedatectl set-timezone Asia&#x2F;Shanghaichmod +x &#x2F;etc&#x2F;rc.d&#x2F;rc.local  configure12345678910">
+<meta property="og:description" content="Linux baisc commands">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0014430aed53196adb8.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/08f826d0e0f2519c2.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0020979c565eb178285.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0032a0eff6375c27d8e.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/004ef643018ab12bbb1.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/00570799f28d3c4b3e6.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0079bd6c85bceac70e0.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0086c9ed886fa7909e7.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/00693235451da508d52.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/00934b85b247a05be4a.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0108758f147f59164e7.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/01198c056c103e6e6f9.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/012191fd32fa59317f0.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0131602e28b387fa9ca.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0144f8dee10a9016d10.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/015df955d46d6cf899e.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0162a14b8ebd822851f.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/017525253fbc923465c.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/01892716d44cb9206b2.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/019b3a1c8e09709f082.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/020e01382a94c3708d6.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/021ecddc2dc790f5f34.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0226c1bd04261f2e961.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/023d2f9f9bcacc900bb.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/024f3fc5cd842ecbae1.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/025c8af61b8793d24f8.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/026bb0e196246bb524e.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/027a57b7716cb8e9d93.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/02887981fdbef180455.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/029512cd782b62303da.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0307f5084d3a0811efc.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/03182e212bb0f6045f3.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/032f5dacab6f4e105ed.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/033bf1629150d7f49bc.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/03470ffdb87084e2661.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0350da7135f65654a94.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0367f9a8c6dd4e86c62.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/037e1ce10f97d4f8b28.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/038e2c23c632895400e.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/039f070671e58e8f38f.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0401144c10076e57d9c.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/041447b2f989aa759b7.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/042234ed6fff1d9f7cf.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/043146d5356a1796609.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/04422c1d59bc53b1ce4.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0456819dcd6f26ed505.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/04684c2a2ec5210b3c7.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0472d13d558695b76ab.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/048f3e5549238305e92.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/04923c57aaf27e6f224.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/05067e2e71c1c90345e.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0510b1cec59aec66fae.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/052.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/053.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/054.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/055.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/056.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/057.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/058.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/059.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/060.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/061.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/062.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/063.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/064.webp">
-<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/065.webp">
 <meta property="article:published_time" content="2023-01-07T14:56:18.000Z">
-<meta property="article:modified_time" content="2023-01-07T15:08:08.453Z">
+<meta property="article:modified_time" content="2023-01-07T15:11:32.271Z">
 <meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="centos7">
+<meta property="article:tag" content="commands">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/07/0014430aed53196adb8.webp">
   
@@ -340,7 +278,10 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Linux-basic-config"><a href="#Linux-basic-config" class="headerlink" title="Linux basic config"></a>Linux basic config</h1><h2 id="basic-tool-and-services"><a href="#basic-tool-and-services" class="headerlink" title="basic tool and services"></a>basic tool and services</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum install epel-release wget htop vim htop net-tools iftop psmisc -y<br>timedatectl set-timezone Asia/Shanghai<br><span class="hljs-built_in">chmod</span> +x /etc/rc.d/rc.local<br></code></pre></td></tr></table></figure>
+                <p>Linux baisc commands</p>
+<span id="more"></span>
+
+<h1 id="Linux-basic-config"><a href="#Linux-basic-config" class="headerlink" title="Linux basic config"></a>Linux basic config</h1><h2 id="basic-tool-and-services"><a href="#basic-tool-and-services" class="headerlink" title="basic tool and services"></a>basic tool and services</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum install epel-release wget htop vim htop net-tools iftop psmisc -y<br>timedatectl set-timezone Asia/Shanghai<br><span class="hljs-built_in">chmod</span> +x /etc/rc.d/rc.local<br></code></pre></td></tr></table></figure>
 
 <h2 id="configure"><a href="#configure" class="headerlink" title="configure"></a>configure</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@esbserver01 ~]<span class="hljs-comment"># vi /etc/sysconfig/network-scripts/ifcfg-ens192</span><br>Old :<br>BOOTPROTO=DHCP<br>ONBOOT=<span class="hljs-built_in">yes</span> <br><br>New:<br>BOOTPROTO=static<br>ONBOOT=<span class="hljs-built_in">yes</span><br>IPADDR=172.16.54.195<br>NETMASK=255.255.255.0<br>GATEWAY=172.16.54.254<br>[root@esbserver01 ~]<span class="hljs-comment"># systemctl restart network</span><br><span class="hljs-comment">#restart network</span><br><br>[root@esbserver01 ~]<span class="hljs-comment"># timedatectl set-timezone Asia/Shanghai</span><br><span class="hljs-comment">#change time zone as Asia/Shanghai</span><br><br>[root@esbserver01 ~]<span class="hljs-comment"># yum install ntpdate -y</span><br><br><span class="hljs-comment">#wait to install is complete</span><br>[root@esbserver01 ~]<span class="hljs-comment"># ntpdate -u [ntp server]</span><br> 1 Jun 23:08:06 ntpdate[9827]: adjust time server 172.16.54.254 offset -0.016128 sec<br><br>[root@esbserver01 ~]<span class="hljs-comment"># date</span><br>Tue Jun  1 23:08:58 CST 2022<br><span class="hljs-comment">#display time</span><br><br><br><br><br>[root@esbserver01 ~]<span class="hljs-comment"># hostnamectl</span><br>Tue Jun  1 23:08:58 CST 2021<br>[root@esbserver01 ~]<span class="hljs-comment"># hostnamectl</span><br>   Static hostname: esbserver01<br>         Icon name: computer-vm<br>           Chassis: vm<br>        Machine ID: fdc084d075474203ac92242f05f403d1<br>           Boot ID: 9a049d599a304670a3e9f20df65182bd<br>    Virtualization: vmware<br>  Operating System: CentOS Linux 7 (Core)<br>       CPE OS Name: cpe:/o:centos:centos:7<br>            Kernel: Linux 3.10.0-1127.el7.x86_64<br>      Architecture: x86-64<br><br>[root@esbserver01 ~]<span class="hljs-comment"># hostnamectl set-hostname yourname</span><br><span class="hljs-comment">#change your device hostname</span><br><br><br>[root@esbserver01 ~]<span class="hljs-comment"># fdisk -l</span><br><span class="hljs-comment">#display disk information </span><br><br>[root@esbserver01 ~]<span class="hljs-comment"># fdisk /dev/sdb   </span><br><span class="hljs-comment"># /dev/sdb as disk&#x27;s path</span><br>------------------------------------------------------------------<br>Show Command , input n ,p,1,2048,last,enter,wq .<br>Exit and write .<br>------------------------------------------------------------------<br>If your device is virtual machine, pls reboot it .<br><br>[root@esbserver01 ~]<span class="hljs-comment"># mkfs.ext4 /dev/sdb1</span><br><span class="hljs-comment">#disk initial   </span><br><br>[root@esbserver01 ~]<span class="hljs-comment"># mount /dev/sdb1 /home</span><br><span class="hljs-comment"># /home need use mkdir create</span><br><br>[root@esbserver01 ~]<span class="hljs-comment"># df-h</span><br><span class="hljs-comment">#check disk mount information</span><br><br>[root@esbserver01 ~]<span class="hljs-comment"># vi /etc/fstab</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># /etc/fstab</span><br><span class="hljs-comment"># Created by anaconda on Wed Jun  2 04:48:42 2021</span><br><span class="hljs-comment">#</span><br><span class="hljs-comment"># Accessible filesystems, by reference, are maintained under &#x27;/dev/disk&#x27;</span><br><span class="hljs-comment"># See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info</span><br><span class="hljs-comment">#</span><br>/dev/mapper/centos-root /                       xfs     defaults        0 0<br>UUID=a8222bbf-777a-4282-9587-ae8cad1891cd /boot                   xfs     defaults        0 0<br>/dev/mapper/centos-swap swap                    swap    defaults        0 0<br>/dev/sdb1 /date/sdb1 ext4 defaults 0 0<br><span class="hljs-comment">#Start automount , just add it at the end .</span><br><br><span class="hljs-comment"># if some file/dir not remove </span><br>[root@esbserver01 ~]<span class="hljs-comment"># rm 1.txt -rf</span><br>Operation not permitted<br>[root@esbserver01 ~]<span class="hljs-comment"># chattr -I 1.txt</span><br>[root@esbserver01 ~]<span class="hljs-comment"># rm 1.txt -rf</span><br></code></pre></td></tr></table></figure>
 
@@ -387,6 +328,52 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Linux/" class="category-chain-item">Linux</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/commands/" class="category-chain-item">commands</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Linux/commands/basic/" class="category-chain-item">basic</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Linux/">#Linux</a>
+      
+        <a href="/tags/centos7/">#centos7</a>
+      
+        <a href="/tags/commands/">#commands</a>
+      
+    </div>
   
 </div>
 
