@@ -1,0 +1,667 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Python generate multi command get image">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Generate image acquisition commands">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/2023/01/09/Generate-image-acquisition-commands/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Python generate multi command get image">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/001b927b7829281bedf.webp">
+<meta property="article:published_time" content="2023-01-09T07:25:39.000Z">
+<meta property="article:modified_time" content="2023-01-09T07:31:21.523Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/001b927b7829281bedf.webp">
+  
+  
+  
+  <title>Generate image acquisition commands - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>QIAN</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Generate image acquisition commands"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-09 15:25" pubdate>
+          January 9, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Generate image acquisition commands</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Python generate multi command get image</p>
+<span id="more"></span>
+
+
+<h1 id="Use-Python-to-get-some-beautiful-photo-albums-of-public-websites"><a href="#Use-Python-to-get-some-beautiful-photo-albums-of-public-websites" class="headerlink" title="Use Python to get some beautiful photo albums of public websites"></a>Use Python to get some beautiful photo albums of public websites</h1><h2 id="Python-code"><a href="#Python-code" class="headerlink" title="Python code"></a>Python code</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># coding = utf-8</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_result_wai77</span>(<span class="hljs-params"><span class="hljs-built_in">range</span>,url</span>):<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">range</span> &lt; <span class="hljs-number">10</span>:<br>        result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125;00&#123;&#125;.webp&#x27;</span>.<span class="hljs-built_in">format</span>(url,<span class="hljs-built_in">range</span>))<br><br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">range</span> &lt; <span class="hljs-number">100</span> :<br>        result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125;0&#123;&#125;.webp&#x27;</span>.<span class="hljs-built_in">format</span>(url,<span class="hljs-built_in">range</span>))<br><br>    <span class="hljs-keyword">else</span>:<br>        result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125;&#123;&#125;.webp&#x27;</span>.<span class="hljs-built_in">format</span>(url,<span class="hljs-built_in">range</span>))<br><br><br><br><br>    <span class="hljs-keyword">return</span> result<br><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_result_XiuRen</span>(<span class="hljs-params"><span class="hljs-built_in">range</span>,url</span>):<br><br>    <span class="hljs-keyword">if</span> <span class="hljs-built_in">range</span> &lt; <span class="hljs-number">10</span>:<br>        result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125;000&#123;&#125;.jpg&#x27;</span>.<span class="hljs-built_in">format</span>(url,<span class="hljs-built_in">range</span>))<br><br>    <span class="hljs-keyword">elif</span> <span class="hljs-built_in">range</span> &lt; <span class="hljs-number">100</span> :<br>        result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125;00&#123;&#125;.jpg&#x27;</span>.<span class="hljs-built_in">format</span>(url,<span class="hljs-built_in">range</span>))<br><br>    <span class="hljs-keyword">else</span>:<br>        result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125;0&#123;&#125;.jpg&#x27;</span>.<span class="hljs-built_in">format</span>(url,<span class="hljs-built_in">range</span>))<br><br><br><br><br>    <span class="hljs-keyword">return</span> result<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">main_XiuRen</span>():<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">69</span>):<br>        url = <span class="hljs-string">&#x27;http://www.xiuren.org/xiuren2/XiuRen-N02513/&#x27;</span><br><br>        <span class="hljs-built_in">print</span>(_result_XiuRen(i,url))<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;mkdir -p /opt/smb/video/Image/20221227_N02513/&#x27;</span>)<br><br>    frist = <span class="hljs-string">&#x27;http://www.xiuren.org/images/2021/07/2190845000.jpg&#x27;</span><br><br><br>    result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.130 Safari/537.36&quot; &#123;&#125; &#x27;</span>.<span class="hljs-built_in">format</span>(frist))<br><br>    <span class="hljs-built_in">print</span>(result)<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_main_wai77</span>():<br>    dir_name = <span class="hljs-string">&#x27;20230107_软软爱吃肉-白色内衣搭配原色丝袜&#x27;</span><br>    url = <span class="hljs-string">&#x27;https://www.wai77.com/gallery/mjc4nda/mzk3nzc/&#x27;</span><br>    frist = <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;url&#125;</span>/0.webp&#x27;</span><br><br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>,<span class="hljs-number">100</span>):<br><br><br>        <span class="hljs-built_in">print</span>(_result_wai77(i,url))<br><br><br><br><br><br>    result = (<span class="hljs-string">&#x27;wget -b --user-agent=&quot;Mozilla/5.0 (Windows NT 6.1; &#x27;</span><br>                   <span class="hljs-string">&#x27;Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) &#x27;</span><br>                   <span class="hljs-string">&#x27;Chrome/79.0.3945.131 Safari/537.36&quot; &#123;&#125; &#x27;</span>.<span class="hljs-built_in">format</span>(frist))<br><br><br>    <span class="hljs-built_in">print</span>(result)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;mkdir -p &quot;/opt/smb/video/Image/<span class="hljs-subst">&#123;dir_name&#125;</span>/&quot;&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">f&#x27;sleep 35 &amp;&amp; yes | mv *.webp &quot;/opt/smb/video/Image/<span class="hljs-subst">&#123;dir_name&#125;</span>/&quot;&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;ls &amp;&amp; rm * -rf&#x27;</span>)<br>    <span class="hljs-built_in">print</span>(<span class="hljs-string">&#x27;ls -la&#x27;</span>)<br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    _main_wai77()<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Result"><a href="#Result" class="headerlink" title="Result"></a>Result</h2><p>You can input linux&#x2F;unix envrionment terminal the result.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget -b --user-agent=<span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36&quot;</span> https://www.wai77.com/gallery/mjc4nda/mzk3nzc/097.webp<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Appreciation-of-beautiful-pictures"><a href="#Appreciation-of-beautiful-pictures" class="headerlink" title="Appreciation of beautiful pictures"></a>Appreciation of beautiful pictures</h1><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/001b927b7829281bedf.webp" srcset="/img/loading.gif" lazyload alt="001b927b7829281bedf.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0bf98b0292a809029.webp" srcset="/img/loading.gif" lazyload alt="0bf98b0292a809029.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/002415ac55a6b1d909a.webp" srcset="/img/loading.gif" lazyload alt="002415ac55a6b1d909a.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0035a41264c1a463abd.webp" srcset="/img/loading.gif" lazyload alt="0035a41264c1a463abd.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0047156b8228fdbabdc.webp" srcset="/img/loading.gif" lazyload alt="0047156b8228fdbabdc.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0057d883ae58ea2f6a6.webp" srcset="/img/loading.gif" lazyload alt="0057d883ae58ea2f6a6.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/006a3b11c7228779e69.webp" srcset="/img/loading.gif" lazyload alt="006a3b11c7228779e69.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/007a0f7d9992cdedfde.webp" srcset="/img/loading.gif" lazyload alt="007a0f7d9992cdedfde.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/008d3627c4abf41aa95.webp" srcset="/img/loading.gif" lazyload alt="008d3627c4abf41aa95.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0092427735e4fafff71.webp" srcset="/img/loading.gif" lazyload alt="0092427735e4fafff71.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/010662a0cca49dc4f61.webp" srcset="/img/loading.gif" lazyload alt="010662a0cca49dc4f61.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/011482ec4136bc264cb.webp" srcset="/img/loading.gif" lazyload alt="011482ec4136bc264cb.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/012a7ea32279e84e66f.webp" srcset="/img/loading.gif" lazyload alt="012a7ea32279e84e66f.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0137db74316b5563596.webp" srcset="/img/loading.gif" lazyload alt="0137db74316b5563596.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/014f9422c70d8c524e1.webp" srcset="/img/loading.gif" lazyload alt="014f9422c70d8c524e1.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/015c4b872342e77aa7f.webp" srcset="/img/loading.gif" lazyload alt="015c4b872342e77aa7f.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/016a80282787e6d64b1.webp" srcset="/img/loading.gif" lazyload alt="016a80282787e6d64b1.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0170f41fd582d450f9f.webp" srcset="/img/loading.gif" lazyload alt="0170f41fd582d450f9f.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0183532c0f763af8697.webp" srcset="/img/loading.gif" lazyload alt="0183532c0f763af8697.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/019ff3787f28555ff58.webp" srcset="/img/loading.gif" lazyload alt="019ff3787f28555ff58.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0202621f24aa85d9d8b.webp" srcset="/img/loading.gif" lazyload alt="0202621f24aa85d9d8b.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0216b202cb13fb4f336.webp" srcset="/img/loading.gif" lazyload alt="0216b202cb13fb4f336.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/022a806c8ccccf4edba.webp" srcset="/img/loading.gif" lazyload alt="022a806c8ccccf4edba.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0231b99d7f4a63fe670.webp" srcset="/img/loading.gif" lazyload alt="0231b99d7f4a63fe670.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0243486378a4090a979.webp" srcset="/img/loading.gif" lazyload alt="0243486378a4090a979.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0254096985782c76f6a.webp" srcset="/img/loading.gif" lazyload alt="0254096985782c76f6a.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/02641c8d5550e9b9b5e.webp" srcset="/img/loading.gif" lazyload alt="02641c8d5550e9b9b5e.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0272568954e5f5578b1.webp" srcset="/img/loading.gif" lazyload alt="0272568954e5f5578b1.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0289a701ec853eba5c6.webp" srcset="/img/loading.gif" lazyload alt="0289a701ec853eba5c6.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0293465e9323cdbc151.webp" srcset="/img/loading.gif" lazyload alt="0293465e9323cdbc151.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/030821cb5f33a0f5fdc.webp" srcset="/img/loading.gif" lazyload alt="030821cb5f33a0f5fdc.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0319ea34a8bfe8eac9a.webp" srcset="/img/loading.gif" lazyload alt="0319ea34a8bfe8eac9a.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0323fb939dbc900d152.webp" srcset="/img/loading.gif" lazyload alt="0323fb939dbc900d152.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0330246deadfe923c4b.webp" srcset="/img/loading.gif" lazyload alt="0330246deadfe923c4b.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/034cc4e7a72691112e6.webp" srcset="/img/loading.gif" lazyload alt="034cc4e7a72691112e6.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/03552ad03d38e614805.webp" srcset="/img/loading.gif" lazyload alt="03552ad03d38e614805.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/036a34e0945b095f2ac.webp" srcset="/img/loading.gif" lazyload alt="036a34e0945b095f2ac.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/037023028a1e31bb12c.webp" srcset="/img/loading.gif" lazyload alt="037023028a1e31bb12c.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/03800d98c8510554354.webp" srcset="/img/loading.gif" lazyload alt="03800d98c8510554354.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/039281113fb593d3cd5.webp" srcset="/img/loading.gif" lazyload alt="039281113fb593d3cd5.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0406d1490b7961150e3.webp" srcset="/img/loading.gif" lazyload alt="0406d1490b7961150e3.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/041ca746db896d9f711.webp" srcset="/img/loading.gif" lazyload alt="041ca746db896d9f711.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0425ca488be862e8eab.webp" srcset="/img/loading.gif" lazyload alt="0425ca488be862e8eab.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/04300ad1e3d3a67ef06.webp" srcset="/img/loading.gif" lazyload alt="04300ad1e3d3a67ef06.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/044c034c0fe2588e05e.webp" srcset="/img/loading.gif" lazyload alt="044c034c0fe2588e05e.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/04574cf6315e83599d5.webp" srcset="/img/loading.gif" lazyload alt="04574cf6315e83599d5.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/046e45c0bf2ec857613.webp" srcset="/img/loading.gif" lazyload alt="046e45c0bf2ec857613.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/047057b331019f60e0d.webp" srcset="/img/loading.gif" lazyload alt="047057b331019f60e0d.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/048aac3b918f995d7db.webp" srcset="/img/loading.gif" lazyload alt="048aac3b918f995d7db.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/04969909af4b2c71605.webp" srcset="/img/loading.gif" lazyload alt="04969909af4b2c71605.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/05080f82071953765cc.webp" srcset="/img/loading.gif" lazyload alt="05080f82071953765cc.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/05158ce29b83d76cae6.webp" srcset="/img/loading.gif" lazyload alt="05158ce29b83d76cae6.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/052f4bf34e1f528e02b.webp" srcset="/img/loading.gif" lazyload alt="052f4bf34e1f528e02b.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/05367e6f7c09cf94762.webp" srcset="/img/loading.gif" lazyload alt="05367e6f7c09cf94762.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/054e6870c9947df1102.webp" srcset="/img/loading.gif" lazyload alt="054e6870c9947df1102.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/055508c8fcef3fa6036.webp" srcset="/img/loading.gif" lazyload alt="055508c8fcef3fa6036.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0565b527bd639a2207b.webp" srcset="/img/loading.gif" lazyload alt="0565b527bd639a2207b.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/057fe6a91ed6199e85b.webp" srcset="/img/loading.gif" lazyload alt="057fe6a91ed6199e85b.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/05898a430472af059cc.webp" srcset="/img/loading.gif" lazyload alt="05898a430472af059cc.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/0596805942afb6882ed.webp" srcset="/img/loading.gif" lazyload alt="0596805942afb6882ed.webp"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/generate/" class="category-chain-item">generate</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/generate/command/" class="category-chain-item">command</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Generate image acquisition commands</div>
+      <div>https://blogs.xiaoxqian.xyz/2023/01/09/Generate-image-acquisition-commands/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>xiaoxqian</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>January 9, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/07/Linux-init-configuration/" title="Linux init configuration">
+                        <span class="hidden-mobile">Linux init configuration</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
