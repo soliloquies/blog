@@ -4,6 +4,35 @@
   
   
   <entry>
+    <title>Juniper commit confirmed operation notice</title>
+    <link href="/2023/03/03/Juniper-commit-confirmed-operation-notice/"/>
+    <url>/2023/03/03/Juniper-commit-confirmed-operation-notice/</url>
+    
+    <content type="html"><![CDATA[<hr><p>Juniper qfx series equiment commit command notice.</p><span id="more"></span><h2 id="Event-descript"><a href="#Event-descript" class="headerlink" title="Event descript"></a>Event descript</h2><p>at last week, a engineer operation the qfx device,<br>his add device manage firewall policy.</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python">[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">32</span> ]Martin@QFX5120-48Y<span class="hljs-comment"># commit confirmed 1 </span><br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">34</span> ]localre: <br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">37</span> ]configuration check succeeds<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">37</span> ]commit confirmed will be automatically rolled back <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> minutes unless confirmed<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">37</span> ]commit complete<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">38</span> ]commit confirmed will be automatically rolled back <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> minutes unless confirmed<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">38</span> ]commit complete<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">38</span> ]<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">38</span> ]<span class="hljs-comment"># commit confirmed will be rolled back in 1 minute</span><br>[ <span class="hljs-number">15</span>:<span class="hljs-number">28</span>:<span class="hljs-number">38</span> ]&#123;master:<span class="hljs-number">0</span>&#125;[edit]<br>[ <span class="hljs-number">15</span>:<span class="hljs-number">30</span>:02 ][<span class="hljs-number">20230302_15</span>:<span class="hljs-number">30</span>:02:<span class="hljs-number">111</span>:] end<br></code></pre></td></tr></table></figure><p>That’s OK nothing, and his use new session login the device, a mouent running “commit”.</p><blockquote><p>We monioting system, WARNING !!! the device is <em><strong>Down</strong></em></p></blockquote><p>Login to the core device, and found OSPF status is changed to init.<br>the device does not have a route, the device is offline.</p><h2 id="Fault-backtracking"><a href="#Fault-backtracking" class="headerlink" title="Fault backtracking"></a>Fault backtracking</h2><h3 id="For-1st"><a href="#For-1st" class="headerlink" title="For 1st"></a>For 1st</h3><p>The policy is fault, doesn’t have permit other traffic, so OSPF status changed to init.</p><h3 id="For-2nd"><a href="#For-2nd" class="headerlink" title="For 2nd"></a>For 2nd</h3><p>The “commit confirmed 1”, if 1 min not continue running commit will automatic rollback.<br>But the time is not enough, the device status is not complete synced, and executed the “commit” command.</p><h2 id="Recommand"><a href="#Recommand" class="headerlink" title="Recommand"></a>Recommand</h2><p>Juniper device have very good a feature, that’s commit confirmed 1-10, auto rollback.</p><p>every commit new command, should setting 3 min later auto rollback.</p><p>if not have every trobule, wait 1 to 2 minute and running “commit”</p><h2 id="AI-beauty-girl"><a href="#AI-beauty-girl" class="headerlink" title="AI beauty girl"></a>AI beauty girl</h2><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-04_22-24-47.jpg" alt="photo_2023-02-04_22-24-47.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-04_22-24-47-2.jpg" alt="photo_2023-02-04_22-24-47-2.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-04_22-24-48-2.jpg" alt="photo_2023-02-04_22-24-48-2.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-04_22-24-48-3.jpg" alt="photo_2023-02-04_22-24-48-3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-30-59.jpg" alt="photo_2023-02-27_10-30-59.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-30-59-2.jpg" alt="photo_2023-02-27_10-30-59-2.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-30-59-3.jpg" alt="photo_2023-02-27_10-30-59-3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-31-00.jpg" alt="photo_2023-02-27_10-31-00.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-31-00-2.jpg" alt="photo_2023-02-27_10-31-00-2.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-31-00-3.jpg" alt="photo_2023-02-27_10-31-00-3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-31-02.jpg" alt="photo_2023-02-27_10-31-02.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/03/03/photo_2023-02-27_10-31-03.jpg" alt="photo_2023-02-27_10-31-03.jpg"> </p>]]></content>
+    
+    
+    <categories>
+      
+      <category>Juniper</category>
+      
+      <category>Operation</category>
+      
+      <category>notice</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>Juniper</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Docker Practical Notes</title>
     <link href="/2023/01/25/Docker-Practical-Notes/"/>
     <url>/2023/01/25/Docker-Practical-Notes/</url>
