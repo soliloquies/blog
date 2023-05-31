@@ -1,0 +1,669 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Python the paramiko module scans the in-network for the device. BackgroundWe are operating a big campus network, having many different vendor devices,and building with different years. Recently we fou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python Scan network equipment">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/2023/05/31/Python-Scan-network-equipment/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Python the paramiko module scans the in-network for the device. BackgroundWe are operating a big campus network, having many different vendor devices,and building with different years. Recently we fou">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/92103238881-24233112.jpg">
+<meta property="article:published_time" content="2023-05-31T07:36:38.000Z">
+<meta property="article:modified_time" content="2023-05-31T08:10:06.167Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="Python">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/92103238881-24233112.jpg">
+  
+  
+  
+  <title>Python Scan network equipment - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Martin</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/92103238881-24233112.jpg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Python Scan network equipment"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-31 15:36" pubdate>
+          May 31, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          126 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Python Scan network equipment</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Python the paramiko module scans the in-network for the device.</p>
+<h1 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h1><p>We are operating a big campus network, having many different vendor devices,<br>and building with different years.</p>
+<p>Recently we found that many devices are out of management,<br>we need to rearrange all the devices in our network,<br>including management IP, for the manufacturer, model, device SN, and account password.</p>
+<p>So, we need a program to scan the all networks.<br>Help us get it.</p>
+<h1 id="Needs-list"><a href="#Needs-list" class="headerlink" title="Needs list"></a>Needs list</h1><ol>
+<li>Try connecting the device for ssh or telnet.</li>
+<li>Can use different password groups to try it.</li>
+<li>Get the device manufacturer, model, system name, and device SN.</li>
+<li>Result from some information including running information, error, and basic file output.</li>
+<li>Give me an excel Database to me to manage and review it.</li>
+</ol>
+<h1 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h1><p>Using the paramiko module, we program a class to connect the device for ssh.</p>
+<p>It can connect devices, try multi-group accounts, and result in some information.<br>The re module, helps us filter just our needs information.</p>
+<p>We create two lists, it save every thread result’s information.</p>
+<p>final use the pandas module will all information save to a CSV file.</p>
+<p><em><strong>Python example code</strong></em></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> paramiko<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br><br>success_list = []<br>error_list   = []<br><br><span class="hljs-comment"># vender_range = r&#x27;(\Suijie|\S&#123;1,2&#125;tech|\Suawei|\Slcatel|\Suniper|\S3C)|(\Sruba)&#x27;</span><br><br>_command_task = <span class="hljs-string">&#x27;push_password&#x27;</span><br><span class="hljs-comment"># _command_task = &#x27;push_manage_acl&#x27;</span><br>_time1 = time.strftime (<span class="hljs-string">&quot;%Y%m%d&quot;</span>)<br><br>_put_output_path = <span class="hljs-string">&#x27;output/&#x27;</span> + _time1 + <span class="hljs-string">&#x27;/put/&#x27;</span><br>_get_output_path = <span class="hljs-string">&#x27;output/&#x27;</span> + _time1 + <span class="hljs-string">&#x27;/get/&#x27;</span><br>_error_output_path = <span class="hljs-string">&#x27;output/&#x27;</span> + _time1 + <span class="hljs-string">&#x27;/error/&#x27;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">logit_time</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">printFuncRunTime</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        time1 = datetime.datetime.now ()<br>        <span class="hljs-built_in">print</span> (time1, <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span> start running.&#x27;</span>)<br>        res = func (*args, **kwargs)<br>        time2 = datetime.datetime.now ()<br>        <span class="hljs-built_in">print</span> (time2, <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span> done.&#x27;</span>)<br>        <span class="hljs-built_in">print</span> (<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span> total use time:&#x27;</span>, time2 - time1)<br>        <span class="hljs-keyword">return</span> res<br><br>    <span class="hljs-keyword">return</span> printFuncRunTime<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ssh</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.ip = self<br>        self.username = self<br>        self.password = self<br>        self.password2 = self<br><br>        self.path = <span class="hljs-string">&#x27;RUNNING-LOG/&#x27;</span> + datetime.date.today ().isoformat () + <span class="hljs-string">&#x27;/&#x27;</span><br>        verify_path = os.path.exists (self.path)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_path:<br>            os.makedirs (self.path)<br>        self.f = <span class="hljs-built_in">open</span> (self.path + <span class="hljs-string">&#x27;default_log.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<br>        self.success = <span class="hljs-built_in">open</span> (self.path + <span class="hljs-string">&#x27;success.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<br>        self.f_error = <span class="hljs-built_in">open</span> (self.path + <span class="hljs-string">&#x27;error_log.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">login_device</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">try</span>:<br>            self.ssh_client = paramiko.SSHClient ()<br>            self.ssh_client.set_missing_host_key_policy (paramiko.AutoAddPolicy ())<br>            self.ssh_client.connect (hostname=self.ip, username=self.username, password=self.password,<br>                                     look_for_keys=<span class="hljs-literal">False</span>, timeout=<span class="hljs-number">30</span>)<br>            self.command = self.ssh_client.invoke_shell ()<br>            self.f.write (<span class="hljs-string">f&#x27;\nSucessfully login to <span class="hljs-subst">&#123;self.ip&#125;</span> \n&#x27;</span>)<br>            self.success.write (<span class="hljs-string">f&#x27;\n<span class="hljs-subst">&#123;self.ip&#125;</span> Sucessfully login&#x27;</span>)<br>            <span class="hljs-comment"># print(f&#x27;Sucessfull login to &#123;self.ip&#125;&#x27;)</span><br>            time.sleep (<span class="hljs-number">1</span>)<br>            output = self.command.recv (<span class="hljs-number">65535</span>).decode ()<br>            self.f.write (output)<br>            <span class="hljs-comment"># return f&#x27;Sucessfull login to &#123;self.ip&#125;&#x27;</span><br>            <br><br>        <span class="hljs-keyword">except</span> paramiko.AuthenticationException:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-string">&quot;Authentication failed, please verify your credentials&quot;</span>)<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> Authentication failed, please verify your credentials: %s\n&quot;</span>)<br><br>        <span class="hljs-keyword">except</span> paramiko.SSHException <span class="hljs-keyword">as</span> sshException:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-string">&quot;Unable to establish SSH connection: %s &quot;</span> % sshException)<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> Unable to establish SSH connection: %s\n &quot;</span>)<br><br>        <span class="hljs-keyword">except</span> paramiko.BadHostKeyException <span class="hljs-keyword">as</span> badHostKeyException:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-string">&quot;Unable to verify server&#x27;s host key: %s&quot;</span> % badHostKeyException)<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> Unable to verify server&#x27;s host key: %s\n&quot;</span>)<br><br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> error:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-built_in">str</span> (error))<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> <span class="hljs-subst">&#123;error&#125;</span> \n&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">input_command</span>(<span class="hljs-params">self, command, timeout</span>):<br>        self.command.send (command + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>        time.sleep (timeout)<br>        output = self.command.recv (<span class="hljs-number">819200</span>)<br>        <span class="hljs-comment"># self.f.write(output.decode())</span><br>        <span class="hljs-keyword">return</span> output<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">verify_sessionn</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># verify ssh session is alive.</span><br>        <span class="hljs-keyword">try</span>:<br>            self.command.send (<span class="hljs-string">&#x27; \n&#x27;</span>)<br>            time.sleep (<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">disconnet</span>(<span class="hljs-params">self</span>):<br>        self.ssh_client.close ()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_Put_cofing</span>(<span class="hljs-params"><span class="hljs-built_in">list</span></span>):<br>    time.sleep (<span class="hljs-number">1</span>)<br>    ip, vender, username, password = <span class="hljs-built_in">list</span>[<span class="hljs-number">1</span>], <span class="hljs-built_in">list</span>[<span class="hljs-number">2</span>], <span class="hljs-built_in">list</span>[<span class="hljs-number">3</span>], <span class="hljs-built_in">list</span>[<span class="hljs-number">4</span>]<br>    <br>    <span class="hljs-keyword">try</span>:<br>        conn = ssh ()<br>        conn.ip = ip<br>        conn.username  = username<br>        conn.password  = password<br><br>        conn.login_device ()<br>        output = <span class="hljs-string">b&#x27;&#x27;</span><br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(<span class="hljs-string">&#x27;Alcatel&#x27;</span>) <span class="hljs-keyword">in</span>  vender:<br>            sysname_range = <span class="hljs-string">r&#x27;\Same.\s+(.+?),&#x27;</span><br>            model_range   = <span class="hljs-string">r&#x27;\Sescr.+?(OS.+?)\s&#x27;</span><br>            phynum_range  = <span class="hljs-string">r&#x27;&#x27;</span><br>            commands = (<br>                <span class="hljs-string">&#x27;show system&#x27;</span>,<br>            )<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(<span class="hljs-string">&#x27;DPtech&#x27;</span>) <span class="hljs-keyword">in</span>  vender:<br>            sysname_range = <span class="hljs-string">r&#x27;\&lt;(.+?)\&gt;&#x27;</span><br>            model_range   = <span class="hljs-string">r&#x27;(.+?)\s\Dptime&#x27;</span><br>            phynum_range  = <span class="hljs-string">r&#x27;&#x27;</span><br>            commands = (<br>                <span class="hljs-string">&#x27;terminal line 0&#x27;</span>,<br>                <span class="hljs-string">&#x27;show version&#x27;</span>,<br>            )<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(<span class="hljs-string">&#x27;H3C&#x27;</span>) <span class="hljs-keyword">in</span>  vender:<br>            sysname_range = <span class="hljs-string">r&#x27;\&lt;(.+?)\&gt;&#x27;</span><br>            model_range   = <span class="hljs-string">r&#x27;\S3C\s(.+?)\s\Sptime&#x27;</span><br>            phynum_range  = <span class="hljs-string">r&#x27;(Master|Standby)&#x27;</span><br>            commands = (<br>                <span class="hljs-string">&#x27;screen-length disable&#x27;</span>,<br>                <span class="hljs-string">&#x27;display version&#x27;</span>,<br>                <span class="hljs-string">&#x27;display irf&#x27;</span>,  <br>            )<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(<span class="hljs-string">&#x27;Huawei&#x27;</span>) <span class="hljs-keyword">in</span>  vender:<br>            sysname_range = <span class="hljs-string">r&#x27;\&lt;(.+)\&gt;&#x27;</span><br>            model_range   = <span class="hljs-string">r&#x27;\SUAWEI\s(S.+?)\s\Souting&#x27;</span><br>            phynum_range  = <span class="hljs-string">r&#x27;&#x27;</span><br>            commands = (<br>                <span class="hljs-string">&#x27;screen-length 0 temporary&#x27;</span>,<br>                <span class="hljs-string">&#x27;display version&#x27;</span>,<br>            )<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(<span class="hljs-string">&#x27;Juniper&#x27;</span>) <span class="hljs-keyword">in</span>  vender:<br>            sysname_range = <span class="hljs-string">r&#x27;\Sostname\S\s(.+)&#x27;</span><br>            model_range   = <span class="hljs-string">r&#x27;\Sodel\S\s(.+)&#x27;</span><br>            phynum_range  = <span class="hljs-string">r&#x27;&#x27;</span><br>            commands = (<br>                <span class="hljs-string">&#x27; show version | no-more &#x27;</span>,<br>            )<br><br>        <span class="hljs-keyword">if</span> <span class="hljs-built_in">str</span>(<span class="hljs-string">&#x27;Ruijie&#x27;</span>) <span class="hljs-keyword">in</span>  vender:<br>            sysname_range = <span class="hljs-string">r&#x27;hostname\s(.+)&#x27;</span><br>            model_range   = <span class="hljs-string">r&#x27;\System\sd.+\((.+?)\)&#x27;</span><br>            phynum_range  = <span class="hljs-string">r&#x27;(master|standby|candidate)&#x27;</span><br>            commands = (<br>                <span class="hljs-string">&#x27;terminal length 0&#x27;</span>,<br>                <span class="hljs-string">&#x27;show version&#x27;</span>,<br>                <span class="hljs-string">&#x27;show running-config | include host&#x27;</span>,<br>                <span class="hljs-string">&#x27;show switch virtual topology&#x27;</span>,<br>            )<br><br>        <span class="hljs-keyword">for</span> cmd <span class="hljs-keyword">in</span> commands:<br>            output += conn.input_command (cmd, <span class="hljs-number">5</span>)<br><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;_put_output_path&#125;</span><span class="hljs-subst">&#123;conn.ip&#125;</span>_<span class="hljs-subst">&#123;_time1&#125;</span>.txt&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            f.write (output)<br>            f.close ()<br><br>        output_file = <span class="hljs-built_in">open</span> (<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;_put_output_path&#125;</span><span class="hljs-subst">&#123;conn.ip&#125;</span>_<span class="hljs-subst">&#123;_time1&#125;</span>.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>).read()<br><br><br>        sysname = re.findall(sysname_range,<span class="hljs-built_in">str</span>(output_file))<br>        model   = re.findall(model_range,<span class="hljs-built_in">str</span>(output_file))<br>        phynums = re.findall(phynum_range,<span class="hljs-built_in">str</span>(output_file))<br><br>        <span class="hljs-keyword">try</span>:<br>            physical_number = <span class="hljs-built_in">len</span>(phynums)<br>            <span class="hljs-keyword">if</span> physical_number == <span class="hljs-number">0</span>:<br>                physical_number = <span class="hljs-number">1</span><br>        <span class="hljs-keyword">except</span>:<br>            physical_number = <span class="hljs-number">1</span><br>        <br><br>        <span class="hljs-keyword">try</span>:<br>            success_list.append([ip, vender, sysname[<span class="hljs-number">0</span>], model[<span class="hljs-number">0</span>], conn.username, conn.password,physical_number])<br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> error:<br>            success_list.append([ip, vender, <span class="hljs-string">&#x27;error&#x27;</span>, error, conn.username, conn.password,physical_number])<br><br>        time.sleep (<span class="hljs-number">1</span>)<br>        conn.disconnet ()<br><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> error:<br>        error_list.append([ip,vender,error])<br>        <span class="hljs-built_in">print</span>(ip,error)<br><br><br>        <br><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_Get_Login_excel</span>():<br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    The Excel file saved all device information. ( including username and password)</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br>    _csv = pd.read_excel(<span class="hljs-string">&#x27;network_list.xlsx&#x27;</span>).values<br>    <span class="hljs-keyword">return</span> _csv<br><br><br><br><span class="hljs-meta">@logit_time</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_Put_Config_To_Device</span>():<br>    verify_path = os.path.exists (_put_output_path)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_path:<br>        os.makedirs (_put_output_path)<br><br>    _<span class="hljs-built_in">list</span> = _Get_Login_excel()<br>    <span class="hljs-comment"># login device get needs config informaiton.</span><br>    <span class="hljs-keyword">with</span> ThreadPoolExecutor (max_workers=<span class="hljs-number">500</span>) <span class="hljs-keyword">as</span> p:<br>        p.<span class="hljs-built_in">map</span> (_Put_cofing, _<span class="hljs-built_in">list</span>)<br><br><br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    _Put_Config_To_Device ()<br>    <br>    <span class="hljs-built_in">print</span> (<br>        <span class="hljs-string">&#x27;\nPut Complete, will start verify. \n&#x27;</span><br>    )<br><br>    auth_success = []<br><br>    <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> success_list:<br>        <span class="hljs-built_in">list</span> = &#123;<br>            <span class="hljs-string">&#x27;ip&#x27;</span>      : result[<span class="hljs-number">0</span>],<br>            <span class="hljs-string">&#x27;Vender&#x27;</span>  : result[<span class="hljs-number">1</span>],<br>            <span class="hljs-string">&#x27;Sysname&#x27;</span> : result[<span class="hljs-number">2</span>],<br>            <span class="hljs-string">&#x27;Model&#x27;</span>   : result[<span class="hljs-number">3</span>],<br>            <span class="hljs-string">&#x27;Username&#x27;</span>: result[<span class="hljs-number">4</span>],<br>            <span class="hljs-string">&#x27;Password&#x27;</span>: result[<span class="hljs-number">5</span>],<br>            <span class="hljs-string">&#x27;Physical&#x27;</span>: result[<span class="hljs-number">6</span>],<br>        &#125;<br>        auth_success.append(<span class="hljs-built_in">list</span>)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(success_list))<br><br>    df = pd.DataFrame(auth_success)<br>    df.to_csv(<span class="hljs-string">f&quot;auth_success_<span class="hljs-subst">&#123;_time1&#125;</span>.csv&quot;</span>)<br><br>    dr = pd.DataFrame(error_list)<br>    dr.to_csv(<span class="hljs-string">f&quot;error_<span class="hljs-subst">&#123;_time1&#125;</span>.csv&quot;</span>)<br></code></pre></td></tr></table></figure>
+
+
+<h1 id="Scan-devices-ssh-of-python-code"><a href="#Scan-devices-ssh-of-python-code" class="headerlink" title="Scan devices ssh of python code"></a>Scan devices ssh of python code</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">import</span> paramiko<br><span class="hljs-keyword">import</span> datetime<br><span class="hljs-keyword">import</span> os<br><span class="hljs-keyword">import</span> time<br><span class="hljs-keyword">import</span> re<br><span class="hljs-keyword">from</span> concurrent.futures <span class="hljs-keyword">import</span> ThreadPoolExecutor<br><span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd<br><br><br><br>success_list = []<br>error_list   = []<br><br>vender_range = <span class="hljs-string">r&#x27;(\Suijie|\S&#123;1,2&#125;tech|\Suawei|\Slcatel|\Suniper|\S3C)&#x27;</span><br>model_range  = <span class="hljs-string">r&#x27;\System\sd.+\((.+?)\)&#x27;</span><br>sysname_range = <span class="hljs-string">r&#x27;hostname\s(.+)&#x27;</span><br><br>_command_task = <span class="hljs-string">&#x27;push_password&#x27;</span><br><span class="hljs-comment"># _command_task = &#x27;push_manage_acl&#x27;</span><br>_time1 = time.strftime (<span class="hljs-string">&quot;%Y%m%d&quot;</span>)<br><br>_put_output_path = <span class="hljs-string">&#x27;output/&#x27;</span> + _time1 + <span class="hljs-string">&#x27;/put/&#x27;</span><br>_get_output_path = <span class="hljs-string">&#x27;output/&#x27;</span> + _time1 + <span class="hljs-string">&#x27;/get/&#x27;</span><br>_error_output_path = <span class="hljs-string">&#x27;output/&#x27;</span> + _time1 + <span class="hljs-string">&#x27;/error/&#x27;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">logit_time</span>(<span class="hljs-params">func</span>):<br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">printFuncRunTime</span>(<span class="hljs-params">*args, **kwargs</span>):<br>        time1 = datetime.datetime.now ()<br>        <span class="hljs-built_in">print</span> (time1, <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span> start running.&#x27;</span>)<br>        res = func (*args, **kwargs)<br>        time2 = datetime.datetime.now ()<br>        <span class="hljs-built_in">print</span> (time2, <span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span> done.&#x27;</span>)<br>        <span class="hljs-built_in">print</span> (<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;func.__name__&#125;</span> total use time:&#x27;</span>, time2 - time1)<br>        <span class="hljs-keyword">return</span> res<br><br>    <span class="hljs-keyword">return</span> printFuncRunTime<br><br><br><span class="hljs-keyword">class</span> <span class="hljs-title class_">ssh</span>:<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self</span>):<br>        self.ip = self<br>        self.username = self<br>        self.password = self<br>        self.password2 = self<br><br>        self.path = <span class="hljs-string">&#x27;RUNNING-LOG/&#x27;</span> + datetime.date.today ().isoformat () + <span class="hljs-string">&#x27;/&#x27;</span><br>        verify_path = os.path.exists (self.path)<br>        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_path:<br>            os.makedirs (self.path)<br>        self.f = <span class="hljs-built_in">open</span> (self.path + <span class="hljs-string">&#x27;default_log.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<br>        self.success = <span class="hljs-built_in">open</span> (self.path + <span class="hljs-string">&#x27;success.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<br><br>        self.f_error = <span class="hljs-built_in">open</span> (self.path + <span class="hljs-string">&#x27;error_log.txt&#x27;</span>, <span class="hljs-string">&#x27;a&#x27;</span>, newline=<span class="hljs-string">&#x27;&#x27;</span>, errors=<span class="hljs-string">&#x27;ignore&#x27;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">login_device</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-keyword">try</span>:<br>            self.ssh_client = paramiko.SSHClient ()<br>            self.ssh_client.set_missing_host_key_policy (paramiko.AutoAddPolicy ())<br>            self.ssh_client.connect (hostname=self.ip, username=self.username, password=self.password,<br>                                     look_for_keys=<span class="hljs-literal">False</span>, timeout=<span class="hljs-number">10</span>)<br>            self.command = self.ssh_client.invoke_shell ()<br>            self.f.write (<span class="hljs-string">f&#x27;\nSucessfully login to <span class="hljs-subst">&#123;self.ip&#125;</span> \n&#x27;</span>)<br>            self.success.write (<span class="hljs-string">f&#x27;\n<span class="hljs-subst">&#123;self.ip&#125;</span> Sucessfully login&#x27;</span>)<br>            <span class="hljs-comment"># print(f&#x27;Sucessfull login to &#123;self.ip&#125;&#x27;)</span><br>            time.sleep (<span class="hljs-number">1</span>)<br>            output = self.command.recv (<span class="hljs-number">65535</span>).decode ()<br>            self.f.write (output)<br>            <span class="hljs-comment"># return f&#x27;Sucessfull login to &#123;self.ip&#125;&#x27;</span><br><br>        <span class="hljs-keyword">except</span> paramiko.AuthenticationException:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-string">&quot;Authentication failed, please verify your credentials&quot;</span>)<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> Authentication failed, please verify your credentials: %s\n&quot;</span>)<br><br>            <span class="hljs-keyword">try</span>:<br>                self.ssh_client = paramiko.SSHClient ()<br>                self.ssh_client.set_missing_host_key_policy (paramiko.AutoAddPolicy ())<br>                self.ssh_client.connect (hostname=self.ip, username=self.username, password=self.password2,<br>                                         look_for_keys=<span class="hljs-literal">False</span>, timeout=<span class="hljs-number">10</span>)<br>                self.command = self.ssh_client.invoke_shell ()<br>                self.f.write (<span class="hljs-string">f&#x27;\nSucessfully login to <span class="hljs-subst">&#123;self.ip&#125;</span> \n&#x27;</span>)<br>                self.success.write (<span class="hljs-string">f&#x27;\n<span class="hljs-subst">&#123;self.ip&#125;</span> Sucessfully login&#x27;</span>)<br>                <span class="hljs-comment"># print(f&#x27;Sucessfull login to &#123;self.ip&#125;&#x27;)</span><br>                time.sleep (<span class="hljs-number">1</span>)<br>                output = self.command.recv (<span class="hljs-number">65535</span>).decode ()<br>                self.f.write (output)<br><br>            <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> error:<br>                self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> <span class="hljs-subst">&#123;error&#125;</span> \n&quot;</span>)<br><br><br><br>        <span class="hljs-keyword">except</span> paramiko.SSHException <span class="hljs-keyword">as</span> sshException:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-string">&quot;Unable to establish SSH connection: %s &quot;</span> % sshException)<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> Unable to establish SSH connection: %s\n &quot;</span>)<br><br>        <span class="hljs-keyword">except</span> paramiko.BadHostKeyException <span class="hljs-keyword">as</span> badHostKeyException:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-string">&quot;Unable to verify server&#x27;s host key: %s&quot;</span> % badHostKeyException)<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> Unable to verify server&#x27;s host key: %s\n&quot;</span>)<br><br>        <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> error:<br>            <span class="hljs-built_in">print</span> (self.ip, <span class="hljs-built_in">str</span> (error))<br>            self.f_error.write (<span class="hljs-string">f&quot;<span class="hljs-subst">&#123;self.ip&#125;</span> <span class="hljs-subst">&#123;error&#125;</span> \n&quot;</span>)<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">input_command</span>(<span class="hljs-params">self, command, timeout</span>):<br>        self.command.send (command + <span class="hljs-string">&#x27;\n&#x27;</span>)<br>        time.sleep (timeout)<br>        output = self.command.recv (<span class="hljs-number">819200</span>)<br>        <span class="hljs-comment"># self.f.write(output.decode())</span><br>        <span class="hljs-keyword">return</span> output<br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">verify_sessionn</span>(<span class="hljs-params">self</span>):<br>        <span class="hljs-comment"># verify ssh session is alive.</span><br>        <span class="hljs-keyword">try</span>:<br>            self.command.send (<span class="hljs-string">&#x27; \n&#x27;</span>)<br>            time.sleep (<span class="hljs-number">1</span>)<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">True</span><br><br>        <span class="hljs-keyword">except</span>:<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">False</span><br><br>    <span class="hljs-keyword">def</span> <span class="hljs-title function_">disconnet</span>(<span class="hljs-params">self</span>):<br>        self.ssh_client.close ()<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_Put_cofing</span>(<span class="hljs-params"><span class="hljs-built_in">list</span></span>):<br>    time.sleep (<span class="hljs-number">1</span>)<br>    ip = <span class="hljs-built_in">list</span>[<span class="hljs-number">0</span>]<br><br>    <span class="hljs-comment"># use the multi-group account to try the ssh connect.</span><br>    <span class="hljs-keyword">try</span>:<br>        conn = ssh ()<br>        conn.ip = ip<br>        conn.username = <span class="hljs-string">&#x27;admin&#x27;</span><br>        conn.password = <span class="hljs-string">&#x27;admin@123!&#x27;</span><br>        conn.password2 = <span class="hljs-string">&#x27;admin@789&#x27;</span><br>        conn.login_device ()<br><br>        output = <span class="hljs-string">b&#x27;&#x27;</span><br><br>        <span class="hljs-comment"># that&#x27;s get device information for manufacturer, model, and SN.</span><br>        commands = (<br>            <span class="hljs-string">&#x27;show system&#x27;</span>,<br>            <span class="hljs-string">&#x27;show version&#x27;</span>,<br>            <span class="hljs-string">&#x27;display version&#x27;</span>,<br>        )<br><br>        <span class="hljs-keyword">for</span> cmd <span class="hljs-keyword">in</span> commands:<br>           output += conn.input_command (cmd, <span class="hljs-number">5</span>)<br><br>        <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span> (<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;_put_output_path&#125;</span><span class="hljs-subst">&#123;conn.ip&#125;</span>_<span class="hljs-subst">&#123;_time1&#125;</span>.txt&#x27;</span>, <span class="hljs-string">&#x27;wb&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>            f.write (output)<br>            f.close ()<br><br>        output_file = <span class="hljs-built_in">open</span> (<span class="hljs-string">f&#x27;<span class="hljs-subst">&#123;_put_output_path&#125;</span><span class="hljs-subst">&#123;conn.ip&#125;</span>_<span class="hljs-subst">&#123;_time1&#125;</span>.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>).read()<br><br>        vender = re.findall(vender_range,<span class="hljs-built_in">str</span>(output_file))<br>        model  = re.findall(model_range,<span class="hljs-built_in">str</span>(output_file))<br>        sysname  = re.findall(sysname_range,<span class="hljs-built_in">str</span>(output_file))<br><br>        success_list.append([ip, sysname[<span class="hljs-number">0</span>], vender[<span class="hljs-number">0</span>], model[<span class="hljs-number">0</span>]])<br><br>        time.sleep (<span class="hljs-number">1</span>)<br>        conn.disconnet ()<br><br>    <span class="hljs-keyword">except</span> Exception <span class="hljs-keyword">as</span> error:<br>        error_list.append([ip,error])<br><br><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_Get_Login_host</span>():<br>    ip_list = []<br><br>    <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">    for examle, you are managment subnet as 172.31.0.0/16</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span><br><br>    <span class="hljs-keyword">for</span> sub3 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">255</span>):<br>        <span class="hljs-keyword">for</span> sub4 <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">0</span>,<span class="hljs-number">255</span>):<br>            ip_list.append( <span class="hljs-string">f&#x27;172.31.<span class="hljs-subst">&#123;sub3&#125;</span>.<span class="hljs-subst">&#123;sub4&#125;</span>&#x27;</span>)<br><br>    parsed_data = ip_list<br>    df = pd.DataFrame(parsed_data)<br>    df.to_csv(<span class="hljs-string">&quot;output.csv&quot;</span>,index=<span class="hljs-literal">False</span>)<br>    _csv = pd.read_csv(<span class="hljs-string">&#x27;output.csv&#x27;</span>).values<br><br>    <span class="hljs-keyword">return</span> _csv<br><br><br><br><span class="hljs-meta">@logit_time</span><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">_Put_Config_To_Device</span>():<br>    verify_path = os.path.exists (_put_output_path)<br>    <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> verify_path:<br>        os.makedirs (_put_output_path)<br><br>    _<span class="hljs-built_in">list</span> = _Get_Login_host()<br>    <span class="hljs-comment"># login device get needs config informaiton.</span><br>    <span class="hljs-keyword">with</span> ThreadPoolExecutor (max_workers=<span class="hljs-number">100</span>) <span class="hljs-keyword">as</span> p:<br>        p.<span class="hljs-built_in">map</span> (_Put_cofing, _<span class="hljs-built_in">list</span>)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-comment"># _Get_configure()</span><br><br>    <span class="hljs-comment"># # Put config commands to device.</span><br>    _Put_Config_To_Device ()<br>    <span class="hljs-comment">#</span><br>    <span class="hljs-built_in">print</span> (<br>        <span class="hljs-string">&#x27;\nPut Complete, will start verify. \n&#x27;</span><br>    )<br><br>    auth_success = []<br><br>    <span class="hljs-keyword">for</span> result <span class="hljs-keyword">in</span> success_list:<br>        <span class="hljs-built_in">list</span> = &#123;<br>            <span class="hljs-string">&#x27;Hostname&#x27;</span>: result[<span class="hljs-number">0</span>],<br>            <span class="hljs-string">&#x27;Sysname&#x27;</span> : result[<span class="hljs-number">1</span>],<br>            <span class="hljs-string">&#x27;Vender&#x27;</span>  : result[<span class="hljs-number">2</span>],<br>            <span class="hljs-string">&#x27;Model   &#x27;</span>: result[<span class="hljs-number">3</span>],<br><br>        &#125;<br>        auth_success.append(<span class="hljs-built_in">list</span>)<br><br>    <span class="hljs-built_in">print</span>(<span class="hljs-built_in">len</span>(success_list))<br><br>    df = pd.DataFrame(auth_success)<br>    df.to_csv(<span class="hljs-string">&quot;auth_success.csv&quot;</span>)<br><br>    de = pd.DataFrame(error_list)<br>    de.to_csv(<span class="hljs-string">&#x27;error.csv&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h1 id="Beauty-Album"><a href="#Beauty-Album" class="headerlink" title="Beauty Album"></a>Beauty Album</h1><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/FA103239670-24233204.jpg" srcset="/img/loading.gif" lazyload alt="FA103239670-24233204.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/F9103236479-25001500.jpg" srcset="/img/loading.gif" lazyload alt="F9103236479-25001500.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/F4103238630-24233043.jpg" srcset="/img/loading.gif" lazyload alt="F4103238630-24233043.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/F7103237649-24232651.jpg" srcset="/img/loading.gif" lazyload alt="F7103237649-24232651.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/E4103239672-24233144.jpg" srcset="/img/loading.gif" lazyload alt="E4103239672-24233144.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/E4103238659-24233034.jpg" srcset="/img/loading.gif" lazyload alt="E4103238659-24233034.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/DF103237876-24232629.jpg" srcset="/img/loading.gif" lazyload alt="DF103237876-24232629.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/DA103239894-24233217.jpg" srcset="/img/loading.gif" lazyload alt="DA103239894-24233217.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/DA103238657-24233057.jpg" srcset="/img/loading.gif" lazyload alt="DA103238657-24233057.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/D9103238662-24232910.jpg" srcset="/img/loading.gif" lazyload alt="D9103238662-24232910.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/D6103237878-24232559.jpg" srcset="/img/loading.gif" lazyload alt="D6103237878-24232559.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/CF103237625-24232552.jpg" srcset="/img/loading.gif" lazyload alt="CF103237625-24232552.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/CB103237229-24232605.jpg" srcset="/img/loading.gif" lazyload alt="CB103237229-24232605.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/B7103239665-24233303.jpg" srcset="/img/loading.gif" lazyload alt="B7103239665-24233303.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/BB103237619-24232658.jpg" srcset="/img/loading.gif" lazyload alt="BB103237619-24232658.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/B4103240487-24233316.jpg" srcset="/img/loading.gif" lazyload alt="B4103240487-24233316.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/AD103236860-25001507.jpg" srcset="/img/loading.gif" lazyload alt="AD103236860-25001507.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/B4103237873-24232704.jpg" srcset="/img/loading.gif" lazyload alt="B4103237873-24232704.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/A7103238889-24232904.jpg" srcset="/img/loading.gif" lazyload alt="A7103238889-24232904.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/A1103237882-24232850.jpg" srcset="/img/loading.gif" lazyload alt="A1103237882-24232850.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/A7103237870-24232825.jpg" srcset="/img/loading.gif" lazyload alt="A7103237870-24232825.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/96103239891-24233257.jpg" srcset="/img/loading.gif" lazyload alt="96103239891-24233257.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/95103238635-24232857.jpg" srcset="/img/loading.gif" lazyload alt="95103238635-24232857.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/93103239236-24233157.jpg" srcset="/img/loading.gif" lazyload alt="93103239236-24233157.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/88103239643-24233150.jpg" srcset="/img/loading.gif" lazyload alt="88103239643-24233150.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/92103238881-24233112.jpg" srcset="/img/loading.gif" lazyload alt="92103238881-24233112.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/86103238633-24232918.jpg" srcset="/img/loading.gif" lazyload alt="86103238633-24232918.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/74103239899-24233137.jpg" srcset="/img/loading.gif" lazyload alt="74103239899-24233137.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/77103237646-24232718.jpg" srcset="/img/loading.gif" lazyload alt="77103237646-24232718.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/65103239667-24233224.jpg" srcset="/img/loading.gif" lazyload alt="65103239667-24233224.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/67103237617-24232813.jpg" srcset="/img/loading.gif" lazyload alt="67103237617-24232813.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/61103239640-24233210.jpg" srcset="/img/loading.gif" lazyload alt="61103239640-24233210.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/60103237622-24232614.jpg" srcset="/img/loading.gif" lazyload alt="60103237622-24232614.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/59103239638-24233234.jpg" srcset="/img/loading.gif" lazyload alt="59103239638-24233234.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/43103240741-24233338.jpg" srcset="/img/loading.gif" lazyload alt="43103240741-24233338.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/43103239646-24233130.jpg" srcset="/img/loading.gif" lazyload alt="43103239646-24233130.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/04103238884-24233050.jpg" srcset="/img/loading.gif" lazyload alt="04103238884-24233050.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/6A103238627-24233104.jpg" srcset="/img/loading.gif" lazyload alt="6A103238627-24233104.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/9A103236211-24232529.jpg" srcset="/img/loading.gif" lazyload alt="9A103236211-24232529.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/2A103238654-24233122.jpg" srcset="/img/loading.gif" lazyload alt="2A103238654-24233122.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/5B103238886-24232931.jpg" srcset="/img/loading.gif" lazyload alt="5B103238886-24232931.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/05/31/1D103240514-24233404.jpg" srcset="/img/loading.gif" lazyload alt="1D103240514-24233404.jpg"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Python/" class="category-chain-item">Python</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Python/requests/" class="category-chain-item">requests</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Python/">#Python</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Python Scan network equipment</div>
+      <div>https://blogs.xiaoxqian.xyz/2023/05/31/Python-Scan-network-equipment/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>xiaoxqian</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>May 31, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/29/telnetlib-telnet-scan-device/" title="telnetlib telnet scan device">
+                        <span class="hidden-mobile">telnetlib telnet scan device</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
