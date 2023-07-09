@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Debian 11 uses a docker container to deploy the Nextcloud private cloud file management.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deploy Nextcloud use docker">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/2023/07/09/Deploy-Nextcloud-use-docker/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Debian 11 uses a docker container to deploy the Nextcloud private cloud file management.">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/024f9162648953f6699.jpg">
+<meta property="article:published_time" content="2023-07-09T04:36:48.000Z">
+<meta property="article:modified_time" content="2023-07-09T05:00:10.747Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="Docker">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/024f9162648953f6699.jpg">
+  
+  
+  
+  <title>Deploy Nextcloud use docker - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Martin</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Deploy Nextcloud use docker"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-07-09 12:36" pubdate>
+          July 9, 2023 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Deploy Nextcloud use docker</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Debian 11 uses a docker container to deploy the Nextcloud private cloud file management.</p>
+<span id="more"></span>
+
+<h1 id="Basic-environment"><a href="#Basic-environment" class="headerlink" title="Basic environment"></a>Basic environment</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># update source and install must-need software.</span><br>apt update<br>apt-get install -y ca-certificates curl gnupg ufw<br>install -m 0755 -d /etc/apt/keyrings<br>curl -fsSL https://download.docker.com/linux/debian/gpg |gpg --dearmor -o /etc/apt/keyrings/docker.gpg<br><span class="hljs-built_in">chmod</span> a+r /etc/apt/keyrings/docker.gpg<br><br><span class="hljs-built_in">echo</span> \<br>  <span class="hljs-string">&quot;deb [arch=&quot;</span>$(dpkg --print-architecture)<span class="hljs-string">&quot; signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \</span><br><span class="hljs-string">  &quot;</span>$(. /etc/os-release &amp;&amp; <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$VERSION_CODENAME</span>&quot;</span>)<span class="hljs-string">&quot; stable&quot;</span> | \<br>  <span class="hljs-built_in">tee</span> /etc/apt/sources.list.d/docker.list &gt; /dev/null<br></code></pre></td></tr></table></figure>
+
+
+<p>swap to China Aliyun image source, install docker and portainer (web container management).</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># If you VPS is not in China for the host, you can skip it.</span><br>sed -i <span class="hljs-string">&#x27;s/deb.debian.org/mirrors.aliyun.com/g&#x27;</span> /etc/apt/sources.list<br>apt clean<br>apt update<br>apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin<br><br><br>docker volume create portainer_data<br>docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer<br><span class="hljs-built_in">cd</span> /usr/libexec/docker/<br>sudo <span class="hljs-built_in">ln</span> -s docker-runc-current docker-runc<br><br><span class="hljs-comment"># enable the firewall, in Debian use the ufw.service.</span><br>ufw allow ssh<br>ufw allow 8443<br>ufw allow from 172.16.54.99 to any port 22<br>systemctl <span class="hljs-built_in">enable</span> ufw &amp;&amp; systemctl start ufw<br>ufw status numbered<br></code></pre></td></tr></table></figure>
+
+<h1 id="Get-the-docker-container-images"><a href="#Get-the-docker-container-images" class="headerlink" title="Get the docker container images."></a>Get the docker container images.</h1><p><em><strong>My VPN is offline environment</strong></em><br>so i need upload the image to the VPS</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># online host, save the images to tar file.</span><br>docker save nginx &gt; nginx.tar<br>docker save mysql &gt; mysql.tar<br>docker save xiaoxqian/nextcloud27-fpm &gt; xiaoxqian_nextcloud27-fpm.tar<br><br><span class="hljs-comment"># upload to the VPS host (build the nextcloud)</span><br>scp *.tar root@172.16.1.1:/root/.<br><br><span class="hljs-comment"># last load the file to images.</span><br>docker load &lt; nginx.tar &amp;&amp; docker load &lt; mysql.tar &amp;&amp; docker load &lt; xiaoxqian_nextcloud27-fpm.tar<br></code></pre></td></tr></table></figure>
+
+<h1 id="Docker-yml-file"><a href="#Docker-yml-file" class="headerlink" title="Docker yml file"></a>Docker yml file</h1><p>create some folder.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /data/docker/nextcloud_27/<br><br><span class="hljs-comment"># you needs upload ssl cert, key, my.cnf, and nginx.conf, save the folder.</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;2&#x27;</span><br><br><span class="hljs-attr">volumes:</span><br>  <span class="hljs-attr">nextcloud:</span><br>  <span class="hljs-attr">db:</span><br><br><span class="hljs-attr">networks:</span><br>  <span class="hljs-attr">nextcloud:</span><br>    <span class="hljs-attr">driver:</span> <span class="hljs-string">bridge</span><br>    <span class="hljs-attr">ipam:</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">subnet:</span> <span class="hljs-number">192.168</span><span class="hljs-number">.254</span><span class="hljs-number">.0</span><span class="hljs-string">/24</span><br><br><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">db:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">mysql</span><br>    <span class="hljs-attr">command:</span> <span class="hljs-string">--default-authentication-plugin=mysql_native_password</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">&#x27;no&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>       <span class="hljs-attr">nextcloud:</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">db:/var/lib/mysql</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/data/docker/nextcloud_27/my.cnf:/etc/my.cnf:ro</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_ROOT_PASSWORD=nextcloud</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_PASSWORD=nextcloud</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_DATABASE=nextcloud</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_USER=nextcloud</span><br><br>  <span class="hljs-attr">app:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">xiaoxqian/nextcloud27-fpm</span><br>    <span class="hljs-comment">#restart: always</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">&#x27;no&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>       <span class="hljs-attr">nextcloud:</span><br>    <span class="hljs-attr">links:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">db</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">nextcloud:/var/www/html</span><br><br>      <span class="hljs-comment"># if you want mount foler to docker, you can config it.</span><br>      <span class="hljs-comment"># login nextcloud and create File folder (must use web)</span><br>      <span class="hljs-bullet">-</span> &#123;<span class="hljs-string">you_local_pwd</span>&#125;<span class="hljs-string">&#125;/files:/var/www/html/data/admin/files/File</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_PASSWORD=nextcloud</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_DATABASE=nextcloud</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_USER=nextcloud</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">MYSQL_HOST=db</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">REDIS_HOST=redis</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">NEXTCLOUD_TRUSTED_DOMAINS=cloud.nextcloud.com</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">NEXTCLOUD_ADMIN_USER=admin</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">NEXTCLOUD_ADMIN_PASSWORD=admin</span><br><br>  <span class="hljs-attr">web:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">&#x27;no&#x27;</span><br>    <span class="hljs-attr">networks:</span><br>       <span class="hljs-attr">nextcloud:</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">8443</span><span class="hljs-string">:8443</span><br>    <span class="hljs-attr">links:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">app</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/data/docker/nextcloud_27/nginx.conf:/etc/nginx/nginx.conf:ro</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/data/docker/nextcloud_27/cert.crt:/etc/nginx/cert.crt:ro</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/data/docker/nextcloud_27/cert.key:/etc/nginx/cert.key:ro</span><br>    <span class="hljs-attr">volumes_from:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">app</span><br><br>  <span class="hljs-attr">redis:</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">redis:alpine</span><br>    <span class="hljs-attr">volumes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">/data/docker/nextcloud_27/redis:/data</span><br>    <span class="hljs-attr">networks:</span><br>       <span class="hljs-attr">nextcloud:</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">unless-stopped&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><em><strong>Change some nextcloud config.php</strong></em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs bash">nano /var/lib/docker/volumes/nextcloud27_nextcloud/_data/config/config.php<br><span class="hljs-comment"># add some config </span><br><span class="hljs-comment"># ----------------------------------------------</span><br>  <span class="hljs-string">&#x27;allow_local_remote_servers&#x27;</span> =&gt; <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&#x27;enable_previews&#x27;</span> =&gt; <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&#x27;enabledPreviewProviders&#x27;</span> =&gt;<br>  array (<br>    0 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\TXT&#x27;</span>,<br>    1 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\MarkDown&#x27;</span>,<br>    2 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\OpenDocument&#x27;</span>,<br>    3 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\PDF&#x27;</span>,<br>    4 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\MSOffice2003&#x27;</span>,<br>    5 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\MSOfficeDoc&#x27;</span>,<br>    6 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\Image&#x27;</span>,<br>    7 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\Photoshop&#x27;</span>,<br>    8 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\TIFF&#x27;</span>,<br>    9 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\SVG&#x27;</span>,<br>    10 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\Font&#x27;</span>,<br>    11 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\MP3&#x27;</span>,<br>    12 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\Movie&#x27;</span>,<br>    13 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\MKV&#x27;</span>,<br>    14 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\MP4&#x27;</span>,<br>    15 =&gt; <span class="hljs-string">&#x27;OC\\Preview\\AVI&#x27;</span>,<br>  ),<br>  <span class="hljs-string">&#x27;memories.no_transcode&#x27;</span> =&gt; <span class="hljs-literal">true</span>,<br>  <span class="hljs-string">&#x27;preview_max_memory&#x27;</span> =&gt; 4096,<br>  <span class="hljs-string">&#x27;preview_max_filesize_image&#x27;</span> =&gt; 256,<br><span class="hljs-comment"># ----------------------------------------------</span><br><br>docker <span class="hljs-built_in">exec</span> --user www-data nextcloud27-app-1 php /var/www/html/occ files:scan --all<br>docker <span class="hljs-built_in">exec</span> --user www-data nextcloud27-app-1 php /var/www/html/occ memories:index<br></code></pre></td></tr></table></figure>
+
+
+
+<h1 id="Some-beauty-girl-Album"><a href="#Some-beauty-girl-Album" class="headerlink" title="Some beauty girl Album"></a>Some beauty girl Album</h1><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0790b990281cb679045.jpg" srcset="/img/loading.gif" lazyload alt="0790b990281cb679045.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/07802e55cd4dfbfbd1b.jpg" srcset="/img/loading.gif" lazyload alt="07802e55cd4dfbfbd1b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0773954ca6aed40493b.jpg" srcset="/img/loading.gif" lazyload alt="0773954ca6aed40493b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/076d39dddece638acf3.jpg" srcset="/img/loading.gif" lazyload alt="076d39dddece638acf3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/07521f0491e485ca6a0.jpg" srcset="/img/loading.gif" lazyload alt="07521f0491e485ca6a0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/074707739ea51efdfe6.jpg" srcset="/img/loading.gif" lazyload alt="074707739ea51efdfe6.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/073119f4ad23c6fe350.jpg" srcset="/img/loading.gif" lazyload alt="073119f4ad23c6fe350.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/07293cdbb6f64aa3ad3.jpg" srcset="/img/loading.gif" lazyload alt="07293cdbb6f64aa3ad3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/071d7a6786fb021004e.jpg" srcset="/img/loading.gif" lazyload alt="071d7a6786fb021004e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0697877a75c62774b18.jpg" srcset="/img/loading.gif" lazyload alt="0697877a75c62774b18.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/06862e55412b1b03500.jpg" srcset="/img/loading.gif" lazyload alt="06862e55412b1b03500.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0670013e03cc5a58f7c.jpg" srcset="/img/loading.gif" lazyload alt="0670013e03cc5a58f7c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/066e9b798aed8bdc929.jpg" srcset="/img/loading.gif" lazyload alt="066e9b798aed8bdc929.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/06597f6811c173ba784.jpg" srcset="/img/loading.gif" lazyload alt="06597f6811c173ba784.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/06410cf40bc3bb8af9c.jpg" srcset="/img/loading.gif" lazyload alt="06410cf40bc3bb8af9c.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/063bc4a3741d236c4a6.jpg" srcset="/img/loading.gif" lazyload alt="063bc4a3741d236c4a6.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0625533802d7b820b71.jpg" srcset="/img/loading.gif" lazyload alt="0625533802d7b820b71.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/061079640e70ece7c31.jpg" srcset="/img/loading.gif" lazyload alt="061079640e70ece7c31.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0607b6811c4a50d55b6.jpg" srcset="/img/loading.gif" lazyload alt="0607b6811c4a50d55b6.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/059d7873f27e52b9599.jpg" srcset="/img/loading.gif" lazyload alt="059d7873f27e52b9599.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0580d206a61a1528038.jpg" srcset="/img/loading.gif" lazyload alt="0580d206a61a1528038.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0578c83c58ec8816aea.jpg" srcset="/img/loading.gif" lazyload alt="0578c83c58ec8816aea.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/056f45b537736303eb7.jpg" srcset="/img/loading.gif" lazyload alt="056f45b537736303eb7.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/055ea23190197058d86.jpg" srcset="/img/loading.gif" lazyload alt="055ea23190197058d86.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0543ad7012f99acdd3b.jpg" srcset="/img/loading.gif" lazyload alt="0543ad7012f99acdd3b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/053b975c9c8159911c9.jpg" srcset="/img/loading.gif" lazyload alt="053b975c9c8159911c9.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/05222d2ebac6c3cca3a.jpg" srcset="/img/loading.gif" lazyload alt="05222d2ebac6c3cca3a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/051ce4249062a90037a.jpg" srcset="/img/loading.gif" lazyload alt="051ce4249062a90037a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/05009954d2098fc224d.jpg" srcset="/img/loading.gif" lazyload alt="05009954d2098fc224d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/049356036e35716782d.jpg" srcset="/img/loading.gif" lazyload alt="049356036e35716782d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/04855ccb6257f517fc7.jpg" srcset="/img/loading.gif" lazyload alt="04855ccb6257f517fc7.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0471049b6686d86c772.jpg" srcset="/img/loading.gif" lazyload alt="0471049b6686d86c772.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/046df145dd85b44b89a.jpg" srcset="/img/loading.gif" lazyload alt="046df145dd85b44b89a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/045016a4713c1731bbc.jpg" srcset="/img/loading.gif" lazyload alt="045016a4713c1731bbc.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/04413b082d0ac377dd1.jpg" srcset="/img/loading.gif" lazyload alt="04413b082d0ac377dd1.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/04340a5486c4d5e5353.jpg" srcset="/img/loading.gif" lazyload alt="04340a5486c4d5e5353.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0424c4ccc8f8dee45c3.jpg" srcset="/img/loading.gif" lazyload alt="0424c4ccc8f8dee45c3.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/041ccf94ef9c7d4a577.jpg" srcset="/img/loading.gif" lazyload alt="041ccf94ef9c7d4a577.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/040a7446944d72a5ac0.jpg" srcset="/img/loading.gif" lazyload alt="040a7446944d72a5ac0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0397655508eb3dc0b6a.jpg" srcset="/img/loading.gif" lazyload alt="0397655508eb3dc0b6a.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/038817455fb82de9f7d.jpg" srcset="/img/loading.gif" lazyload alt="038817455fb82de9f7d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/037f2a6eba1ccc02fb5.jpg" srcset="/img/loading.gif" lazyload alt="037f2a6eba1ccc02fb5.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/036da50ed330c922923.jpg" srcset="/img/loading.gif" lazyload alt="036da50ed330c922923.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/035e666c3a88ce6d0ed.jpg" srcset="/img/loading.gif" lazyload alt="035e666c3a88ce6d0ed.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0341e5253d8eca83633.jpg" srcset="/img/loading.gif" lazyload alt="0341e5253d8eca83633.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0339d7f51fea0ade9ea.jpg" srcset="/img/loading.gif" lazyload alt="0339d7f51fea0ade9ea.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/03282a1bf3133163dcd.jpg" srcset="/img/loading.gif" lazyload alt="03282a1bf3133163dcd.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0304cc3263c1118fe36.jpg" srcset="/img/loading.gif" lazyload alt="0304cc3263c1118fe36.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/028778d69559a66937b.jpg" srcset="/img/loading.gif" lazyload alt="028778d69559a66937b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0279cb782071e54d502.jpg" srcset="/img/loading.gif" lazyload alt="0279cb782071e54d502.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0292353eb63cc37da48.jpg" srcset="/img/loading.gif" lazyload alt="0292353eb63cc37da48.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/031c45400d861608950.jpg" srcset="/img/loading.gif" lazyload alt="031c45400d861608950.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/026c2a08575af6dd982.jpg" srcset="/img/loading.gif" lazyload alt="026c2a08575af6dd982.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/025049711ffa48aadee.jpg" srcset="/img/loading.gif" lazyload alt="025049711ffa48aadee.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/024f9162648953f6699.jpg" srcset="/img/loading.gif" lazyload alt="024f9162648953f6699.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/023ec904333c54966c2.jpg" srcset="/img/loading.gif" lazyload alt="023ec904333c54966c2.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0223ee83d1dc5fb89c5.jpg" srcset="/img/loading.gif" lazyload alt="0223ee83d1dc5fb89c5.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/021794b5626664fd929.jpg" srcset="/img/loading.gif" lazyload alt="021794b5626664fd929.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0200a10aad146c89ca6.jpg" srcset="/img/loading.gif" lazyload alt="0200a10aad146c89ca6.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0191f8c766f0fcf4593.jpg" srcset="/img/loading.gif" lazyload alt="0191f8c766f0fcf4593.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/018bf0a3ebdb63a8c3b.jpg" srcset="/img/loading.gif" lazyload alt="018bf0a3ebdb63a8c3b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/017810330934e337ec0.jpg" srcset="/img/loading.gif" lazyload alt="017810330934e337ec0.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/016e9647eddafe7d11f.jpg" srcset="/img/loading.gif" lazyload alt="016e9647eddafe7d11f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0153f1f3af8997db437.jpg" srcset="/img/loading.gif" lazyload alt="0153f1f3af8997db437.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/014a674aff27e602c36.jpg" srcset="/img/loading.gif" lazyload alt="014a674aff27e602c36.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0134dedb777ac92fcf7.jpg" srcset="/img/loading.gif" lazyload alt="0134dedb777ac92fcf7.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/01295703ed444101573.jpg" srcset="/img/loading.gif" lazyload alt="01295703ed444101573.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/011948e39a2474cbb4e.jpg" srcset="/img/loading.gif" lazyload alt="011948e39a2474cbb4e.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0101236b5a2f2967f6d.jpg" srcset="/img/loading.gif" lazyload alt="0101236b5a2f2967f6d.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/009a7752474ca43c1cc.jpg" srcset="/img/loading.gif" lazyload alt="009a7752474ca43c1cc.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/008179008212073b6b9.jpg" srcset="/img/loading.gif" lazyload alt="008179008212073b6b9.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/00725a70f9d64b424dd.jpg" srcset="/img/loading.gif" lazyload alt="00725a70f9d64b424dd.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/006b374a704feecd6f6.jpg" srcset="/img/loading.gif" lazyload alt="006b374a704feecd6f6.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/00194e53c1f142d139f.jpg" srcset="/img/loading.gif" lazyload alt="00194e53c1f142d139f.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/005179da9557076cfac.jpg" srcset="/img/loading.gif" lazyload alt="005179da9557076cfac.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0020e9bc30f60399c61.jpg" srcset="/img/loading.gif" lazyload alt="0020e9bc30f60399c61.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/003c061b242074f322b.jpg" srcset="/img/loading.gif" lazyload alt="003c061b242074f322b.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/06/16/0042847885c3ae9e54a.jpg" srcset="/img/loading.gif" lazyload alt="0042847885c3ae9e54a.jpg"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Docker/" class="category-chain-item">Docker</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Docker/Nextcloud/" class="category-chain-item">Nextcloud</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/Docker/Nextcloud/Debian/" class="category-chain-item">Debian</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Docker/">#Docker</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Deploy Nextcloud use docker</div>
+      <div>https://blogs.xiaoxqian.xyz/2023/07/09/Deploy-Nextcloud-use-docker/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>xiaoxqian</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>July 9, 2023</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/31/Python-Scan-network-equipment/" title="Python Scan network equipment">
+                        <span class="hidden-mobile">Python Scan network equipment</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
