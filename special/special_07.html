@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="M3U8ffmpeg &#x3D;&gt; rtmp &#x3D;&gt; nginx&lt;rtmp&gt; &#x3D;&gt; nginx website &#x3D;&gt; nginx reveres Iframe video 12345&lt;div style&#x3D;&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="special">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/special/special_07.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="M3U8ffmpeg &#x3D;&gt; rtmp &#x3D;&gt; nginx&lt;rtmp&gt; &#x3D;&gt; nginx website &#x3D;&gt; nginx reveres Iframe video 12345&lt;div style&#x3D;&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2024-02-04T08:00:21.000Z">
+<meta property="article:modified_time" content="2024-02-04T08:01:32.205Z">
+<meta property="article:author" content="xiaoxqian">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>special - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Martin</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="special"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<article class="page-content">
+  <div class="markdown-body">
+
+<h1 id="M3U8"><a href="#M3U8" class="headerlink" title="M3U8"></a>M3U8</h1><p><code>ffmpeg =&gt; rtmp =&gt; nginx&lt;rtmp&gt; =&gt; nginx website =&gt; nginx reveres</code></p>
+<p><em><strong>Iframe video</strong></em><br></br></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">iframe</span> </span><br><span class="hljs-tag"><span class="hljs-attr">src</span>=<span class="hljs-string">&quot;//rtmp.xiaoxqian.xyz:8443&quot;</span> <span class="hljs-attr">scrolling</span>=<span class="hljs-string">&quot;no&quot;</span> <span class="hljs-attr">border</span>=<span class="hljs-string">&quot;0&quot;</span> </span><br><span class="hljs-tag"><span class="hljs-attr">frameborder</span>=<span class="hljs-string">&quot;no&quot;</span> <span class="hljs-attr">framespacing</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">allowfullscreen</span>=<span class="hljs-string">&quot;true&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;position: absolute; width: 100%; </span></span><br><span class="hljs-string"><span class="hljs-tag">height: 100%; left: 0; top: 0;&quot;</span>&gt;</span> <span class="hljs-tag">&lt;/<span class="hljs-name">iframe</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">br</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+</br>
+<div style="position: relative; width: 100%; height: 0; padding-bottom: 75%;"><iframe 
+src="//rtmp.xiaoxqian.xyz:8443" scrolling="no" border="0" 
+frameborder="no" framespacing="0" allowfullscreen="true" style="position: absolute; width: 100%; 
+height: 100%; left: 0; top: 0;"> </iframe></div>
+</br>
+
+<h1 id="M3U8-script"><a href="#M3U8-script" class="headerlink" title="M3U8 script"></a>M3U8 script</h1><h2 id="Recommand"><a href="#Recommand" class="headerlink" title="Recommand"></a>Recommand</h2><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk">http:<span class="hljs-regexp">//</span>adultiptv.net/chs.m3u<br>http:<span class="hljs-regexp">//</span>adultiptv.net/videos.m3u8<br></code></pre></td></tr></table></figure>
+
+<h2 id="m3u8-urls"><a href="#m3u8-urls" class="headerlink" title="m3u8 urls"></a>m3u8 urls</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><code class="hljs bash">BRAZZERS [18+];http://23.237.100.82:8000/BRAZZERS/index.m3u8<br>BRAZZERS&amp;nbsp [18+];https://cdn-main.lolokoko.tv/brazzers.stream/chunks.m3u8<br>Desire [18+];http://88.212.7.11/live/test_desire_hd_hevc/playlist.m3u8<br>DORCEL TV [18+];https://cdn-main.lolokoko.tv/DorcelTV.stream/chunks.m3u8<br>Hustler [18+];http://93.155.227.38:80/m3u8/hustler.m3u8<br>Hustler [18+];http://193.111.244.35:7474/hustlerhd/manifest.m3u8<br>Hustler [18+];http://193.33.240.8:8080/hustler_hd/index.m3u8<br>Hustler [18+];http://23.237.100.82:8000/HUSTLER/index.m3u8<br>Jasmin TV [18+];http://109.71.163.112:1935/live/hd.jasminchannel.stream/chunklist_w342629205.m3u8<br>PENTHOUSE [18+];http://23.237.100.82:8000/PENTHOUSE/index.m3u8<br>PENTHOUSE GOLD [18+];http://51.159.102.100/PenthouseGold/index.m3u8<br>PLAYBOY&amp;nbsp [18+];http://23.237.100.82:8000/PLAYBOY/index.m3u8<br>PLAYBOY&amp;nbsp [18+];http://190.11.225.124:5000/live/playboy_hd/playlist.m3u8<br>Private&amp;nbsp [18+];http://93.155.227.38:80/m3u8/private.m3u8<br>PURETABOO [18+];http://78.47.224.234/puretaboo/index.m3u8<br>Redlight [18+];http://51.159.102.100/RedlightHD/index.m3u8<br>Live Cams Porn;https://live.adultiptv.net/livecams.m3u8<br>MILF Porn IPTV;https://live.adultiptv.net/milf.m3u8<br>Big Dick Porn;https://live.adultiptv.net/bigdick.m3u8<br>Big Tits Porn;https://live.adultiptv.net/bigtits.m3u8<br>Fetish XXX;https://live.adultiptv.net/fetish.m3u8<br>Pornstar XXX;https://live.adultiptv.net/pornstar.m3u8<br>Big Ass Porn;https://live.adultiptv.net/bigass.m3u8<br>Interracial Porn;https://live.adultiptv.net/interracial.m3u8<br>Latina Porn;https://live.adultiptv.net/latina.m3u8<br>POV Porn XXX;https://live.adultiptv.net/pov.m3u8<br>Blowjob IPTV;https://live.adultiptv.net/blowjob.m3u8<br>Teen Porn;https://live.adultiptv.net/teen.m3u8<br>Hardcore Porn IPTV;https://live.adultiptv.net/hardcore.m3u8<br>Cuckold IPTV XXX;https://live.adultiptv.net/cuckold.m3u8<br>Threesome Porn;https://live.adultiptv.net/threesome.m3u8<br>Russian Porn IPTV;https://live.adultiptv.net/russian.m3u8<br>Lesbian Porn;https://live.adultiptv.net/lesbian.m3u8<br>Rough Porn;https://live.adultiptv.net/rough.m3u8<br>Gangbang Porn;https://live.adultiptv.net/gangbang.m3u8<br>Anal Porno;https://live.adultiptv.net/anal.m3u8<br>Compilation Porn;https://live.adultiptv.net/compilation.m3u8<br>Brunette Porn;https://live.adultiptv.net/brunette.m3u8<br>Blonde Porn;https://live.adultiptv.net/blonde.m3u8<br>Gay Porno;https://live.adultiptv.net/gay.m3u8<br>Asian Porn;https://live.adultiptv.net/asian.m3u8<br>Live Cams Porn;https://live.adultiptv.net/livecams.m3u8<br>MILF Porn IPTV;https://live.adultiptv.net/milf.m3u8<br>Big Dick Porn;https://live.adultiptv.net/bigdick.m3u8<br>Big Tits Porn;https://live.adultiptv.net/bigtits.m3u8<br>Fetish XXX;https://live.adultiptv.net/fetish.m3u8<br>Pornstar XXX;https://live.adultiptv.net/pornstar.m3u8<br>Big Ass Porn;https://live.adultiptv.net/bigass.m3u8<br>Interracial Porn;https://live.adultiptv.net/interracial.m3u8<br>Latina Porn;https://live.adultiptv.net/latina.m3u8<br>POV Porn XXX;https://live.adultiptv.net/pov.m3u8<br>Blowjob IPTV;https://live.adultiptv.net/blowjob.m3u8<br>Teen Porn;https://live.adultiptv.net/teen.m3u8<br>Hardcore Porn IPTV;https://live.adultiptv.net/hardcore.m3u8<br>Cuckold IPTV XXX;https://live.adultiptv.net/cuckold.m3u8<br>Threesome Porn;https://live.adultiptv.net/threesome.m3u8<br>Russian Porn IPTV;https://live.adultiptv.net/russian.m3u8<br>Lesbian Porn;https://live.adultiptv.net/lesbian.m3u8<br>Rough Porn;https://live.adultiptv.net/rough.m3u8<br>Gangbang Porn;https://live.adultiptv.net/gangbang.m3u8<br>Anal Porno;https://live.adultiptv.net/anal.m3u8<br>Compilation Porn;https://live.adultiptv.net/compilation.m3u8<br>Brunette Porn;https://live.adultiptv.net/brunette.m3u8<br>Blonde Porn;https://live.adultiptv.net/blonde.m3u8<br>Gay Porno;https://live.adultiptv.net/gay.m3u8<br>Asian Porn;https://live.adultiptv.net/asian.m3u8<br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="m3u8-player-file"><a href="#m3u8-player-file" class="headerlink" title="m3u8 player file"></a>m3u8 player file</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#EXTM3U</span><br>            <br><span class="hljs-comment">#EXTINF:-1, BRAZZERS [18+]</span><br>http://23.237.100.82:8000/BRAZZERS/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, BRAZZERS&amp;nbsp [18+]</span><br>https://cdn-main.lolokoko.tv/brazzers.stream/chunks.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Desire [18+]</span><br>http://88.212.7.11/live/test_desire_hd_hevc/playlist.m3u8                <br><span class="hljs-comment">#EXTINF:-1, DORCEL TV [18+]</span><br>https://cdn-main.lolokoko.tv/DorcelTV.stream/chunks.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Hustler [18+]</span><br>http://93.155.227.38:80/m3u8/hustler.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Hustler [18+]</span><br>http://193.111.244.35:7474/hustlerhd/manifest.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Hustler [18+]</span><br>http://193.33.240.8:8080/hustler_hd/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Hustler [18+]</span><br>http://23.237.100.82:8000/HUSTLER/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Jasmin TV [18+]</span><br>http://109.71.163.112:1935/live/hd.jasminchannel.stream/chunklist_w342629205.m3u8                <br><span class="hljs-comment">#EXTINF:-1, PENTHOUSE [18+]</span><br>http://23.237.100.82:8000/PENTHOUSE/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, PENTHOUSE GOLD [18+]</span><br>http://51.159.102.100/PenthouseGold/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, PLAYBOY&amp;nbsp [18+]</span><br>http://23.237.100.82:8000/PLAYBOY/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, PLAYBOY&amp;nbsp [18+]</span><br>http://190.11.225.124:5000/live/playboy_hd/playlist.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Private&amp;nbsp [18+]</span><br>http://93.155.227.38:80/m3u8/private.m3u8                <br><span class="hljs-comment">#EXTINF:-1, PURETABOO [18+]</span><br>http://78.47.224.234/puretaboo/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Redlight [18+]</span><br>http://51.159.102.100/RedlightHD/index.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Live Cams Porn</span><br>https://live.adultiptv.net/livecams.m3u8                <br><span class="hljs-comment">#EXTINF:-1, MILF Porn IPTV</span><br>https://live.adultiptv.net/milf.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Big Dick Porn</span><br>https://live.adultiptv.net/bigdick.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Big Tits Porn</span><br>https://live.adultiptv.net/bigtits.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Fetish XXX</span><br>https://live.adultiptv.net/fetish.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Pornstar XXX</span><br>https://live.adultiptv.net/pornstar.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Big Ass Porn</span><br>https://live.adultiptv.net/bigass.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Interracial Porn</span><br>https://live.adultiptv.net/interracial.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Latina Porn</span><br>https://live.adultiptv.net/latina.m3u8                <br><span class="hljs-comment">#EXTINF:-1, POV Porn XXX</span><br>https://live.adultiptv.net/pov.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Blowjob IPTV</span><br>https://live.adultiptv.net/blowjob.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Teen Porn</span><br>https://live.adultiptv.net/teen.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Hardcore Porn IPTV</span><br>https://live.adultiptv.net/hardcore.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Cuckold IPTV XXX</span><br>https://live.adultiptv.net/cuckold.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Threesome Porn</span><br>https://live.adultiptv.net/threesome.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Russian Porn IPTV</span><br>https://live.adultiptv.net/russian.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Lesbian Porn</span><br>https://live.adultiptv.net/lesbian.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Rough Porn</span><br>https://live.adultiptv.net/rough.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Gangbang Porn</span><br>https://live.adultiptv.net/gangbang.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Anal Porno</span><br>https://live.adultiptv.net/anal.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Compilation Porn</span><br>https://live.adultiptv.net/compilation.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Brunette Porn</span><br>https://live.adultiptv.net/brunette.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Blonde Porn</span><br>https://live.adultiptv.net/blonde.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Gay Porno</span><br>https://live.adultiptv.net/gay.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Asian Porn</span><br>https://live.adultiptv.net/asian.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Live Cams Porn</span><br>https://live.adultiptv.net/livecams.m3u8                <br><span class="hljs-comment">#EXTINF:-1, MILF Porn IPTV</span><br>https://live.adultiptv.net/milf.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Big Dick Porn</span><br>https://live.adultiptv.net/bigdick.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Big Tits Porn</span><br>https://live.adultiptv.net/bigtits.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Fetish XXX</span><br>https://live.adultiptv.net/fetish.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Pornstar XXX</span><br>https://live.adultiptv.net/pornstar.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Big Ass Porn</span><br>https://live.adultiptv.net/bigass.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Interracial Porn</span><br>https://live.adultiptv.net/interracial.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Latina Porn</span><br>https://live.adultiptv.net/latina.m3u8                <br><span class="hljs-comment">#EXTINF:-1, POV Porn XXX</span><br>https://live.adultiptv.net/pov.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Blowjob IPTV</span><br>https://live.adultiptv.net/blowjob.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Teen Porn</span><br>https://live.adultiptv.net/teen.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Hardcore Porn IPTV</span><br>https://live.adultiptv.net/hardcore.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Cuckold IPTV XXX</span><br>https://live.adultiptv.net/cuckold.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Threesome Porn</span><br>https://live.adultiptv.net/threesome.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Russian Porn IPTV</span><br>https://live.adultiptv.net/russian.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Lesbian Porn</span><br>https://live.adultiptv.net/lesbian.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Rough Porn</span><br>https://live.adultiptv.net/rough.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Gangbang Porn</span><br>https://live.adultiptv.net/gangbang.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Anal Porno</span><br>https://live.adultiptv.net/anal.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Compilation Porn</span><br>https://live.adultiptv.net/compilation.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Brunette Porn</span><br>https://live.adultiptv.net/brunette.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Blonde Porn</span><br>https://live.adultiptv.net/blonde.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Gay Porno</span><br>https://live.adultiptv.net/gay.m3u8                <br><span class="hljs-comment">#EXTINF:-1, Asian Porn</span><br>https://live.adultiptv.net/asian.m3u8    <br></code></pre></td></tr></table></figure>
+
+
+<h2 id="url-convert-m3u8-format"><a href="#url-convert-m3u8-format" class="headerlink" title="url convert m3u8 format"></a>url convert m3u8 format</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">Time: Jan.4.2024</span><br><span class="hljs-string">Comment: multi m3u8 urls, convert to player list file.</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><br>player_list = <span class="hljs-string">&#x27;player_list.m3u8&#x27;</span><br><br><br>example_fotmat = <span class="hljs-string">&#x27;&#x27;&#x27;</span><br><span class="hljs-string">#EXTM3U</span><br><span class="hljs-string"></span><br><span class="hljs-string">#EXTINF:-1, Clip 1</span><br><span class="hljs-string">http://23.237.100.82:8000/BRAZZERS/index.m3u8</span><br><span class="hljs-string">#EXTINF:-1, Clip 2</span><br><span class="hljs-string">https://cdn-main.lolokoko.tv/brazzers.stream/chunks.m3u8</span><br><span class="hljs-string">#EXTINF:-1, Clip 3</span><br><span class="hljs-string">http://88.212.7.11/live/test_desire_hd_hevc/playlist.m3u8</span><br><span class="hljs-string">#EXTINF:-1, Clip 4</span><br><span class="hljs-string">https://cdn-main.lolokoko.tv/DorcelTV.stream/chunks.m3u8</span><br><span class="hljs-string">&#x27;&#x27;&#x27;</span><br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">GeneratePlayer</span>(<span class="hljs-params"><span class="hljs-built_in">list</span></span>):<br>    channel_name, urls = <span class="hljs-built_in">list</span><br><br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(player_list, <span class="hljs-string">&#x27;a+&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(<span class="hljs-string">f&#x27;&#x27;&#x27;\</span><br><span class="hljs-string">            </span><br><span class="hljs-string">#EXTINF:-1, <span class="hljs-subst">&#123;channel_name&#125;</span></span><br><span class="hljs-string"><span class="hljs-subst">&#123;urls&#125;</span>\</span><br><span class="hljs-string">    &#x27;&#x27;&#x27;</span>)<br><br><br>result = []<br><br><br><span class="hljs-keyword">def</span> <span class="hljs-title function_">GetChannelInfo</span>():<br>    m3u8 = <span class="hljs-built_in">open</span>(<span class="hljs-string">&#x27;m3u8.txt&#x27;</span>, <span class="hljs-string">&#x27;r&#x27;</span>).read()<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> m3u8.splitlines():<br>        results = i.split(<span class="hljs-string">&#x27;;&#x27;</span>)<br>        result.append(results)<br>        <span class="hljs-built_in">print</span>(results)<br><br><br><span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:<br>    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(player_list, <span class="hljs-string">&#x27;w&#x27;</span>) <span class="hljs-keyword">as</span> f:<br>        f.write(<span class="hljs-string">&#x27;#EXTM3U\n&#x27;</span>)<br>        f.close<br><br>    GetChannelInfo()<br><br>    <span class="hljs-built_in">list</span>(<span class="hljs-built_in">map</span>(GeneratePlayer, result))<br><br></code></pre></td></tr></table></figure>
+
+
+</div>
+
+  
+
+</article>
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link href="https://vjs.zencdn.net/8.6.0/video-js.css" rel="stylesheet" />
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
