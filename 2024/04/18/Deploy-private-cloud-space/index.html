@@ -1,0 +1,712 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Build a private cloud management system using Kodbox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Deploy private cloud space">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/2024/04/18/Deploy-private-cloud-space/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Build a private cloud management system using Kodbox">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/04/12/12c59316b195a4d593.md.webp">
+<meta property="article:published_time" content="2024-04-18T06:14:41.000Z">
+<meta property="article:modified_time" content="2024-04-18T06:47:00.912Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="cloud">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/04/12/12c59316b195a4d593.md.webp">
+  
+  
+  
+  <title>Deploy private cloud space - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Martin</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Deploy private cloud space"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-18 14:14" pubdate>
+          April 18, 2024 pm
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.3k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          70 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Deploy private cloud space</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Build a private cloud management system using Kodbox</p>
+<span id="more"></span>
+
+
+<h1 id="Basic-system-envitrument"><a href="#Basic-system-envitrument" class="headerlink" title="Basic system envitrument"></a>Basic system envitrument</h1><blockquote>
+<p>Use Debian 11 as web server system</p>
+</blockquote>
+<h2 id="Update-your-system"><a href="#Update-your-system" class="headerlink" title="Update your system"></a>Update your system</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt update -y<br>apt upgrade -y<br></code></pre></td></tr></table></figure>
+
+<h2 id="Install-NGINX-and-PHP"><a href="#Install-NGINX-and-PHP" class="headerlink" title="Install NGINX and PHP"></a>Install NGINX and PHP</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install -y nginx php8.2<br></code></pre></td></tr></table></figure>
+
+<h2 id="Version"><a href="#Version" class="headerlink" title="Version"></a>Version</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">root@debian:~<span class="hljs-comment"># nginx -v</span><br>nginx version: nginx/1.25.5<br>root@debian:~<span class="hljs-comment"># php -v</span><br>PHP 8.2.18 (cli) (built: Apr 16 2024 16:46:22) (NTS)<br>Copyright (c) The PHP Group<br>Zend Engine v4.2.18, Copyright (c) Zend Technologies<br>    with Zend OPcache v8.2.18, Copyright (c), by Zend Technologies<br>root@debian:~<span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+<h2 id="PHP-extension"><a href="#PHP-extension" class="headerlink" title="PHP extension"></a>PHP extension</h2><ul>
+<li>following is not required, just recommended.<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs bash">[PHP Modules]<br>apcu<br>bcmath<br>bz2<br>calendar<br>Core<br>ctype<br>curl<br><span class="hljs-built_in">date</span><br>dom<br>exif<br>FFI<br>fileinfo<br>filter<br>ftp<br>gd<br>gettext<br>gmp<br><span class="hljs-built_in">hash</span><br>iconv<br>igbinary<br>imagick<br>imap<br>intl<br>json<br>ldap<br>libxml<br>mbstring<br>memcached<br>msgpack<br>mysqli<br>mysqlnd<br>openssl<br>pcntl<br>pcre<br>PDO<br>pdo_mysql<br>pdo_pgsql<br>pgsql<br>Phar<br>posix<br>random<br>readline<br>redis<br>Reflection<br>session<br>shmop<br>SimpleXML<br>snmp<br>soap<br>sockets<br>sodium<br>SPL<br>standard<br>sysvmsg<br>sysvsem<br>sysvshm<br>tokenizer<br>xml<br>xmlreader<br>xmlwriter<br>xsl<br>Zend OPcache<br>zip<br>zlib<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="Nginx-and-PHP-Configuration"><a href="#Nginx-and-PHP-Configuration" class="headerlink" title="Nginx and PHP Configuration"></a>Nginx and PHP Configuration</h2><ul>
+<li>NGINX<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><code class="hljs bash">user www-data;<br>worker_processes auto;<br>worker_cpu_affinity auto;<br>pid /run/nginx.pid;<br>include /etc/nginx/modules-enabled/*.conf;<br><br><br>events<br>    &#123;<br>        use epoll;<br>        worker_connections 1024;<br>        <span class="hljs-comment">#multi_accept off;</span><br>        <span class="hljs-comment">#accept_mutex off;</span><br>    &#125;<br><br><br>http &#123;<br>    <span class="hljs-comment"># PHP-fpm Version is 8.2</span><br>        upstream php-handler &#123;<br>           server unix:/var/run/php/php8.2-fpm.sock;<br>        &#125;<br>        sendfile on;<br>        tcp_nopush on;<br>        types_hash_max_size 2048;<br>        server_tokens off;<br>        include /etc/nginx/mime.types;<br>        default_type application/octet-stream;<br><br>        client_max_body_size 10G;<br>        client_body_timeout 300s;<br>        fastcgi_buffers 64 4K;<br><br>        ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3; <span class="hljs-comment"># Dropping SSLv3, ref: POODLE</span><br>        ssl_prefer_server_ciphers on;<br><br>        quic_retry on;<br>        ssl_early_data on;<br>        quic_gso on;<br>        <span class="hljs-comment">##</span><br>        <span class="hljs-comment"># Logging Settings</span><br><br>        log_format  main  <span class="hljs-string">&#x27;$remote_addr - $remote_user [$time_local] &quot;$request&quot; &#x27;</span><br>                      <span class="hljs-string">&#x27;$status $body_bytes_sent &quot;$http_referer&quot; &#x27;</span><br>                      <span class="hljs-string">&#x27;&quot;$http_user_agent&quot; &quot;$http_x_forwarded_for&quot;&#x27;</span>;<br><br>         gzip on;<br>         gzip_comp_level 2;<br>         gzip_http_version 1.0;<br>         gzip_proxied any;<br>         gzip_min_length 1100;<br>         gzip_buffers 16 8k;<br>         gzip_types text/plain text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;<br>         gzip_disable <span class="hljs-string">&quot;MSIE [1-6].(?!.*SV1)&quot;</span>;<br>         gzip_vary on;<br><br><br><br>         fastcgi_send_timeout 120s;<br>         fastcgi_read_timeout 120s;<br><br>        client_body_buffer_size 1024k;<br>        include /etc/nginx/conf.d/blockip.conf;<br><br>        access_log  /var/log/nginx/access.log  main;<br>        error_log /var/log/nginx/error.log;<br><br>        include /etc/nginx/sites-enabled/*;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="PHP-Configuration"><a href="#PHP-Configuration" class="headerlink" title="PHP Configuration"></a>PHP Configuration</h2><ul>
+<li>PHP-fpm<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br></pre></td><td class="code"><pre><code class="hljs bash">[PHP]<br>engine = On<br>short_open_tag = Off<br>precision = 14<br>output_buffering = 4096<br>zlib.output_compression = Off<br>implicit_flush = Off<br>unserialize_callback_func =<br>serialize_precision = -1<br>disable_functions =<br>disable_classes =<br>zend.enable_gc = On<br>zend.exception_ignore_args = On<br>zend.exception_string_param_max_len = 0<br>expose_php = Off<br>max_execution_time = 30<br>max_input_time = 60<br><span class="hljs-comment">#memory_limit = 128M</span><br>memory_limit = 2048M<br>error_reporting = E_ALL &amp; ~E_DEPRECATED &amp; ~E_STRICT<br>display_errors = Off<br>display_startup_errors = Off<br>log_errors = On<br>ignore_repeated_errors = Off<br>ignore_repeated_source = Off<br>report_memleaks = On<br>variables_order = <span class="hljs-string">&quot;GPCS&quot;</span><br>request_order = <span class="hljs-string">&quot;GP&quot;</span><br>register_argc_argv = Off<br>auto_globals_jit = On<br>post_max_size = 10240M<br>auto_prepend_file =<br>auto_append_file =<br>default_mimetype = <span class="hljs-string">&quot;text/html&quot;</span><br>default_charset = <span class="hljs-string">&quot;UTF-8&quot;</span><br>doc_root =<br>user_dir =<br>enable_dl = Off<br>file_uploads = On<br>upload_max_filesize = 10240M<br>max_file_uploads = 20<br>allow_url_fopen = On<br>allow_url_include = Off<br>default_socket_timeout = 60<br>extension=apcu<br>[CLI Server]<br>cli_server.color = On<br>[Date]<br>[filter]<br>[iconv]<br>[imap]<br>[intl]<br>[sqlite3]<br>[Pcre]<br>[Pdo]<br>[Pdo_mysql]<br>pdo_mysql.default_socket=<br>[Phar]<br>[mail <span class="hljs-keyword">function</span>]<br>SMTP = localhost<br>smtp_port = 25<br>mail.add_x_header = Off<br>[ODBC]<br>odbc.allow_persistent = On<br>odbc.check_persistent = On<br>odbc.max_persistent = -1<br>odbc.max_links = -1<br>odbc.defaultlrl = 4096<br>odbc.defaultbinmode = 1<br>[MySQLi]<br>mysqli.max_persistent = -1<br>mysqli.allow_persistent = On<br>mysqli.max_links = -1<br>mysqli.default_port = 3306<br>mysqli.default_socket =<br>mysqli.default_host =<br>mysqli.default_user =<br>mysqli.default_pw =<br>mysqli.reconnect = Off<br>[mysqlnd]<br>mysqlnd.collect_statistics = On<br>mysqlnd.collect_memory_statistics = Off<br>[OCI8]<br>[PostgreSQL]<br>pgsql.allow_persistent = On<br>pgsql.auto_reset_persistent = Off<br>pgsql.max_persistent = -1<br>pgsql.max_links = -1<br>pgsql.ignore_notice = 0<br>pgsql.log_notice = 0<br>[bcmath]<br>bcmath.scale = 0<br>[browscap]<br>[Session]<br>session.save_handler = files<br>session.use_strict_mode = 0<br>session.use_cookies = 1<br>session.use_only_cookies = 1<br>session.name = PHPSESSID<br>session.auto_start = 0<br>session.cookie_lifetime = 0<br>session.cookie_path = /<br>session.cookie_domain =<br>session.cookie_httponly =<br>session.cookie_samesite =<br>session.serialize_handler = php<br>session.gc_probability = 0<br>session.gc_divisor = 1000<br>session.gc_maxlifetime = 1440<br>session.referer_check =<br>session.cache_limiter = nocache<br>session.cache_expire = 180<br>session.use_trans_sid = 0<br>session.sid_length = 26<br>session.trans_sid_tags = <span class="hljs-string">&quot;a=href,area=href,frame=src,form=&quot;</span><br>session.sid_bits_per_character = 5<br>[Assertion]<br>zend.assertions = -1<br>[COM]<br>[mbstring]<br>[gd]<br>[exif]<br>[Tidy]<br>tidy.clean_output = Off<br>[soap]<br>soap.wsdl_cache_enabled=1<br>soap.wsdl_cache_dir=<span class="hljs-string">&quot;/tmp&quot;</span><br>soap.wsdl_cache_ttl=86400<br>soap.wsdl_cache_limit = 5<br>[sysvshm]<br>[ldap]<br>ldap.max_links = -1<br>[dba]<br>[opcache]<br>opcache.interned_strings_buffer=64<br>opcache.enable=1<br>opcache.max_accelerated_files=10000<br>opcache.memory_consumption=128<br>opcache.save_comments=1<br>opcache.revalidate_freq=1<br>[curl]<br>[openssl]<br>[ffi]<br></code></pre></td></tr></table></figure></li>
+<li>PHP <a target="_blank" rel="noopener" href="http://www.conf/">www.conf</a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">[www]<br>user = www-data<br>group = www-data<br>listen = /run/php/php8.2-fpm.sock<br>listen.owner = www-data<br>listen.group = www-data<br>pm = dynamic<br>pm.max_children = 120<br>pm.start_servers = 12<br>pm.min_spare_servers = 6<br>pm.max_spare_servers = 18<br>pm.process_idle_timeout = 60s<br>clear_env = no<br>request_terminate_timeout = 60s<br>request_slowlog_timeout = 5s<br>slowlog = /var/log/php-fpm8.1-log.slow<br>rlimit_files = 131072<br>rlimit_core = unlimited<br>catch_workers_output = <span class="hljs-built_in">yes</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Download-Kodbox"><a href="#Download-Kodbox" class="headerlink" title="Download Kodbox"></a>Download Kodbox</h1><h2 id="Wget-website-source"><a href="#Wget-website-source" class="headerlink" title="Wget website source"></a>Wget website source</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> ~/temp/kodbox/<br>wget -o ~/temp/kodbox/kodbox.zip https://static.kodcloud.com/update/download/kodbox.1.49.zip<br><span class="hljs-built_in">cd</span> ~/temp/kodbox/ &amp;&amp; unzip kodbox.zip &amp;&amp; <span class="hljs-built_in">rm</span> kodbox.zip<br></code></pre></td></tr></table></figure>
+
+<h2 id="Nginx-config-virtual-domain"><a href="#Nginx-config-virtual-domain" class="headerlink" title="Nginx config virtual domain"></a>Nginx config virtual domain</h2><ul>
+<li><p>Move the webiste to default html path</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span><br><span class="hljs-built_in">mv</span> ~/temp/kodbox /var/www/html<br><span class="hljs-built_in">chown</span> -R www-data:www-data /var/www/html<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>Configure nginx</p>
+</li>
+</ul>
+<ol>
+<li>You need an SSL certificate</li>
+<li>Following is enable the http3 QUIC</li>
+<li>The nginx sub-domain used from the base Nginx configure</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash">server &#123;<br><br>    listen 443 ssl;<br>    http2 on;<br>    http3 on;<br>    listen 443 quic;<br>    listen [::]:443 ssl;<br>    listen [::]:443 quic;<br>    server_name  kodbox.xyz ;<br>    ssl_certificate /usr/local/nginx/certificate/cert.crt;<br>    ssl_certificate_key /usr/local/nginx/certificate/cert.key;<br>    include /etc/nginx/conf.d/blockip.conf;<br><br>    access_log  /var/log/nginx/kodbox_xyz main;<br>    error_log   /var/log/nginx/kodbox_xyz info;<br><br>    root /var/www/html/kodbox;<br>    index  index.php index.html index.htm;<br>    error_page 401 403 404 /404.php;<br><br>    location ~ [^/]\.php(/|$) &#123;<br>        try_files <span class="hljs-variable">$uri</span> =404;<br>        fastcgi_pass php-handler;<br>        fastcgi_index index.php;<br>        <span class="hljs-built_in">set</span> <span class="hljs-variable">$path_info</span> <span class="hljs-variable">$fastcgi_path_info</span>;<br>        <span class="hljs-built_in">set</span> <span class="hljs-variable">$real_script_name</span> <span class="hljs-variable">$fastcgi_script_name</span>;<br>        <span class="hljs-keyword">if</span> (<span class="hljs-variable">$fastcgi_script_name</span> ~ <span class="hljs-string">&quot;^(.+?\.php)(/.+)$&quot;</span>) &#123;<br>            <span class="hljs-built_in">set</span> <span class="hljs-variable">$real_script_name</span> <span class="hljs-variable">$1</span>;<br>            <span class="hljs-built_in">set</span> <span class="hljs-variable">$path_info</span> <span class="hljs-variable">$2</span>;<br>        &#125;<br>        fastcgi_param SCRIPT_FILENAME $document_root<span class="hljs-variable">$real_script_name</span>;<br>        fastcgi_param SCRIPT_NAME <span class="hljs-variable">$real_script_name</span>;<br>        fastcgi_param PATH_INFO <span class="hljs-variable">$path_info</span>;<br>        include fastcgi_params;<br>    &#125;<br><br>    location ~ ^/(?:config|data)(?:$|/)  &#123;<br>        <span class="hljs-built_in">return</span> 404;<br>    &#125;<br><br>    location ~* \.(jpg|jpeg|gif|png|css|js|ico|webp|tiff|ttf|svg)$ &#123;<br>        expires 30d;<br>    &#125;<br><br>    location ~ .*\.(js|css)?$ &#123;<br>        expires 12h;<br>    &#125;<br><br>    location = /favicon.ico &#123;<br>        log_not_found off;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>At this point, web management can be used, we will skip it here.</p>
+</blockquote>
+<h2 id="Mount-the-SMB-file-share"><a href="#Mount-the-SMB-file-share" class="headerlink" title="Mount the SMB file share"></a>Mount the SMB file share</h2><blockquote>
+</blockquote>
+<ul>
+<li>After using the system to mount SMB file sharing before, there were some permission issues, which have been resolved now</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">groupadd webgroup<br>usermod -a -G webgroup www-data<br>usermod -a -G webgroup root<br><br><span class="hljs-built_in">cat</span> &lt;&lt;<span class="hljs-string">EOF&gt;&gt; /etc/init.d/smb.sh</span><br><span class="hljs-string">mount -t cifs -o username=netadmin,password=password,vers=1.0,file_mode=0755,dir_mode=0755,uid=www-data,gid=webgroup //10.0.0.1/t1 /opt/samba/t1</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>You can directly access the folder with web browser<br><img src="https://pictures.xiaoxqian.xyz:8443/images/2024/04/18/source.png" srcset="/img/loading.gif" lazyload alt="Snipaste_2024-04-18_14-43-55.png"></li>
+</ul>
+<h1 id="Follow-up-and-optimization"><a href="#Follow-up-and-optimization" class="headerlink" title="Follow-up and optimization"></a>Follow-up and optimization</h1><p>If you need higher performance, you can deploy mysql+redis to improve system efficiency. Redis can be used as a cache to improve loading speed. But these require a certain Linux foundation, which I will skip this time.</p>
+<p><a target="_blank" rel="noopener" href="https://pictures.xiaoxqian.xyz:8443/image/6h5Ag"><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/10/10/source32d77abe8761782f.md.jpg" srcset="/img/loading.gif" lazyload alt="source32d77abe8761782f.md.jpg"></a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/nginx/" class="category-chain-item">nginx</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/nginx/php/" class="category-chain-item">php</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/nginx/php/kodcloud/" class="category-chain-item">kodcloud</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/cloud/">#cloud</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Deploy private cloud space</div>
+      <div>https://blogs.xiaoxqian.xyz/2024/04/18/Deploy-private-cloud-space/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>xiaoxqian</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>April 18, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/12/16/Python-Re-Convert-to-Markdown/" title="Python Re Convert to Markdown">
+                        <span class="hidden-mobile">Python Re Convert to Markdown</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link href="https://vjs.zencdn.net/8.6.0/video-js.css" rel="stylesheet" />
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
