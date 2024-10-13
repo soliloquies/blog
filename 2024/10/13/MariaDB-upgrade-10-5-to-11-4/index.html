@@ -25,7 +25,7 @@
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pictures.xiaoxqian.xyz:8443/images/2023/04/12/13d7f6d2aaa29a106d.webp">
 <meta property="article:published_time" content="2024-10-13T03:33:54.000Z">
-<meta property="article:modified_time" content="2024-10-13T03:49:02.291Z">
+<meta property="article:modified_time" content="2024-10-13T03:56:30.731Z">
 <meta property="article:author" content="xiaoxqian">
 <meta property="article:tag" content="database">
 <meta name="twitter:card" content="summary_large_image">
@@ -292,10 +292,10 @@
                 <p>Nextcloud recommand upgrade to 11.4</p>
 <span id="more"></span>
 
-
-<blockquote>
-<p>mariaDB 10.5 upgrade to 11.4 need to upgrade 10.6 frist<br>!&gt; Every operation ensures backup, which is very important.</p>
-</blockquote>
+<p>[TOC]</p>
+<p>mariaDB 10.5 upgrade to 11.4 need to upgrade 10.6 frist</p>
+<hr>
+<p><strong>Every operation ensures backup, which is very important.</strong></p>
 <h1 id="1-Upgrade-to-10-6"><a href="#1-Upgrade-to-10-6" class="headerlink" title="1. Upgrade to 10.6"></a>1. Upgrade to 10.6</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># backup all data for database</span><br>mariadb-dump --all-databases &gt; mariadb_backup.sql<br><br><span class="hljs-comment"># add source for 10.6</span><br>apt install software-properties-common<br>curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc <span class="hljs-string">&#x27;https://mariadb.org/mariadb_release_signing_key.asc&#x27;</span><br>sh -c <span class="hljs-string">&quot;echo &#x27;deb https://mirror.mva-n.net/mariadb/repo/10.6/debian bullseye main&#x27; &gt;&gt; /etc/apt/sources.list.d/mariadb.list&quot;</span><br><br><span class="hljs-comment"># start update and upgrade</span><br>apt update<br>apt upgrade<br>systemctl restart mariadb<br><br><span class="hljs-comment"># if returen following information</span><br>root@debian:/etc/apt/sources.list.d<span class="hljs-comment"># apt upgrade</span><br>Reading package lists... Done<br>Building dependency tree... Done<br>Reading state information... Done<br>Calculating upgrade... Done<br>The following packages have been kept back:<br>  mariadb-server<br>0 upgraded, 0 newly installed, 0 to remove and 1 not upgraded.<br><br><br><span class="hljs-comment"># input following command auto install dist packages</span><br>apt dist-upgrade<br>apt autoremove<br>apt autoclean<br></code></pre></td></tr></table></figure>
 
 
