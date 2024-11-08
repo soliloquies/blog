@@ -1,0 +1,714 @@
+
+
+<!DOCTYPE html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/avatar.png">
+  <link rel="icon" href="/img/avatar.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoxqian">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Openwrt Self configure, include smart-dns, passwall, HAProxy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Openwrt Passwall Configure">
+<meta property="og:url" content="https://blogs.xiaoxqian.xyz/2024/11/08/Openwrt-Passwall-Configure/index.html">
+<meta property="og:site_name" content="Xiao Qian">
+<meta property="og:description" content="Openwrt Self configure, include smart-dns, passwall, HAProxy">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pictures.domain.com:8443/images/2023/10/12/source7b19287d0d41491a.jpg">
+<meta property="article:published_time" content="2024-11-08T03:09:59.000Z">
+<meta property="article:modified_time" content="2024-11-08T03:54:22.443Z">
+<meta property="article:author" content="xiaoxqian">
+<meta property="article:tag" content="openwrt">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pictures.domain.com:8443/images/2023/10/12/source7b19287d0d41491a.jpg">
+  
+  
+  
+  <title>Openwrt Passwall Configure - Xiao Qian</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"blogs.xiaoxqian.xyz","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":false,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Martin</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Openwrt Passwall Configure"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-11-08 11:09" pubdate>
+          November 8, 2024 am
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          12k words
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          104 mins
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>Table of Contents</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Openwrt Passwall Configure</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>Openwrt Self configure, include smart-dns, passwall, HAProxy</p>
+<span id="more"></span>
+
+
+<h1 id="Smart-DNS"><a href="#Smart-DNS" class="headerlink" title="Smart-DNS"></a>Smart-DNS</h1><h2 id="Port"><a href="#Port" class="headerlink" title="Port"></a>Port</h2><p><strong>Automatically Set Dnsmasq</strong> have to enable.<br>Following configure option is enable, other options disabled</p>
+<ol>
+<li>Direct port: 6053</li>
+</ol>
+<ul>
+<li>Server Group [ default ]</li>
+<li>Force HTTPS SOA </li>
+<li>TCP Server</li>
+<li>Bind Device</li>
+</ul>
+<ol>
+<li>Remote port: 6153</li>
+</ol>
+<ul>
+<li>Server Group [ gw ]</li>
+<li>Skip Speed Check</li>
+<li>Skip Dualstack Selection</li>
+<li>Skip Cache</li>
+<li>Force AAAA SOA</li>
+<li>Force HTTPS SOA</li>
+</ul>
+<h2 id="Domian-rule-myslef"><a href="#Domian-rule-myslef" class="headerlink" title="Domian rule myslef"></a>Domian rule myslef</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># local server</span><br>address /cloud.domain.com/10.0.0.7<br>address /smokeping.domain.com/10.0.0.7<br>address /alist.domain.com/10.0.0.7<br>address /flow.domain.com/10.0.0.7<br>address /service.domain.com/10.0.0.7<br>address /pictures.domain.com/10.0.0.7<br>address /siyuan.domain.com/10.0.0.7<br>address /kodcloud.domain.com/10.0.0.7<br>address /office.domain.com/10.0.0.7<br>address /bt.domain.com/10.0.0.7<br>address /speedtest.domain.com/10.0.0.7<br>address /cacti.domain.com/10.0.0.7<br>address /stun.domain.com/10.0.0.7<br>address /jellyfin.domain.com/10.0.0.7<br>address /top.domain.com/10.0.0.7<br>address /j.domain.com/10.0.0.7<br>address /cacti-whut.domain.com/10.0.0.7<br>address /cacti-tkyy.domain.com/10.0.0.7<br>address /kod-whut.domain.com/10.0.0.7<br>address /gafana-whra.domain.com/10.0.0.7<br>address /grafana.domain.com/10.0.0.7<br>address /hbbs.domain.com/10.0.0.7<br>address /grafana-whut.domain.com/10.0.0.7<br>address /ppsm.domain.com/10.0.0.7<br>address /aruba.domain.com/10.0.0.7<br>address /esxi.domain.com/10.0.0.7<br>address /videojs.domain.com/10.0.0.7<br>address /auto.domain.com/10.0.0.7<br>address /kodbox.domain.com/10.0.0.7<br>address /kodex.domain.com/10.0.0.7<br>address /homeassistant.domain.com/10.0.0.7<br>address /radius-mgt.domain.com/10.0.0.7<br>address /radius-user.domain.com/10.0.0.7<br>address /radius.domain.com/10.0.0.7<br>address /vcsa.domain.com/10.0.0.7<br>address /vcsa-whtkyy.domain.com/10.0.0.7<br>address /ac-tkyy.domain.com/10.0.0.7<br>address /hb-wh-dxh-esxi.domain.com/10.0.0.29<br>address /dc.domain.com/10.0.0.4<br><br>address /eas3.msg.t-mobile.com/208.54.150.98<br>address /ss.epdg.epc.mnc260.mcc310.pub.3gppnetwork.org/208.54.39.131,208.54.2.67<br><br><span class="hljs-comment"># deny domian</span><br>address /stripchatgirls.com/1.1.1.1<br><br><span class="hljs-comment"># public</span><br>address /gstatic.com/142.250.72.131<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="Custome-config"><a href="#Custome-config" class="headerlink" title="Custome config"></a>Custome config</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br></pre></td><td class="code"><pre><code class="hljs bash">address /tmall.com/<span class="hljs-comment">#6</span><br>address /setushe.com/<span class="hljs-comment">#6</span><br>address /bilibili.com/<span class="hljs-comment">#6</span><br>address /18jav.tv/<span class="hljs-comment">#6</span><br>address /blogs.xiaoxqian.xyz/<span class="hljs-comment">#6</span><br>address /office.xiaoxqian.xyz/<span class="hljs-comment">#6</span><br>address /debian.org/<span class="hljs-comment">#6</span><br>address /obsproject.com/<span class="hljs-comment">#6</span><br>address /hbbs.xiaoxqian.xyz/<span class="hljs-comment">#6</span><br>address /docker.com/<span class="hljs-comment">#6</span><br><br>address /bilibili.com/<span class="hljs-comment">#6</span><br>address /applemusic.apple/<span class="hljs-comment">#6</span><br>address /itun.es/<span class="hljs-comment">#6</span><br>address /itunes.apple.com/<span class="hljs-comment">#6</span><br>address /itunes.ca/<span class="hljs-comment">#6</span><br>address /itunes.co/<span class="hljs-comment">#6</span><br>address /itunes.com/<span class="hljs-comment">#6</span><br>address /itunes.co.th/<span class="hljs-comment">#6</span><br>address /itunes.g.aaplimg.com/<span class="hljs-comment">#6</span><br>address /itunes.hk/<span class="hljs-comment">#6</span><br>address /itunes.mx/<span class="hljs-comment">#6</span><br>address /itunes.org/<span class="hljs-comment">#6</span><br>address /itunes.us/<span class="hljs-comment">#6</span><br>address /music.apple.com/<span class="hljs-comment">#6</span><br>address /javdb.com/<span class="hljs-comment">#6</span><br>address /cdninstagram.com/<span class="hljs-comment">#6</span><br><br>address /xiaohongshu.com/<span class="hljs-comment">#6</span><br><br>address /google.com/<span class="hljs-comment">#6</span><br>address /youtube.com/<span class="hljs-comment">#6</span><br>address /ggpht.com/<span class="hljs-comment">#6</span><br>address /googlevideo.com/<span class="hljs-comment">#6</span><br>address /googleapis.com/<span class="hljs-comment">#6</span><br>address /deep1.com/<span class="hljs-comment">#6</span><br>address /linkedin.com/<span class="hljs-comment">#6</span><br>address /instagram.com/<span class="hljs-comment">#6</span><br>address /ytimg.com/<span class="hljs-comment">#6</span><br>address /dmm.co.jp/<span class="hljs-comment">#6</span><br>address /bilibili.com/<span class="hljs-comment">#6</span><br>address /doubleclick.net/<span class="hljs-comment">#6</span><br>address /gstatic.com/<span class="hljs-comment">#6</span><br>address /ytimg.com/<span class="hljs-comment">#6</span><br><br>address /brass.account.t-mobile.com/<span class="hljs-comment">#6</span><br>address /adapt.t-mobile.com/<span class="hljs-comment">#6</span><br>address /casi.t-mobile.com/<span class="hljs-comment">#6</span><br>address /casi.api.t-mobile.com/<span class="hljs-comment">#6</span><br>address /apis.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cdn.styleguide.t-mobile.com/<span class="hljs-comment">#6</span><br>address /bsf.msg.pc.t-mobile.com/<span class="hljs-comment">#6</span><br>address /adn.t-mobile.com/<span class="hljs-comment">#6</span><br>address /account.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cnsapi.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cpaas-geo.t-mobile.com/<span class="hljs-comment">#6</span><br>address /core.saas.api.t-mobile.com/<span class="hljs-comment">#6</span><br>address /appd-geo.geo.t-mobile.com/<span class="hljs-comment">#6</span><br>address /business.t-mobile.com/<span class="hljs-comment">#6</span><br>address /diagnosticsapk.t-mobile.com/<span class="hljs-comment">#6</span><br>address /contentkit.t-mobile.com/<span class="hljs-comment">#6</span><br>address /tbird.geo.t-mobile.com/<span class="hljs-comment">#6</span><br>address /bsf.sipgeo.t-mobile.com/<span class="hljs-comment">#6</span><br>address /api.t-mobile.com/<span class="hljs-comment">#6</span><br>address /chat32-api.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /api-geo-pd.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cbp34-api.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /author-ams.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cardme26.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /acc9-pd.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cxlab07.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /dev01-dev.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /device31-iot.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /director5-ext.docs.t-mobile.com/<span class="hljs-comment">#6</span><br>address /lab42.t-mobile.com/<span class="hljs-comment">#6</span><br>address /metrics.t-mobile.com/<span class="hljs-comment">#6</span><br>address /sms.notice.t-mobile.com/<span class="hljs-comment">#6</span><br>address /api.poc.iot.lab.t-mobile.com/<span class="hljs-comment">#6</span><br>address /atrium.us-west-2.plab.dab.kube.t-mobile.com/<span class="hljs-comment">#6</span><br>address /auth2.iam.msg.lab.t-mobile.com/<span class="hljs-comment">#6</span><br>address /callreporting.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cdn.accounts.t-mobile.com/<span class="hljs-comment">#6</span><br>address /controller.prd.appgate.t-mobile.com/<span class="hljs-comment">#6</span><br>address /customerexperience.t-mobile.com/<span class="hljs-comment">#6</span><br>address /cygpol13.t-mobile.com/<span class="hljs-comment">#6</span><br>address /accounts.t-mobile.com/<span class="hljs-comment">#6</span><br>address /ams-dev.tfb.t-mobile.com/<span class="hljs-comment">#6</span><br>address /auth2nt.iam.msg.lab.t-mobile.com/<span class="hljs-comment">#6</span><br>address /auth6.iam.msg.lab.t-mobile.com/<span class="hljs-comment">#6</span><br>address /braavos.stg.dab.kube.t-mobile.com/<span class="hljs-comment">#6</span><br>address /bullseye-v2-device.us-west-2.plab.dab.kube.t-mobile.com/<span class="hljs-comment">#6</span><br>address /bullseye-v2-device.us-west-2.qlab02.dab.kube.t-mobile.com/<span class="hljs-comment">#6</span><br>address /businessresources.t-mobile.com/<span class="hljs-comment">#6</span><br>address /bwc.t-mobile.com/<span class="hljs-comment">#6</span><br>address /card-engine.us-east-1.dab.kube.t-mobile.com/<span class="hljs-comment">#6</span><br><br>address /crl.t-mobile.com/<span class="hljs-comment">#6</span><br>address /t-mobile.com/<span class="hljs-comment">#6</span><br><br>address /debian.org/<span class="hljs-comment">#6</span><br><br><br>address /telegram.me/<span class="hljs-comment">#6</span><br>address /telesco.pe/<span class="hljs-comment">#6</span><br>address /tg.dev/<span class="hljs-comment">#6</span><br>address /t.me/<span class="hljs-comment">#6</span><br>address /apple.com/<span class="hljs-comment">#6</span><br>address /aaplimg.com/<span class="hljs-comment">#6</span><br>address /apple-dns.net/<span class="hljs-comment">#6</span><br>address /cdn-apple.com/<span class="hljs-comment">#6</span><br>address /mzstatic.com/<span class="hljs-comment">#6</span><br>address /apple.news/<span class="hljs-comment">#6</span><br>address /apple-mapkit.com/<span class="hljs-comment">#6</span><br><br>address /qq.com/<span class="hljs-comment">#6</span><br><br>address /docker.com/<span class="hljs-comment">#6</span><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="Passwall"><a href="#Passwall" class="headerlink" title="Passwall"></a>Passwall</h1><h2 id="Node-configure"><a href="#Node-configure" class="headerlink" title="Node configure"></a>Node configure</h2><p>import your node, for example: HTTP, HTTPS, SSR Trojan, or whatever protocol, it has to be available</p>
+<h2 id="Dns-configure"><a href="#Dns-configure" class="headerlink" title="Dns configure"></a>Dns configure</h2><ol>
+<li>DNS Shunt [ Dnsmasp ]</li>
+<li>Direct DNS Request protocol [ by UDP]</li>
+<li>Direct DNS [ 127.0.0.1:6053 ]</li>
+<li>Remote DNS [ 127.0.0.1:6153 ]</li>
+<li>Default DNS [ Direct ]</li>
+</ol>
+<h2 id="Rule-list"><a href="#Rule-list" class="headerlink" title="Rule list"></a>Rule list</h2><h3 id="Direct-list"><a href="#Direct-list" class="headerlink" title="Direct list"></a>Direct list</h3><h4 id="Domain"><a href="#Domain" class="headerlink" title="Domain"></a>Domain</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash">hsbc.com<br><br><span class="hljs-comment"># apple services</span><br>apple.com<br>apple-dns.net<br>aaplimg.com<br>cdn-apple.com<br>mzstatic.com<br>apple.news<br>apple-mapkit.com<br><br>sirivision.com<br>ip.me<br><span class="hljs-comment">#apple.com</span><br>microsoft.com<br>dyndns.com<br>douyucdn.cn<br>douyucdn2.cn<br>location.services.mozilla.com<br><br>qq.com<br><br>speedtest.net<br>ooklaserver.net<br>cdnst.net<br>speedtestcustom.com<br>pingtest.net<br><br><br>ident.me<br><br>sirivision.com<br><br><span class="hljs-comment">#steam</span><br>steamcontent.com<br>dl.steam.clngaa.com<br>dl.steam.ksyna.com<br>st.dl.bscstorage.net<br>st.dl.eccdnx.com<br>st.dl.pinyuncloud.com<br>cdn.mileweb.cs.steampowered.com.8686c.com<br>cdn-ws.content.steamchina.com<br>cdn-qc.content.steamchina.com<br>cdn-ali.content.steamchina.com<br>epicgames-download1-1251447533.file.myqcloud.com<br><br><span class="hljs-comment">#DoT/DoH</span><br>dns.alidns.com<br>doh.pub<br>dot.pub<br>doh.360.cn<br>dot.360.cn<br></code></pre></td></tr></table></figure>
+
+<h4 id="IP"><a href="#IP" class="headerlink" title="IP"></a>IP</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">114.114.114.114<br>114.114.115.115<br>223.5.5.5<br>223.6.6.6<br>119.29.29.29<br>180.76.76.76<br>1.12.12.12<br>120.53.53.53<br>180.184.1.1<br>180.184.2.2<br></code></pre></td></tr></table></figure>
+
+<h3 id="Proxy-list"><a href="#Proxy-list" class="headerlink" title="Proxy list"></a>Proxy list</h3><h4 id="Domain-1"><a href="#Domain-1" class="headerlink" title="Domain"></a>Domain</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># apple services</span><br><span class="hljs-comment"># apple.com</span><br><span class="hljs-comment"># apple-dns.net</span><br><span class="hljs-comment"># aaplimg.com</span><br><span class="hljs-comment"># cdn-apple.com</span><br><span class="hljs-comment"># mzstatic.com</span><br><span class="hljs-comment"># apple.news</span><br><span class="hljs-comment"># apple-mapkit.com</span><br><br><br><span class="hljs-comment"># chatGPT</span><br>chatgpt.com<br>chat.openai.com<br><br><br><br>cia.gov<br><br>yahoo.com<br>verisign-grs.com<br>react.dev<br>gvt.com<br>gvt2.com<br>licdn.cn<br>p16-ad-sg.ibyteimg.com<br>googleusercontent.com<br>ocbc.com<br>itunes.hk<br>google.com<br>akamai.net<br>line.me<br>abs.twimg.com<br>sspanel.net<br>watchporn.to<br>jkforum.net<br>ttoversea.net<br>tiktokcdn.com<br>arzon.jp<br>kompoz2.com<br>p3-tt-ipv6.byteimg.com<br>itunes.co.th<br>engage.cloudflareclient.com<br>xvideos.com<br>linkedin.cn<br>tktube.com<br>rockstargames.com<br>www.pornhub.com<br>tiktokcdn.com.c.bytetcdn.com<br>alipayobjects.com<br>pull-rtmp-l6-hs.pstatp.com<br>tiktok-lb-maliva.byteoversea.net<br>redditmedia.com<br>tiktokglobalshop.com<br>openai.com<br><span class="hljs-comment">#ondemandconnectivity.com</span><br>itunes.apple.com<br>blogspot.com<br>.ytimg.com<br>debian.org<br>pythonhosted.org<br>jellyfin.org<br>byteglb.com<br>tiktokv.com.c.bytefcdn-oversea.com<br>tiktok-lb-texas.useast5.byteoversea.net.byteigtm.com<br>ttoverseaus.net<br>p1-tt-ipv6.byteimg.com<br>dmm.co.jp<br>pull-flv-l1-hs.pstatp.com<br><span class="hljs-comment"># Github</span><br>twitter.com<br><span class="hljs-comment"># linkedin</span><br>91md.me<br>tiktokcdn.com.qlivecdn.com<br>doppiocdn.net<br>p1-tt.byteimg.com<br>telegra.ph<br>f2mm.com<br>tiktokd.org<br>googlevideo.com<br>weather.com<br>ttlivecdn.com.c.bytefcdn-oversea.com<br>mymypic.net<br>tiktokcdn-us.com<br>setushe.com<br><span class="hljs-comment">#github</span><br>pull-flv-f6-hs.pstatp.com<br>line-apps-rc.com<br>pull-f5-hs.flive.pstatp.com<br>doppiocdn.media<br>githubusercontent.com<br>ttlivecdn.com.c.worldfcdn.com<br>p9-tt.byteimg.com<br>music.apple.com<br>sharepoint.com<br>itunes.co<br>ganjingworld.com<br>tiktokcdn-in.com<br>itunes.mx<br>ubuntu.com<br>hsex.men<br>cdninstagram.com<br>eporner.com<br>pikpak.com<br>pull-f5-mus.pstatp.com<br>isnssdk.com<br>tbcache.com<br>perfectgirls.xxx<br>obsproject.com<br>tiktokcdn.com.c.bytefcdn-ttpeu.com<br>line-apps-beta.com<br>pornhoarder.tv<br>coze.com<br>bkrtx.com<br>autonavi.com<br>claude.ai<br>oribi.io<br>t-mobile.com<br>themoviedb.org<br>tiktok-platform-lb-alisg.byteoversea.net<br>onlyoffice.com<br>interactivebrokers.com<br><br>bing.com<br>rockstartgames.com<br>line.com<br>lin.ee<br>tlivecdn.com<br>pic-w.setushe.com<br>ttlivecdn.com<br>tiktokv.eu<br>reddit.app.link<br>tiktokv.us<br>linkedin.com<br>p16-tiktok-sg.ibyteimg.com<br>ttwstatic.com<br>itunes.g.aaplimg.com<br>ggpht.com<br>booking.com<br>google.com.hk<br>babes.com<br>windows.com<br>t.me<br>tiktokv.com.c.worldfcdn.com<br>pull-hls-l1-mus.pstatp.com<br>ip-api.com<br>docker.com<br>jav321.com<br>itunes.org<br>line-cdn.net<br>redditstatic.com<br><span class="hljs-comment">#sin.prod.ondemandconnectivity.com</span><br>muscdn.com<br>vixen.com<br>sf6-ttcdn-tos.pstatp.com<br>jdbstatic.com<br>ev-h.phncdn.com<br>line.naver.jp<br>quic-tiktok-proxy-i18n-gcpva.byteoversea.net<br>tiktokshop.com<br><span class="hljs-comment">#google</span><br>sf16-ttcdn-tos.ipstatp.com<br>porn00.org<br>prepaid.t-mobile.com<br>pull-rtmp-f1-hs.pstatp.com<br>ttdns2.com<br>tiktokcdn.com.atomile.com<br>googleapis.cn<br>clipconverter.cc<br>gcld-line.com<br>gts.byteoversea.net<br>instagram.com<br>mypikpak.com<br>heyzo.com<br>ytimg.com<br>avbase.net<br>b-cdn.net<br>python.org<br>lineshoppingseller.com<br>p16-tiktok-va-h2.ibyteimg.com<br>vcdn.kompoz2.com<br>itun.es<br>tg.dev<br>rsg.sc<br>twimg.com<br>tiktokv.com<br>cdnmg.com<br>2048bt.top<br>pull-flv-f1-hs.pstatp.com<br>www.stackoverflow.com<br>tiktokcdn.com.c.worldfcdn.com<br>linemyshop.com<br>applemusic.apple<br>line-scdn.net<br>surrit.com<br>missav.com<br>julesjordan.com<br>telesco.pe<br>xn--ngstr-lra8j.com<br>pull-rtmp-l1-hs.pstatp.com<br>godaddy.com<br>adultiptv.net<br>sf1-ttcdn-tos.pstatp.com<br>tiktok-platform-lb-maliva.byteoversea.net<br>openstreetmap.org<br>itunes.us<br>pull-rtmp-l1-mus.pstatp.com<br>gstatic.com<br>abtest-va-tiktok.byteoversea.com<br>18jav.tv<br>sgsnssdk.com<br>p16-va-tiktok.ibyteimg.com<br>tiktokv.com.c.worldfcdn2.com<br>www.xvideos.com<br>itunes.com<br>line-apps.com<br>pull-l3-hs.pstatp.com<br>speed.cloudflare.com<br>github.com<br>p16-tiktok-va.ibyteimg.com<br>musemuse.cn<br><span class="hljs-comment">#  yahoo</span><br>office.com<br>algonquincollege.com<br>www.algonquincollege.com<br>abtest-sg-tiktok.byteoversea.com<br>pull-f5-hs.pstatp.com<br>itunes.ca<br>stackoverflow.com<br>c.mi.com<br>www.v2ph.com<br>tiktokcdn.com.c.bytefcdn-oversea.com<br><span class="hljs-comment"># youtube</span><br>api.64clouds.com<br>lf1-ttcdn-tos.pstatp.com<br>linecorp.com<br>tiktokcdn.com.tlivepush.com<br>blogs.xiaoxqian.xyz<br>tiktokglobalshopv.com<br>javdb.com<br>p26-tt.byteimg.com<br>buondua.com<br>tiktok-lb-alisg.byteoversea.net<br>pornhub.com<br>tiktokstaticb.com<br>reddit.com<br>yimg.com<br>pull-flv-l1-mus.pstatp.com<br>chatgpt.com<br>app-analytics-services.com<br>licdn.com<br>tiktokcdn-us.com.atomile.com<br>noodlemagazine.com<br>t66y.com<br>telegram.me<br>sury.org<br>bwg.net<br>googleapis.com<br>tiktokmusic.app<br>telegram.org<br>tiktok.com<br>redditspace.com<br>pornid.xxx<br>doubleclick.net<br>redd.it<br>tiktok.in<br>pull-f3-hs.pstatp.com<br>google.com.tw<br>ibkr.com<br>youtube.com<br>quic-tiktok-core-proxy-i18n-gcpva.byteoversea.net<br>vjs.zencdn.net<br>cdn.v2ph.com<br>zdbb.net<br>hjd2048.com<br>v2ex.com<br>pull-rtmp-f6-hs.pstatp.com<br>p16-tiktok-sign-va-h2.ibyteimg.com<br><span class="hljs-comment"># BWG</span><br>tiktokcdn.com.rocket-cdn.com<br>musical.ly<br>pull-flv-l6-hs.pstatp.com<br>xvideos.red<br>bandwagonhost.com<br>tiktokcdn-eu.com<br>nextcloud.com<br>poe.com<br><br></code></pre></td></tr></table></figure>
+
+<h4 id="IP-1"><a href="#IP-1" class="headerlink" title="IP"></a>IP</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># T-mobile</span><br><span class="hljs-comment">#208.54.0.0/16</span><br><br><br><br><span class="hljs-comment"># DNS</span><br>172.31.255.2<br><br>8.8.8.8<br>8.8.4.4<br>1.1.1.1<br>1.0.0.1<br>208.67.222.222<br>208.67.220.220<br>9.9.9.9<br>149.112.112.112<br><br><br>146.75.114.0/24<br>23.237.100.0/23<br><span class="hljs-comment"># Telegram network</span><br>52.160.0.0/11<br>91.108.4.0/22<br>91.108.8.0/22<br>91.108.56.0/22<br>95.161.64.0/20<br>91.108.12.0/22<br>149.154.160.0/22<br>149.154.164.0/22<br>149.154.172.0/22<br>149.154.160.0/20<br>149.154.168.0/22<br>91.108.4.0/22<br>91.108.56.0/24<br>109.239.140.0/24<br>67.198.55.0/24<br>8.8.4.4<br>8.8.8.8<br>208.67.222.222<br>208.67.220.220<br>91.108.4.0/22<br>91.108.8.0/21<br>91.108.16.0/22<br>91.108.56.0/22<br>149.154.160.0/20<br>149.112.112.112<br>2001:67c:4e8::/48<br>2001:b28:f23c::/48<br>2001:b28:f23d::/48<br>2001:b28:f23f::/48<br>2001:b28:f242::/48<br></code></pre></td></tr></table></figure>
+
+<h3 id="HAProxy"><a href="#HAProxy" class="headerlink" title="HAProxy"></a>HAProxy</h3><ol>
+<li>Port: 1181</li>
+<li>Node configure a node, ip address is 127.0.0.1, port 1181 and procotol Socks</li>
+</ol>
+<h1 id="Screenshot"><a href="#Screenshot" class="headerlink" title="Screenshot"></a>Screenshot</h1><h2 id="Smart-Dns"><a href="#Smart-Dns" class="headerlink" title="Smart-Dns"></a>Smart-Dns</h2><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2024/11/08/source.jpg" srcset="/img/loading.gif" lazyload alt="smart-dns.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2024/11/08/sourcef5bd559179a39ffc.jpg" srcset="/img/loading.gif" lazyload alt="smart-dns2.jpg"></p>
+<h2 id="PASSWALL"><a href="#PASSWALL" class="headerlink" title="PASSWALL"></a>PASSWALL</h2><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2024/11/08/sourcee4c3290d00b2d297.jpg" srcset="/img/loading.gif" lazyload alt="PASSWALL-MAIN.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2024/11/08/source6232de4adb54f382.jpg" srcset="/img/loading.gif" lazyload alt="PASSWALL-DNS.jpg"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2024/11/08/source523a14866386e6e2.jpg" srcset="/img/loading.gif" lazyload alt="PASSWALL-HA.jpg"></p>
+<h1 id="Girl-Share"><a href="#Girl-Share" class="headerlink" title="Girl Share"></a>Girl Share</h1><p><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/056.webp" srcset="/img/loading.gif" lazyload alt="056.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/055.webp" srcset="/img/loading.gif" lazyload alt="055.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/054.webp" srcset="/img/loading.gif" lazyload alt="054.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/053.webp" srcset="/img/loading.gif" lazyload alt="053.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/052.webp" srcset="/img/loading.gif" lazyload alt="052.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/051.webp" srcset="/img/loading.gif" lazyload alt="051.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/050.webp" srcset="/img/loading.gif" lazyload alt="050.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/049.webp" srcset="/img/loading.gif" lazyload alt="049.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/048.webp" srcset="/img/loading.gif" lazyload alt="048.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/047.webp" srcset="/img/loading.gif" lazyload alt="047.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/046.webp" srcset="/img/loading.gif" lazyload alt="046.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/045.webp" srcset="/img/loading.gif" lazyload alt="045.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/044.webp" srcset="/img/loading.gif" lazyload alt="044.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/043.webp" srcset="/img/loading.gif" lazyload alt="043.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/042.webp" srcset="/img/loading.gif" lazyload alt="042.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/041.webp" srcset="/img/loading.gif" lazyload alt="041.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/040.webp" srcset="/img/loading.gif" lazyload alt="040.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/039.webp" srcset="/img/loading.gif" lazyload alt="039.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/038.webp" srcset="/img/loading.gif" lazyload alt="038.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/037.webp" srcset="/img/loading.gif" lazyload alt="037.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/036.webp" srcset="/img/loading.gif" lazyload alt="036.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/035.webp" srcset="/img/loading.gif" lazyload alt="035.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/034.webp" srcset="/img/loading.gif" lazyload alt="034.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/033.webp" srcset="/img/loading.gif" lazyload alt="033.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/031.webp" srcset="/img/loading.gif" lazyload alt="031.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/032.webp" srcset="/img/loading.gif" lazyload alt="032.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/029.webp" srcset="/img/loading.gif" lazyload alt="029.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/030.webp" srcset="/img/loading.gif" lazyload alt="030.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/028.webp" srcset="/img/loading.gif" lazyload alt="028.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/027.webp" srcset="/img/loading.gif" lazyload alt="027.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/026.webp" srcset="/img/loading.gif" lazyload alt="026.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/025.webp" srcset="/img/loading.gif" lazyload alt="025.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/024.webp" srcset="/img/loading.gif" lazyload alt="024.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/023.webp" srcset="/img/loading.gif" lazyload alt="023.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/021.webp" srcset="/img/loading.gif" lazyload alt="021.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/022.webp" srcset="/img/loading.gif" lazyload alt="022.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/020.webp" srcset="/img/loading.gif" lazyload alt="020.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/019.webp" srcset="/img/loading.gif" lazyload alt="019.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/018.webp" srcset="/img/loading.gif" lazyload alt="018.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/017.webp" srcset="/img/loading.gif" lazyload alt="017.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/016.webp" srcset="/img/loading.gif" lazyload alt="016.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/015.webp" srcset="/img/loading.gif" lazyload alt="015.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/014.webp" srcset="/img/loading.gif" lazyload alt="014.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/013.webp" srcset="/img/loading.gif" lazyload alt="013.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/012.webp" srcset="/img/loading.gif" lazyload alt="012.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/011.webp" srcset="/img/loading.gif" lazyload alt="011.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/010.webp" srcset="/img/loading.gif" lazyload alt="010.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/009.webp" srcset="/img/loading.gif" lazyload alt="009.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/007.webp" srcset="/img/loading.gif" lazyload alt="007.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/008.webp" srcset="/img/loading.gif" lazyload alt="008.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/006.webp" srcset="/img/loading.gif" lazyload alt="006.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/005.webp" srcset="/img/loading.gif" lazyload alt="005.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/004.webp" srcset="/img/loading.gif" lazyload alt="004.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/003.webp" srcset="/img/loading.gif" lazyload alt="003.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/002.webp" srcset="/img/loading.gif" lazyload alt="002.webp"><br><img src="https://pictures.xiaoxqian.xyz:8443/images/2023/01/03/001.webp" srcset="/img/loading.gif" lazyload alt="001.webp"></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/openwrt/" class="category-chain-item">openwrt</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/openwrt/passwall/" class="category-chain-item">passwall</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/openwrt/passwall/fq/" class="category-chain-item">fq</a>
+  
+  
+
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/openwrt/">#openwrt</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Openwrt Passwall Configure</div>
+      <div>https://blogs.xiaoxqian.xyz/2024/11/08/Openwrt-Passwall-Configure/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>Author</div>
+          <div>xiaoxqian</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>Posted on</div>
+          <div>November 8, 2024</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>Licensed under</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/10/13/MariaDB-upgrade-10-5-to-11-4/" title="MariaDB upgrade 10.5 to 11.4">
+                        <span class="hidden-mobile">MariaDB upgrade 10.5 to 11.4</span>
+                        <span class="visible-mobile">Next</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+      <div class="col-lg-7 mx-auto nopadding-x-md">
+        <div class="container custom mx-auto">
+          <link href="https://vjs.zencdn.net/8.6.0/video-js.css" rel="stylesheet" />
+        </div>
+      </div>
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
+</body>
+</html>
